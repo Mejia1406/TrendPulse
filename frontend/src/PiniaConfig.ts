@@ -11,7 +11,6 @@ export default class PiniaConfig {
     if (savedState) {
       pinia.state.value = JSON.parse(savedState);
     } else {
-      // initialize the state with the seeders
 
       pinia.state.value = {
         socialMedia: {
@@ -19,12 +18,8 @@ export default class PiniaConfig {
         },
       };
 
-      // save the initial state to localStorage
-
       localStorage.setItem('piniaState', JSON.stringify(pinia.state.value));
     }
-
-    // watch for changes and save to localStorage
 
     watch(
       pinia.state,
