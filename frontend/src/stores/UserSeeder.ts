@@ -1,3 +1,4 @@
+// Samuel Moncada Mejía
 import type { UserInterface } from '@/interfaces/UserInterface';
 
 export const userSeeder: UserInterface[] = [

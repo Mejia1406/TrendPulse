@@ -1,3 +1,4 @@
+// Samuel Moncada Mejía
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 
 export const socialMediaSeeder: SocialMediaInterface[] = [

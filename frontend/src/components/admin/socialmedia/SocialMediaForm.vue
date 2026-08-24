@@ -1,3 +1,4 @@
+<!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 

@@ -1,3 +1,4 @@
+// Samuel Moncada Mejía
 import { createPinia } from 'pinia';
 import { watch } from 'vue';
 import { socialMediaSeeder } from '@/stores/SocialMediaSeeder.js';
