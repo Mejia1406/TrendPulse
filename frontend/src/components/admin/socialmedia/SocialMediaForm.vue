@@ -52,6 +52,7 @@ const handleSubmit = () => {
 
   resetForm();
 };
+
 </script>
 
 <template>
@@ -68,7 +69,7 @@ const handleSubmit = () => {
         class="text-xl text-slate-400 transition hover:text-white"
         @click="emit('cancel')"
       >
-        ×
+
       </button>
     </div>
 

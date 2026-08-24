@@ -1,6 +1,7 @@
 import { createPinia } from 'pinia';
 import { watch } from 'vue';
 import { socialMediaSeeder } from '@/stores/SocialMediaSeeder.js';
+import { userSeeder } from '@/stores/UserSeeder.js';
 
 export default class PiniaConfig {
   public static init() {
@@ -15,6 +16,9 @@ export default class PiniaConfig {
       pinia.state.value = {
         socialMedia: {
           socialMedia: socialMediaSeeder,
+        },
+        user: {
+          users: userSeeder,
         },
       };
 
