@@ -1,37 +1,37 @@
 <script setup lang="ts">
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { UserInterface } from '@/interfaces/UserInterface';
 
 defineProps<{
-  socialMedia: SocialMediaInterface[];
+  user: UserInterface[];
 }>();
 
 const emit = defineEmits<{
-  (e: 'edit', socialMedia: SocialMediaInterface): void;
-  (e: 'delete', socialMedia: SocialMediaInterface): void;
+	(e: 'edit', user: UserInterface): void;
+	(e: 'delete', user: UserInterface): void;
 }>();
 
 </script>
 
 <template>
-  <div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
-    <p class="mb-6 font-semibold text-white">
-      {{ socialMedia.length }} redes registradas
-    </p>
+	<div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+	<p class="mb-6 font-semibold text-white">
+    {{ user.length }} usuarios registrados
+  </p>
 
-    <div class="overflow-x-auto">
+	<div class="overflow-x-auto">
       <table class="w-full border-collapse">
         <thead>
-          <tr class="border-b border-slate-800 text-left text-sm text-sky-300">
+          <tr class="border-b border-slate-800 text-left text-user text-sky-300">
             <th class="px-2 py-4 font-medium">
               Nombre
             </th>
 
             <th class="px-2 py-4 font-medium">
-              Logo
+              Email
             </th>
 
             <th class="px-2 py-4 font-medium">
-              Color
+              Rol
             </th>
 
             <th class="px-2 py-4 text-right font-medium">
@@ -42,27 +42,20 @@ const emit = defineEmits<{
 
         <tbody>
           <tr
-            v-for="sm in socialMedia"
-            :key="sm.id"
+            v-for="us in user"
+            :key="us.id"
             class="border-b border-slate-800 last:border-b-0"
           >
             <td class="px-2 py-4 font-semibold text-white">
-              {{ sm.name }}
+              {{ us.name }}
             </td>
 
             <td class="px-2 py-4">
-              <img
-                :src="sm.logo"
-                :alt="`Logo de ${sm.name}`"
-                class="h-8 w-8 object-contain"
-              />
+              {{ us.email }}
             </td>
 
             <td class="px-2 py-4">
-              <div
-                class="h-6 w-6 rounded"
-                :style="{ backgroundColor: sm.color }"
-              ></div>
+              {{ us.role }}
             </td>
 
             <td class="px-2 py-4">
@@ -70,7 +63,7 @@ const emit = defineEmits<{
                 <button
                   type="button"
                   class="text-slate-300 transition hover:text-teal-400"
-                  @click="emit('edit', sm)"
+                  @click="emit('edit', us)"
                 >
                   Editar
                 </button>
@@ -78,7 +71,7 @@ const emit = defineEmits<{
                 <button
                   type="button"
                   class="text-red-500 transition hover:text-red-400"
-                  @click="emit('delete', sm)"
+                  @click="emit('delete', us)"
                 >
                   Eliminar
                 </button>
@@ -88,5 +81,5 @@ const emit = defineEmits<{
         </tbody>
       </table>
     </div>
-  </div>
+	</div>
 </template>

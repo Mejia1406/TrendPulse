@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import AdminSocialView from '@/views/AdminSocialView.vue';
+import AdminSocialView from '@/views/admin/AdminSocialView.vue';
+import AdminUsersView from '@/views/admin/AdminUsersView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,7 @@ const router = createRouter({
     },
 
     { path: '/admin/redes', name: 'admin-redes', component: AdminSocialView },
+    { path: '/admin/usuarios', name: 'admin-usuarios', component: AdminUsersView },
   ],
 });
 
