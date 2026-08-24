@@ -1,3 +1,4 @@
+// Samuel Moncada Mejía
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 

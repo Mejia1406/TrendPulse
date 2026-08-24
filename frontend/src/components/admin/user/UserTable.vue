@@ -1,3 +1,4 @@
+<!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
 import type { UserInterface } from '@/interfaces/UserInterface';
 

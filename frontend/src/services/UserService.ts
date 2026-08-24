@@ -1,3 +1,4 @@
+// Samuel Moncada Mejía
 import type { UserInterface } from '@/interfaces/UserInterface';
 import { useUserStore } from '@/stores/UserStore';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
@@ -48,7 +49,7 @@ export class UserService {
 
             return;
         }
-        
+
         store.users.splice(index, 1);
     }
 }
