@@ -19,5 +19,14 @@ export const userSeeder: UserInterface[] = [
     role: 'user',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+  },
+  {
+    id: '3',
+    name: 'Athina Cappelletti',
+    email: 'aacappellg@eafit.edu.co',
+    password: '123456',
+    role: 'user',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   }
 ];

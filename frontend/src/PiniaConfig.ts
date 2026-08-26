@@ -21,6 +21,9 @@ export default class PiniaConfig {
         user: {
           users: userSeeder,
         },
+        auth: {
+          currentUser: null,
+        },
       };
 
       localStorage.setItem('piniaState', JSON.stringify(pinia.state.value));

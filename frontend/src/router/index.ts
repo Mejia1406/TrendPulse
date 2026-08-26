@@ -1,15 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { configureRouterGuards } from './guards';
+
 import HomeView from '../views/HomeView.vue';
 import AdminSocialView from '@/views/admin/AdminSocialView.vue';
 import AdminUsersView from '@/views/admin/AdminUsersView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      redirect: '/login',
     },
     {
       path: '/about',
@@ -20,9 +22,13 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
 
-    { path: '/admin/redes', name: 'admin-redes', component: AdminSocialView },
-    { path: '/admin/usuarios', name: 'admin-usuarios', component: AdminUsersView },
+    { path: '/admin/redes', name: 'admin-redes', component: AdminSocialView, meta: { requiresAuth: true, requiresAdmin: true } },
+    { path: '/admin/usuarios', name: 'admin-usuarios', component: AdminUsersView, meta: { requiresAuth: true, requiresAdmin: true } },
+    { path: '/login', name: 'login', component: LoginView },
+    {path: '/home', name: 'home', component: HomeView, meta: { requiresAuth: true } },
   ],
 });
+
+configureRouterGuards(router);
 
 export default router;
