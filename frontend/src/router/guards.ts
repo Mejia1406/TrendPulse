@@ -1,3 +1,4 @@
+// Athina Cappelletti
 import type { Router } from 'vue-router';
 import { useAuthStore } from '@/stores/AuthStore';
 
