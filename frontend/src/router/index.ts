@@ -14,18 +14,35 @@ const router = createRouter({
       redirect: '/login',
     },
     {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+      // sin meta
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: HomeView,
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
+      meta: { requiresAuth: true },
     },
-
-    { path: '/admin/redes', name: 'admin-redes', component: AdminSocialView, meta: { requiresAuth: true, requiresAdmin: true } },
-    { path: '/admin/usuarios', name: 'admin-usuarios', component: AdminUsersView, meta: { requiresAuth: true, requiresAdmin: true } },
-    { path: '/login', name: 'login', component: LoginView },
-    {path: '/home', name: 'home', component: HomeView, meta: { requiresAuth: true } },
+    {
+      path: '/admin/redes',
+      name: 'admin-redes',
+      component: AdminSocialView,
+      meta: { requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: '/admin/usuarios',
+      name: 'admin-usuarios',
+      component: AdminUsersView,
+      meta: { requiresAuth: true, requiresAdmin: true },
+    },
   ],
 });
 
