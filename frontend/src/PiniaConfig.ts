@@ -1,8 +1,8 @@
 // Samuel Moncada Mejía
 import { createPinia } from 'pinia';
 import { watch } from 'vue';
-import { socialMediaSeeder } from '@/stores/SocialMediaSeeder.js';
-import { userSeeder } from '@/stores/UserSeeder.js';
+import { socialMediaSeeder } from '@/seeders/SocialMediaSeeder.js';
+import { userSeeder } from '@/seeders/UserSeeder.js';
 
 export default class PiniaConfig {
   public static init() {

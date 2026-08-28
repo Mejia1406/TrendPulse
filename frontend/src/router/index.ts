@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import { configureRouterGuards } from './guards';
+import { adminRoutes } from './admin/adminRoutes';
 
 import HomeView from '../views/HomeView.vue';
-import AdminSocialView from '@/views/admin/AdminSocialView.vue';
-import AdminUsersView from '@/views/admin/AdminUsersView.vue';
 import LoginView from '@/views/LoginView.vue';
 
 const router = createRouter({
@@ -17,7 +17,6 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
-      // sin meta
     },
     {
       path: '/home',
@@ -31,18 +30,8 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
       meta: { requiresAuth: true },
     },
-    {
-      path: '/admin/redes',
-      name: 'admin-redes',
-      component: AdminSocialView,
-      meta: { requiresAuth: true, requiresAdmin: true },
-    },
-    {
-      path: '/admin/usuarios',
-      name: 'admin-usuarios',
-      component: AdminUsersView,
-      meta: { requiresAuth: true, requiresAdmin: true },
-    },
+    
+    ...adminRoutes,
   ],
 });
 

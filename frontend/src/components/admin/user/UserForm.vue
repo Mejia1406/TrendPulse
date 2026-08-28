@@ -107,6 +107,21 @@ const handleSubmit = () => {
       </div>
 
       <div>
+        <label for="password" class="mb-2 block text-sm font-semibold text-slate-200">
+          Contraseña
+        </label>
+
+        <input
+          id="password"
+          v-model="password"
+          type="password"
+          placeholder="Contraseña del usuario"
+          required
+          class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-teal-400"
+        />
+      </div>
+
+      <div>
         <label class="mb-2 block text-sm font-semibold text-slate-200"> Rol </label>
 
         <div class="relative">
@@ -139,7 +154,6 @@ const handleSubmit = () => {
               @click="selectRole(option.value)"
             >
               <span>{{ option.label }}</span>
-
             </button>
           </div>
         </div>

@@ -63,7 +63,7 @@ const handleLogout = () => {
         <div v-if="currentUser" class="text-right">
           <p class="text-sm font-semibold">{{ currentUser.name }}</p>
           <p class="text-xs text-slate-400">
-            {{ currentUser.role === 'admin' ? 'Administrador' : 'Usuario' }}
+            {{ isAdmin ? 'Administrador' : 'Usuario' }}
           </p>
         </div>
 
