@@ -22,12 +22,7 @@ const handleSubmit = () => {
     return;
   }
 
-  if (user.role === 'admin') {
-    router.push('/admin/usuarios');
-    return;
-  }
-
-  router.push('/home');
+  router.push({ name: 'home' });
 };
 </script>
 
