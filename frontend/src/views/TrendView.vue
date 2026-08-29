@@ -1,7 +1,6 @@
 <!-- Athina Cappelletti -->
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import VueApexCharts from 'vue3-apexcharts';
 import { TrendService } from '@/services/TrendService';
 
 const filters = ref({
@@ -16,24 +15,48 @@ const socialMediaOptions = computed(() => [
 ]);
 
 const chartSeries = computed(() => {
-    const selected =
-        filters.value.socialMedia === 'Todas'
-            ? [...new Set(TrendService.getTrends().map((trend) => trend.socialMedia))]
-            : [filters.value.socialMedia];
+  const selected =
+    filters.value.socialMedia === 'Todas'
+      ? [
+          ...new Set(
+            TrendService.getTrends().map(
+              (trend) => trend.socialMedia,
+            ),
+          ),
+        ]
+      : [filters.value.socialMedia];
 
-    return selected.map((network) => ({
-        name: network,
-        data: TrendService.getTrends()
-            .filter((trend) => trend.socialMedia === network)
-            .map((trend) => ({
-                x: trend.date,
-                y: trend.views,
-                socialMedia: trend.socialMedia,
-            })),
-    }));
+  return selected.map((network) => ({
+    name: network,
+    data: TrendService.getTrends()
+      .filter((trend) => trend.socialMedia === network)
+      .map((trend) => ({
+        x: trend.date,
+        y: trend.views,
+        socialMedia: trend.socialMedia,
+      })),
+  }));
 });
 
-const chartOptions = computed(() => ({
+type TooltipContext = {
+  series: number[][];
+  seriesIndex: number;
+  dataPointIndex: number;
+  w: {
+    config: {
+      series: {
+        name: string;
+        data: {
+          x: string;
+          y: number;
+          socialMedia?: string;
+        }[];
+      }[];
+    };
+  };
+};
+
+const chartOptions = {
     chart: {
         type: 'area',
         height: 350,
@@ -91,11 +114,12 @@ const chartOptions = computed(() => ({
     },
     tooltip: {
         theme: 'dark',
-        custom: ({ series, seriesIndex, dataPointIndex, w }: any) => {
-            const point = w.config.series[seriesIndex].data[dataPointIndex];
+        custom: ({ series, seriesIndex, dataPointIndex, w }: TooltipContext) => {
+            const currentSeries = w.config.series[seriesIndex];
+            const point = currentSeries?.data[dataPointIndex];
             const date = point?.x ?? '';
-            const value = series[seriesIndex][dataPointIndex];
-            const network = point?.socialMedia ?? w.config.series[seriesIndex].name;
+            const value = series[seriesIndex]?.[dataPointIndex] ?? 0;
+            const network = point?.socialMedia ?? w.config.series[seriesIndex]?.name ?? '';
 
             return `
       <div style="
@@ -122,7 +146,7 @@ const chartOptions = computed(() => ({
     `;
         },
     },
-}));
+};
 </script>
 
 <template>
