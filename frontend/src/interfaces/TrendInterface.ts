@@ -1,8 +1,14 @@
 // Athina Cappelletti
+
+import type { PublicationStatsInterface } from "./PublicationStatsInterface";
+import type { SocialMediaInterface } from "./SocialMediaInterface";
+
 export interface TrendInterface {
   id: string;
+  category: string;
   name: string;
-  socialMedia: string;
-  date: string;
-  views: number;
+  createdAt: string;
+  updatedAt: string;
+  socialMedia: SocialMediaInterface;
+  publicationStats: PublicationStatsInterface[];
 }

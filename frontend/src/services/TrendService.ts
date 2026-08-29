@@ -8,22 +8,15 @@ export class TrendService {
 
   static filterTrends(filters: {
     socialMedia?: string;
-    date?: string;
   }): TrendInterface[] {
     const store = useTrendStore();
 
     return store.trends.filter((trend) => {
-      const socialMediaMatch =
+      return (
         !filters.socialMedia ||
         filters.socialMedia === 'Todas' ||
-        trend.socialMedia === filters.socialMedia;
-
-      const dateMatch =
-        !filters.date ||
-        filters.date === 'Todas' ||
-        trend.date === filters.date;
-
-      return socialMediaMatch && dateMatch;
+        trend.socialMedia.name === filters.socialMedia
+      );
     });
   }
 }
