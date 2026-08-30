@@ -131,7 +131,6 @@ const chartOptions: ChartOptions<'bar'> = {
           redes.
         </p>
       </div>
-      <!-- Resumen por red social -->
       <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div
           v-for="trendSocialMediaStats in trendStatsBySocialMedia"
@@ -150,9 +149,7 @@ const chartOptions: ChartOptions<'bar'> = {
           </p>
         </div>
       </section>
-      <!-- Gráfica y Top 5 -->
       <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3" >
-        <!-- Gráfica -->
         <div class="rounded-2xl border border-slate-800 bg-slate-900/90 p-6 lg:col-span-2">
           <h2 class="mb-6 text-xl font-semibold">
             Tendencias por red social
@@ -165,7 +162,6 @@ const chartOptions: ChartOptions<'bar'> = {
           </div>
         </div>
 
-        <!-- Top 5 -->
         <div class="rounded-2xl border border-slate-800 bg-slate-900/90 p-6">
           <h2 class="mb-6 text-xl font-semibold">
             Top 5 tendencias
