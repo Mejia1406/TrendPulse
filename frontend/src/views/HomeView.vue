@@ -1,7 +1,18 @@
 <script setup lang="ts">
 import { Bar } from 'vue-chartjs';
 import { computed } from 'vue';
-import { Chart as ChartJS, Tooltip, Legend, BarElement, CategoryScale, LinearScale, type ChartData, type ChartOptions,} from 'chart.js';
+
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Tooltip,
+  type ChartData,
+  type ChartOptions,
+} from 'chart.js';
+
 import { formatNumber } from '@/utils/formatters/formatNumber';
 import { TrendService } from '@/services/TrendService';
 
@@ -13,25 +24,26 @@ ChartJS.register(
   LinearScale,
 );
 
-// Datos de tendencias
 const trends = TrendService.getTrends();
 
-// Top 5 tendencias con más vistas
 const topTrendsByViews = computed(() => {
   return TrendService.getTopTrendsByViews(
     trends,
     5,
-  );
+  ).map((trend) => {
+    return {
+      ...trend,
+      latestViews: TrendService.getLatestViews(trend),
+    };
+  });
 });
 
-// Resumen de métricas de tendencias por red social
 const trendStatsBySocialMedia = computed(() => {
   return TrendService.getTrendStatsBySocialMedia(
     trends,
   );
 });
 
-// Datos de la gráfica
 const chartData = computed<ChartData<'bar'>>(
   () => ({
     labels: trendStatsBySocialMedia.value.map(
@@ -58,7 +70,6 @@ const chartData = computed<ChartData<'bar'>>(
   }),
 );
 
-// Configuración de la gráfica
 const chartOptions: ChartOptions<'bar'> = {
   responsive: true,
   maintainAspectRatio: false,
@@ -135,7 +146,7 @@ const chartOptions: ChartOptions<'bar'> = {
             {{ formatNumber(trendSocialMediaStats.viewsCount) }}
           </p>
           <p class="mt-1 text-sm text-slate-500">
-            vistas acumuladas
+            vistas totales
           </p>
         </div>
       </section>
@@ -184,13 +195,7 @@ const chartOptions: ChartOptions<'bar'> = {
                 </p>
               </div>
               <p class="font-medium text-teal-400">
-                {{
-                  formatNumber(
-                    TrendService.getLatestViews(
-                      trend,
-                    ),
-                  )
-                }}
+                {{ formatNumber(trend.latestViews) }}
               </p>
             </div>
           </div>
