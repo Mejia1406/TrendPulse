@@ -1,6 +1,6 @@
 <!-- Samuel Moncada -->
 <script setup lang="ts">
-import { computed, onActivated, onMounted, ref} from 'vue';
+import { computed, onActivated, onMounted, ref } from 'vue';
 import { Bar } from 'vue-chartjs';
 
 import {
@@ -32,34 +32,19 @@ onActivated(() => {
 });
 
 const socialMediaStats = computed(() => {
-
   return TrendService.getTrendStatsBySocialMedia(trends);
 });
 
-const selectedSocialMediaIds = ref<string[]>(
-  socialMediaStats.value.map((socialMedia) => socialMedia.id),
-);
-
-function isSocialMediaSelected(socialMediaId: string): boolean {
-
-  return selectedSocialMediaIds.value.includes(socialMediaId);
-}
-
-function toggleSocialMedia(socialMediaId: string): void {
-  if (isSocialMediaSelected(socialMediaId)) {
-    selectedSocialMediaIds.value = selectedSocialMediaIds.value.filter(
-      (selectedId) => selectedId !== socialMediaId,
-    );
-
-    return;
-  }
-
-  selectedSocialMediaIds.value = [...selectedSocialMediaIds.value, socialMediaId];
-}
+const selectedSocialMediaId = ref('all');
 
 const selectedSocialMediaStats = computed(() => {
+  if (selectedSocialMediaId.value === 'all') {
+    return socialMediaStats.value;
+  }
 
-  return socialMediaStats.value.filter((socialMedia) => isSocialMediaSelected(socialMedia.id));
+  return socialMediaStats.value.filter(
+    (socialMedia) => socialMedia.id === selectedSocialMediaId.value,
+  );
 });
 
 const comparisonRows = computed(() => {
@@ -84,7 +69,7 @@ const chartData = computed<ChartData<'bar'>>(() => ({
     {
       label: 'Comentarios',
       data: comparisonRows.value.map((socialMedia) => socialMedia.commentsCount),
-      backgroundColor: '#f97316',   
+      backgroundColor: '#f97316',
       borderRadius: 5,
     },
     {
@@ -157,34 +142,29 @@ const chartOptions: ChartOptions<'bar'> = {
       <section>
         <h1 class="text-4xl font-bold">Comparativa entre redes</h1>
 
-        <p class="mt-2 text-sky-300">Selecciona las redes que quieres poner cara a cara.</p>
+        <p class="mt-2 text-sky-300">Selecciona las redes que quieres comparar.</p>
       </section>
 
-      <section
-        class="mt-8 flex flex-wrap gap-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-5"
-      >
-        <button
-          v-for="socialMedia in socialMediaStats"
-          :key="socialMedia.id"
-          type="button"
-          :aria-pressed="isSocialMediaSelected(socialMedia.id)"
-          class="flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-semibold transition"
-          :class="
-            isSocialMediaSelected(socialMedia.id)
-              ? 'border-teal-400 bg-teal-400/10 text-teal-300'
-              : 'border-slate-700 bg-slate-950 text-slate-500'
-          "
-          @click="toggleSocialMedia(socialMedia.id)"
-        >
-          <span
-            class="h-2.5 w-2.5 rounded-full"
-            :style="{
-              backgroundColor: socialMedia.color,
-            }"
-          ></span>
+      <section class="mt-8 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+        <label for="social-media-filter" class="mb-2 block text-sm font-semibold text-slate-300">
+          Redes sociales
+        </label>
 
-          {{ socialMedia.name }}
-        </button>
+        <select
+          id="social-media-filter"
+          v-model="selectedSocialMediaId"
+          class="w-full max-w-md rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-teal-400"
+        >
+          <option value="all">Todas las redes</option>
+
+          <option
+            v-for="socialMedia in socialMediaStats"
+            :key="socialMedia.id"
+            :value="socialMedia.id"
+          >
+            {{ socialMedia.name }}
+          </option>
+        </select>
       </section>
 
       <section class="mt-6 rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
