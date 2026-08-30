@@ -1,3 +1,5 @@
+// Athina Cappelleti, Samuel Moncada, Sara Hurtado
+
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { configureRouterGuards } from './guards';
@@ -6,6 +8,7 @@ import { adminRoutes } from './admin/adminRoutes';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import TrendView from '@/views/TrendView.vue';
+import CompareView from '@/views/CompareView.vue';
 
 
 const router = createRouter({
@@ -39,6 +42,14 @@ const router = createRouter({
       path: '/tendencias',
       name: 'tendencias',
       component: TrendView,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/comparar',
+      name: 'comparar',
+      component: CompareView,
       meta: {
         requiresAuth: true,
       },
