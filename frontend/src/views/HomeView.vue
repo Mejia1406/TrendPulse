@@ -1,3 +1,4 @@
+<!-- Sara Hurtado -->
 <script setup lang="ts">
 import { Bar } from 'vue-chartjs';
 import { computed } from 'vue';
@@ -154,7 +155,7 @@ const chartOptions: ChartOptions<'bar'> = {
           <h2 class="mb-6 text-xl font-semibold">
             Tendencias por red social
           </h2>
-          <div class="h-[350px]">
+          <div class="h-87.5">
             <Bar
               :data="chartData"
               :options="chartOptions"

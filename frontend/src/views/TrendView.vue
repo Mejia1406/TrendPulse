@@ -1,3 +1,4 @@
+<!-- Athina Cappelleti -->
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { TrendService } from '@/services/TrendService';
