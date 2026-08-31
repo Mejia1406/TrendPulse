@@ -1,8 +1,9 @@
 <!-- Samuel Moncada Mejía -->
-
 <script setup lang="ts">
+// external imports
 import { computed } from 'vue';
 
+// props
 const props = withDefaults(
   defineProps<{
     variant?: 'primary' | 'secondary' | 'danger';
@@ -14,6 +15,7 @@ const props = withDefaults(
   },
 );
 
+// computed variables
 const buttonClasses = computed(() => {
   const variants = {
     primary: 'bg-teal-400 text-slate-950 hover:bg-teal-300',

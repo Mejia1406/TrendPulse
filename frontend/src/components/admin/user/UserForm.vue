@@ -1,15 +1,25 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
+// external imports
 import { computed, ref, watch } from 'vue';
 
+// internal imports
 import BaseButton from '@/components/common/BaseButton.vue';
-import type { UserInterface } from '@/interfaces/UserInterface';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
+import type { UserInterface } from '@/interfaces/UserInterface';
 
+// props
 const props = defineProps<{
   user: UserInterface | null;
 }>();
 
+// emits
+const emit = defineEmits<{
+  (e: 'submit', user: CreateUserDTO): void;
+  (e: 'cancel'): void;
+}>();
+
+// reactive variables
 const form = ref<CreateUserDTO>({
   name: '',
   email: '',
@@ -19,6 +29,10 @@ const form = ref<CreateUserDTO>({
 
 const isRoleOpen = ref(false);
 
+// computed variables
+const title = computed(() => (props.user ? 'Editar usuario' : 'Nuevo usuario'));
+
+// selectors
 const selectorRoles = [
   { label: 'Usuario', value: 'user' },
   { label: 'Administrador', value: 'admin' },
@@ -29,8 +43,8 @@ const selectRole = (value: string) => {
   isRoleOpen.value = false;
 };
 
-const title = computed(() => (props.user ? 'Editar usuario' : 'Nuevo usuario'));
 
+// functions
 const resetForm = () => {
   form.value = {
     name: '',
@@ -40,6 +54,7 @@ const resetForm = () => {
   };
 };
 
+// watchers
 watch(
   () => props.user,
   (newUser) => {
@@ -61,11 +76,7 @@ watch(
   },
 );
 
-const emit = defineEmits<{
-  (e: 'submit', user: CreateUserDTO): void;
-  (e: 'cancel'): void;
-}>();
-
+// handlers
 const handleSubmit = () => {
   emit('submit', {
     ...form.value,

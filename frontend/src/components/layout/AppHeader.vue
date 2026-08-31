@@ -1,17 +1,23 @@
 <!-- Athina Cappelletti -->
 <script setup lang="ts">
+// external imports
 import { computed } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
+
+// internal imports
 import { useAuthStore } from '@/stores/AuthStore';
 import { AuthService } from '@/services/AuthService';
 
+// variables
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
 
+// computed variables
 const currentUser = computed(() => authStore.currentUser);
 const isAdmin = computed(() => currentUser.value?.role === 'admin');
 
+// navigation items
 const navItems = [
   { label: 'Home', to: '/home' },
   { label: 'Tendencias', to: '/tendencias' },
@@ -23,6 +29,7 @@ const adminItems = [
   { label: 'Usuarios', to: '/admin/usuarios' },
 ];
 
+// handlers
 const handleLogout = () => {
   AuthService.logout();
   router.push('/login');
