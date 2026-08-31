@@ -1,4 +1,5 @@
 //Sara Hurtado 
+// internal imports
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 
 export const trendSeeder: TrendInterface[] = [
