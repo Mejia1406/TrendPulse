@@ -12,7 +12,7 @@ import UserForm from '@/components/admin/user/UserForm.vue';
 import { UserService } from '@/services/UserService';
 
 const isFormOpen = ref(false);
-const users = UserService.getUsers();
+const users = UserService.getAll();
 const selectedUser = ref<UserInterface | null>(null);
 
 const handleCreate = () => {
@@ -26,7 +26,7 @@ const handleEdit = (user: UserInterface) => {
 };
 
 const handleDelete = (user: UserInterface) => {
-  UserService.deleteUser(user.id);
+  UserService.delete(user.id);
 
   if (selectedUser.value?.id === user.id) {
     selectedUser.value = null;
@@ -36,9 +36,9 @@ const handleDelete = (user: UserInterface) => {
 
 const handleSubmit = (userData: CreateUserDTO) => {
   if (selectedUser.value) {
-    UserService.updateUser(selectedUser.value.id, userData);
+    UserService.update(selectedUser.value.id, userData);
   } else {
-    UserService.createUser(userData);
+    UserService.create(userData);
   }
 
   selectedUser.value = null;
