@@ -9,41 +9,55 @@ const props = defineProps<{
   user: UserInterface | null;
 }>();
 
-const name = ref('');
-const email = ref('');
-const password = ref('');
-const role = ref('user');
+const form = ref<CreateUserDTO>({
+  name: '',
+  email: '',
+  password: '',
+  role: 'user',
+});
+
 const isRoleOpen = ref(false);
-const roles = [
+
+const selectorRoles = [
   { label: 'Usuario', value: 'user' },
   { label: 'Administrador', value: 'admin' },
 ];
+
 const selectRole = (value: string) => {
-  role.value = value;
+  form.value.role = value;
   isRoleOpen.value = false;
 };
 
 const title = computed(() => (props.user ? 'Editar usuario' : 'Nuevo usuario'));
 
 const resetForm = () => {
-  name.value = '';
-  email.value = '';
-  password.value = '';
-  role.value = 'user';
+  form.value = {
+    name: '',
+    email: '',
+    password: '',
+    role: 'user',
+  };
 };
 
 watch(
   () => props.user,
   (newUser) => {
     if (newUser) {
-      name.value = newUser.name;
-      email.value = newUser.email;
-      password.value = newUser.password;
-    } else {
-      resetForm();
+      form.value = {
+        name: newUser.name,
+        email: newUser.email,
+        password: newUser.password,
+        role: newUser.role,
+      };
+
+      return;
     }
+
+    resetForm();
   },
-  { immediate: true },
+  {
+    immediate: true,
+  },
 );
 
 const emit = defineEmits<{
@@ -52,14 +66,9 @@ const emit = defineEmits<{
 }>();
 
 const handleSubmit = () => {
-  const userData: CreateUserDTO = {
-    name: name.value,
-    email: email.value,
-    password: password.value,
-    role: role.value,
-  };
-
-  emit('submit', userData);
+  emit('submit', {
+    ...form.value,
+  });
 
   resetForm();
 };
@@ -85,7 +94,7 @@ const handleSubmit = () => {
 
         <input
           id="name"
-          v-model="name"
+          v-model="form.name"
           type="text"
           placeholder="Nombre del usuario"
           required
@@ -98,7 +107,7 @@ const handleSubmit = () => {
 
         <input
           id="email"
-          v-model="email"
+          v-model="form.email"
           type="email"
           placeholder="Email del usuario"
           required
@@ -113,7 +122,7 @@ const handleSubmit = () => {
 
         <input
           id="password"
-          v-model="password"
+          v-model="form.password"
           type="password"
           placeholder="Contraseña del usuario"
           required
@@ -131,7 +140,7 @@ const handleSubmit = () => {
             @click="isRoleOpen = !isRoleOpen"
           >
             <span>
-              {{ role === 'admin' ? 'Administrador' : 'Usuario' }}
+              {{ form.role === 'admin' ? 'Administrador' : 'Usuario' }}
             </span>
 
             <span class="text-slate-400"> ▼ </span>
@@ -142,18 +151,20 @@ const handleSubmit = () => {
             class="absolute z-20 mt-1 w-full overflow-hidden rounded-xl border border-slate-700 bg-slate-950 p-1 shadow-xl"
           >
             <button
-              v-for="option in roles"
-              :key="option.value"
+              v-for="role in selectorRoles"
+              :key="role.value"
               type="button"
               class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left transition"
               :class="
-                role === option.value
+                form.role === role.value
                   ? 'bg-orange-500 text-black'
                   : 'text-slate-200 hover:bg-slate-800'
               "
-              @click="selectRole(option.value)"
+              @click="selectRole(role.value)"
             >
-              <span>{{ option.label }}</span>
+              <span>
+                {{ role.label }}
+              </span>
             </button>
           </div>
         </div>

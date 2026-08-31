@@ -1,5 +1,4 @@
 // Samuel Moncada Mejía
-import type { TrendInterface } from '@/interfaces/TrendInterface';
 
 export interface SocialMediaInterface {
     id: string,
@@ -8,5 +7,4 @@ export interface SocialMediaInterface {
     color: string,
     createdAt: string,
     updatedAt: string,
-    trends?: TrendInterface[];
 }

@@ -1,7 +1,8 @@
 <!-- Sara Hurtado -->
+
 <script setup lang="ts">
-import { Bar } from 'vue-chartjs';
 import { computed } from 'vue';
+import { Bar } from 'vue-chartjs';
 
 import {
   BarElement,
@@ -34,7 +35,13 @@ const topTrendsByViews = computed(() => {
   ).map((trend) => {
     return {
       ...trend,
-      latestViews: TrendService.getLatestViews(trend),
+
+      latestViews:
+        TrendService.getLatestViews(trend),
+
+      socialMediaName:
+        TrendService.getSocialMedia(trend)
+          ?.name ?? 'Sin red social',
     };
   });
 });
@@ -47,23 +54,35 @@ const trendStatsBySocialMedia = computed(() => {
 
 const chartData = computed<ChartData<'bar'>>(
   () => ({
-    labels: trendStatsBySocialMedia.value.map(
-      (trendSocialMediaStats) => trendSocialMediaStats.name,
-    ),
+    labels:
+      trendStatsBySocialMedia.value.map(
+        (trendSocialMediaStats) =>
+          trendSocialMediaStats.name,
+      ),
+
     datasets: [
       {
         label: 'Likes',
-        data: trendStatsBySocialMedia.value.map(
-          (trendSocialMediaStats) => trendSocialMediaStats.likesCount,
-        ),
+
+        data:
+          trendStatsBySocialMedia.value.map(
+            (trendSocialMediaStats) =>
+              trendSocialMediaStats.likesCount,
+          ),
+
         backgroundColor: '#14b8a6',
         borderRadius: 5,
       },
+
       {
         label: 'Vistas',
-        data: trendStatsBySocialMedia.value.map(
-          (trendSocialMediaStats) => trendSocialMediaStats.viewsCount,
-        ),
+
+        data:
+          trendStatsBySocialMedia.value.map(
+            (trendSocialMediaStats) =>
+              trendSocialMediaStats.viewsCount,
+          ),
+
         backgroundColor: '#f97316',
         borderRadius: 5,
       },
@@ -78,10 +97,12 @@ const chartOptions: ChartOptions<'bar'> = {
   plugins: {
     legend: {
       position: 'bottom',
+
       labels: {
         color: '#94a3b8',
       },
     },
+
     tooltip: {
       callbacks: {
         label: (context) => {
@@ -92,31 +113,39 @@ const chartOptions: ChartOptions<'bar'> = {
       },
     },
   },
+
   scales: {
     x: {
       ticks: {
         color: '#94a3b8',
       },
+
       grid: {
         color: '#1e293b',
       },
     },
+
     y: {
       beginAtZero: true,
+
       ticks: {
         color: '#94a3b8',
+
         callback: (value) => {
-          return formatNumber(Number(value));
+          return formatNumber(
+            Number(value),
+          );
         },
       },
+
       grid: {
         color: '#1e293b',
       },
     },
   },
 };
-
 </script>
+
 <template>
   <main class="min-h-screen bg-slate-950 text-white">
     <div class="mx-auto max-w-7xl px-6 py-8">
@@ -193,7 +222,7 @@ const chartOptions: ChartOptions<'bar'> = {
                   </RouterLink>
                 </p>
                 <p class="mt-1 text-sm text-slate-400">
-                  {{ trend.socialMedia.name }}
+                  {{ trend.socialMediaName }}
                 </p>
               </div>
               <p class="font-medium text-teal-400">

@@ -1,4 +1,5 @@
 <!-- Samuel Moncada Mejía -->
+
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
@@ -9,51 +10,62 @@ const props = defineProps<{
   socialMedia: SocialMediaInterface | null;
 }>();
 
-const name = ref('');
-const logo = ref('');
-const color = ref('#000000');
+const form = ref<CreateSocialMediaDTO>({
+  name: '',
+  logo: '',
+  color: '#000000',
+});
 
 const title = computed(() =>
-  props.socialMedia ? 'Editar red' : 'Nueva red'
+  props.socialMedia
+    ? 'Editar red'
+    : 'Nueva red',
 );
 
 const resetForm = () => {
-  name.value = '';
-  logo.value = '';
-  color.value = '#000000';
+  form.value = {
+    name: '',
+    logo: '',
+    color: '#000000',
+  };
 };
 
 watch(
   () => props.socialMedia,
   (newSocialMedia) => {
     if (newSocialMedia) {
-      name.value = newSocialMedia.name;
-      logo.value = newSocialMedia.logo;
-      color.value = newSocialMedia.color;
-    } else {
-      resetForm();
+      form.value = {
+        name: newSocialMedia.name,
+        logo: newSocialMedia.logo,
+        color: newSocialMedia.color,
+      };
+
+      return;
     }
+
+    resetForm();
   },
-  { immediate: true },
+  {
+    immediate: true,
+  },
 );
 
 const emit = defineEmits<{
-  (e: 'submit', socialMedia: CreateSocialMediaDTO): void;
+  (
+    e: 'submit',
+    socialMedia: CreateSocialMediaDTO,
+  ): void;
+
   (e: 'cancel'): void;
 }>();
 
 const handleSubmit = () => {
-  const socialMediaData: CreateSocialMediaDTO = {
-    name: name.value,
-    logo: logo.value,
-    color: color.value,
-  };
-
-  emit('submit', socialMediaData);
+  emit('submit', {
+    ...form.value,
+  });
 
   resetForm();
 };
-
 </script>
 
 <template>
@@ -69,9 +81,7 @@ const handleSubmit = () => {
         type="button"
         class="text-xl text-slate-400 transition hover:text-white"
         @click="emit('cancel')"
-      >
-
-      </button>
+      ></button>
     </div>
 
     <form
@@ -88,7 +98,7 @@ const handleSubmit = () => {
 
         <input
           id="name"
-          v-model="name"
+          v-model="form.name"
           type="text"
           placeholder="Nombre de la red social"
           required
@@ -106,7 +116,7 @@ const handleSubmit = () => {
 
         <input
           id="logo"
-          v-model="logo"
+          v-model="form.logo"
           type="text"
           placeholder="Logo o emoji"
           required
@@ -127,7 +137,7 @@ const handleSubmit = () => {
         >
           <input
             id="color"
-            v-model="color"
+            v-model="form.color"
             type="color"
             class="h-8 w-full cursor-pointer border-0 bg-transparent"
           />

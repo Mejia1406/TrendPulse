@@ -4,6 +4,7 @@ import { watch } from 'vue';
 import { socialMediaSeeder } from '@/seeders/SocialMediaSeeder.js';
 import { userSeeder } from '@/seeders/UserSeeder.js';
 import { trendSeeder } from '@/seeders/TrendSeeder.js';
+import { publicationStatsSeeder } from '@/seeders/PublicationStatsSeeder.js';
 
 export default class PiniaConfig {
   public static init() {
@@ -27,7 +28,10 @@ export default class PiniaConfig {
         },
         trend: {
           trends: trendSeeder,
-        }
+        },
+        publicationStats: {
+          publicationStats: publicationStatsSeeder,
+        },
       };
 
       localStorage.setItem('piniaState', JSON.stringify(pinia.state.value));
