@@ -70,7 +70,7 @@ const selectorStats: {
 ];
 
 const trend = computed(() => {
-  return TrendService.getTrendById(
+  return TrendService.getById(
     String(route.params.id),
   );
 });

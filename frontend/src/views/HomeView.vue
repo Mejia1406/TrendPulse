@@ -23,7 +23,7 @@ import { PublicationStatsService } from '@/services/PublicationStatsService';
 
 ChartJS.register(Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-const trends = TrendService.getTrends();
+const trends = TrendService.getAll();
 
 const topTrendsByViews = computed(() => {
   return TrendService.getTopTrendsByViews(trends, 5).map((trend) => {

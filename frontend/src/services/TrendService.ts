@@ -1,16 +1,15 @@
 // Sara Hurtado
-
-import { useTrendStore } from '@/stores/TrendStore';
-import type { TrendInterface } from '@/interfaces/TrendInterface';
+// internal imports
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
-import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
-
-import { SocialMediaService } from '@/services/SocialMediaService';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import { SocialMediaService } from '@/services/SocialMediaService';
+import type { TrendInterface } from '@/interfaces/TrendInterface';
+import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
+import { useTrendStore } from '@/stores/TrendStore';
 
 export class TrendService {
-  static getTrends(): TrendInterface[] {
+  static getAll(): TrendInterface[] {
     return useTrendStore().trends;
   }
 
@@ -18,7 +17,7 @@ export class TrendService {
     return PublicationStatsService.getByTrendId(trend.id);
   }
 
-  static getTrendById(id: string): TrendInterface | undefined {
+  static getById(id: string): TrendInterface | undefined {
     return useTrendStore().trends.find((trend) => trend.id === id);
   }
 
@@ -26,7 +25,7 @@ export class TrendService {
     return SocialMediaService.getById(trend.socialMediaId);
   }
 
-  static filterTrends(filters: { socialMedia?: string }): TrendInterface[] {
+  static getFiltered(filters: { socialMedia?: string }): TrendInterface[] {
     const store = useTrendStore();
 
     return store.trends.filter((trend) => {
@@ -35,7 +34,6 @@ export class TrendService {
       }
 
       const socialMedia = TrendService.getSocialMedia(trend);
-
       return socialMedia?.name === filters.socialMedia;
     });
   }
@@ -51,7 +49,7 @@ export class TrendService {
   }
 
   static getTrendStatsBySocialMedia(trends: TrendInterface[]): TrendStatsBySocialMediaDTO[] {
-    const summaries = new Map<string, TrendStatsBySocialMediaDTO>();
+    const statsBySocialMedia = new Map<string, TrendStatsBySocialMediaDTO>();
 
     trends.forEach((trend) => {
       const socialMedia = TrendService.getSocialMedia(trend);
@@ -61,34 +59,26 @@ export class TrendService {
       }
 
       const latestStats = PublicationStatsService.getLatest(trend.id);
-
       const viewsCount = latestStats?.viewsCount ?? 0;
-
       const likesCount = latestStats?.likesCount ?? 0;
-
       const commentsCount = latestStats?.commentsCount ?? 0;
-
       const sharesCount = latestStats?.sharesCount ?? 0;
+      const currentStats = statsBySocialMedia.get(socialMedia.id);
 
-      const currentSummary = summaries.get(socialMedia.id);
+      if (currentStats) {
+        statsBySocialMedia.set(socialMedia.id, {
+          ...currentStats,
 
-      if (currentSummary) {
-        summaries.set(socialMedia.id, {
-          ...currentSummary,
-
-          viewsCount: currentSummary.viewsCount + viewsCount,
-
-          likesCount: currentSummary.likesCount + likesCount,
-
-          commentsCount: currentSummary.commentsCount + commentsCount,
-
-          sharesCount: currentSummary.sharesCount + sharesCount,
+          viewsCount: currentStats.viewsCount + viewsCount,
+          likesCount: currentStats.likesCount + likesCount,
+          commentsCount: currentStats.commentsCount + commentsCount,
+          sharesCount: currentStats.sharesCount + sharesCount,
         });
 
         return;
       }
 
-      summaries.set(socialMedia.id, {
+      statsBySocialMedia.set(socialMedia.id, {
         id: socialMedia.id,
         name: socialMedia.name,
         color: socialMedia.color,
@@ -99,6 +89,6 @@ export class TrendService {
       });
     });
 
-    return Array.from(summaries.values());
+    return Array.from(statsBySocialMedia.values());
   }
 }

@@ -11,7 +11,7 @@ import { PublicationStatsService } from '@/services/PublicationStatsService';
 const selectedSocialMedia = ref('Todas');
 
 const trends = computed(() => {
-  return TrendService.filterTrends({
+  return TrendService.getFiltered({
     socialMedia: selectedSocialMedia.value,
   });
 });
