@@ -6,6 +6,7 @@ import { computed, ref } from 'vue';
 import BaseCard from '@/components/common/BaseCard.vue';
 import { TrendService } from '@/services/TrendService';
 import { SocialMediaService } from '@/services/SocialMediaService';
+import { PublicationStatsService } from '@/services/PublicationStatsService';
 
 const selectedSocialMedia = ref('Todas');
 
@@ -54,7 +55,7 @@ const chartSeries = computed(() => {
             socialMedia.id,
         )
         .flatMap((trend) =>
-          TrendService
+          PublicationStatsService
             .getPublicationStats(trend)
             .map(
               (publicationStats) => ({
@@ -204,7 +205,7 @@ const getLatestViews = (
     return 0;
   }
 
-  return TrendService.getLatestViews(
+  return PublicationStatsService.getLatestViews(
     trend,
   );
 };

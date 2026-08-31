@@ -19,6 +19,7 @@ import {
 
 import { FormatNumber } from '@/utils/formatters/formatNumber';
 import { TrendService } from '@/services/TrendService';
+import { PublicationStatsService } from '@/services/PublicationStatsService';
 
 ChartJS.register(Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
@@ -29,7 +30,7 @@ const topTrendsByViews = computed(() => {
     return {
       ...trend,
 
-      latestViews: TrendService.getLatestViews(trend),
+      latestViews: PublicationStatsService.getLatestViews(trend),
 
       socialMediaName: TrendService.getSocialMedia(trend)?.name ?? 'Sin red social',
     };

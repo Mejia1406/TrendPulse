@@ -22,10 +22,6 @@ export class TrendService {
     return SocialMediaService.getById(trend.socialMediaId);
   }
 
-  static getPublicationStats(trend: TrendInterface): PublicationStatsInterface[] {
-    return PublicationStatsService.getByTrendId(trend.id);
-  }
-
   static filterTrends(filters: { socialMedia?: string }): TrendInterface[] {
     const store = useTrendStore();
 
@@ -40,32 +36,12 @@ export class TrendService {
     });
   }
   
-  static getLatestPublicationStats(trend: TrendInterface): PublicationStatsInterface | undefined {
-    const publicationStats = TrendService.getPublicationStats(trend);
-
-    if (publicationStats.length === 0) {
-      return undefined;
-    }
-
-    return [...publicationStats].sort(
-      (firstStats, secondStats) =>
-        new Date(secondStats.captureAt).getTime() - new Date(firstStats.captureAt).getTime(),
-    )[0];
-  }
-
-  static getLatestViews(trend: TrendInterface): number {
-    return TrendService.getLatestPublicationStats(trend)?.viewsCount ?? 0;
-  }
-
-  static getLatestLikes(trend: TrendInterface): number {
-    return TrendService.getLatestPublicationStats(trend)?.likesCount ?? 0;
-  }
 
   static getTopTrendsByViews(trends: TrendInterface[], limit = 5): TrendInterface[] {
     return [...trends]
       .sort(
         (firstTrend, secondTrend) =>
-          TrendService.getLatestViews(secondTrend) - TrendService.getLatestViews(firstTrend),
+          PublicationStatsService.getLatestViews(secondTrend) - PublicationStatsService.getLatestViews(firstTrend),
       )
       .slice(0, limit);
   }
@@ -80,7 +56,7 @@ export class TrendService {
         return;
       }
 
-      const latestStats = TrendService.getLatestPublicationStats(trend);
+      const latestStats = PublicationStatsService.getLatestPublicationStats(trend);
 
       const viewsCount = latestStats?.viewsCount ?? 0;
 
