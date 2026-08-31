@@ -13,7 +13,7 @@ import { SocialMediaService } from '@/services/SocialMediaService';
 
 const isFormOpen = ref(false);
 
-const socialMedias = SocialMediaService.getSocialMedia();
+const socialMedias = SocialMediaService.getAll();
 
 const selectedSocialMedia = ref<SocialMediaInterface | null>(null);
 
@@ -28,7 +28,7 @@ const handleEdit = (socialMedia: SocialMediaInterface) => {
 };
 
 const handleDelete = (socialMedia: SocialMediaInterface) => {
-  SocialMediaService.deleteSocialMedia(socialMedia.id);
+  SocialMediaService.delete(socialMedia.id);
 
   if (selectedSocialMedia.value?.id === socialMedia.id) {
     selectedSocialMedia.value = null;
@@ -38,12 +38,12 @@ const handleDelete = (socialMedia: SocialMediaInterface) => {
 
 const handleSubmit = (socialMediaData: CreateSocialMediaDTO) => {
   if (selectedSocialMedia.value) {
-    SocialMediaService.updateSocialMedia(
+    SocialMediaService.update(
       selectedSocialMedia.value.id,
       socialMediaData,
     );
   } else {
-    SocialMediaService.createSocialMedia(socialMediaData);
+    SocialMediaService.create(socialMediaData);
   }
 
   selectedSocialMedia.value = null;

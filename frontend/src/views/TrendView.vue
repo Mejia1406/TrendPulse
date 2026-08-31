@@ -19,7 +19,7 @@ const trends = computed(() => {
 const selectorSocialMedias = computed(() => [
   'Todas',
   ...SocialMediaService
-    .getSocialMedia()
+    .getAll()
     .map(
       (socialMedia) =>
         socialMedia.name,
