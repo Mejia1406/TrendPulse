@@ -1,7 +1,7 @@
 // Samuel Moncada, Sara Hurtado
-
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+// internal imports
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 
 export type TrendStatsBySocialMediaDTO =
   Pick<SocialMediaInterface, 'id' | 'name' | 'color'> &
