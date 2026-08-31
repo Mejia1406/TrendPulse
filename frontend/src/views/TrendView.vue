@@ -55,7 +55,7 @@ const chartSeries = computed(() => {
             socialMedia.id,
         )
         .flatMap((trend) =>
-          PublicationStatsService
+          TrendService
             .getPublicationStats(trend)
             .map(
               (publicationStats) => ({

@@ -3,6 +3,7 @@
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 import { usePublicationStatsStore } from '@/stores/PublicationStatsStore';
+import { TrendService } from './TrendService';
 
 
 export class PublicationStatsService {
@@ -11,11 +12,8 @@ export class PublicationStatsService {
       (publicationStats) => publicationStats.trendId === trendId,
     );
   }
-    static getPublicationStats(trend: TrendInterface): PublicationStatsInterface[] {
-    return PublicationStatsService.getByTrendId(trend.id);
-  }
-    static getLatestPublicationStats(trend: TrendInterface): PublicationStatsInterface | undefined {
-      const publicationStats = PublicationStatsService.getPublicationStats(trend);
+  static getLatest(trend: TrendInterface): PublicationStatsInterface | undefined {
+    const publicationStats = TrendService.getPublicationStats(trend);
   
       if (publicationStats.length === 0) {
         return undefined;
@@ -27,11 +25,11 @@ export class PublicationStatsService {
       )[0];
     }
   
-    static getLatestViews(trend: TrendInterface): number {
-      return PublicationStatsService.getLatestPublicationStats(trend)?.viewsCount ?? 0;
+  static getLatestViews(trend: TrendInterface): number {
+    return PublicationStatsService.getLatest(trend)?.viewsCount ?? 0;
     }
   
-    static getLatestLikes(trend: TrendInterface): number {
-      return PublicationStatsService.getLatestPublicationStats(trend)?.likesCount ?? 0;
+  static getLatestLikes(trend: TrendInterface): number {
+    return PublicationStatsService.getLatest(trend)?.likesCount ?? 0;
     }
 }

@@ -14,6 +14,10 @@ export class TrendService {
     return useTrendStore().trends;
   }
 
+  static getPublicationStats(trend: TrendInterface): PublicationStatsInterface[] {
+    return PublicationStatsService.getByTrendId(trend.id);
+  }
+
   static getTrendById(id: string): TrendInterface | undefined {
     return useTrendStore().trends.find((trend) => trend.id === id);
   }
@@ -56,7 +60,7 @@ export class TrendService {
         return;
       }
 
-      const latestStats = PublicationStatsService.getLatestPublicationStats(trend);
+      const latestStats = PublicationStatsService.getLatest(trend);
 
       const viewsCount = latestStats?.viewsCount ?? 0;
 
