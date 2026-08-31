@@ -11,7 +11,7 @@ import UserForm from '@/components/admin/user/UserForm.vue';
 import { UserService } from '@/services/UserService';
 
 const isFormOpen = ref(false);
-const userList = UserService.getUsers();
+const users = UserService.getUsers();
 const selectedUser = ref<UserInterface | null>(null);
 
 const handleCreate = () => {
@@ -74,7 +74,7 @@ const handleCancel = () => {
       </div>
 
       <UserTable
-        :user="userList"
+        :users="users"
         @edit="handleEdit"  
         @delete="handleDelete"
       />

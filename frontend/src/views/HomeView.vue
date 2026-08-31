@@ -15,7 +15,7 @@ import {
   type ChartOptions,
 } from 'chart.js';
 
-import { formatNumber } from '@/utils/formatters/formatNumber';
+import { FormatNumber } from '@/utils/formatters/formatNumber';
 import { TrendService } from '@/services/TrendService';
 
 ChartJS.register(
@@ -106,7 +106,7 @@ const chartOptions: ChartOptions<'bar'> = {
     tooltip: {
       callbacks: {
         label: (context) => {
-          return `${context.dataset.label}: ${formatNumber(
+          return `${context.dataset.label}: ${FormatNumber.format(
             Number(context.raw),
           )}`;
         },
@@ -132,7 +132,7 @@ const chartOptions: ChartOptions<'bar'> = {
         color: '#94a3b8',
 
         callback: (value) => {
-          return formatNumber(
+          return FormatNumber.format(
             Number(value),
           );
         },
@@ -172,7 +172,7 @@ const chartOptions: ChartOptions<'bar'> = {
           </p>
 
           <p class="mt-2 text-3xl font-bold">
-            {{ formatNumber(trendSocialMediaStats.viewsCount) }}
+            {{ FormatNumber.format(trendSocialMediaStats.viewsCount) }}
           </p>
           <p class="mt-1 text-sm text-slate-500">
             vistas totales
@@ -226,7 +226,7 @@ const chartOptions: ChartOptions<'bar'> = {
                 </p>
               </div>
               <p class="font-medium text-teal-400">
-                {{ formatNumber(trend.latestViews) }}
+                {{ FormatNumber.format(trend.latestViews) }}
               </p>
             </div>
           </div>

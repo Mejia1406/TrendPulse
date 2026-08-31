@@ -3,7 +3,7 @@
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 
 defineProps<{
-  socialMedia: SocialMediaInterface[];
+  socialMedias: SocialMediaInterface[];
 }>();
 
 const emit = defineEmits<{
@@ -16,7 +16,7 @@ const emit = defineEmits<{
 <template>
   <div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
     <p class="mb-6 font-semibold text-white">
-      {{ socialMedia.length }} redes registradas
+      {{ socialMedias.length }} redes registradas
     </p>
 
     <div class="overflow-x-auto">
@@ -43,18 +43,18 @@ const emit = defineEmits<{
 
         <tbody>
           <tr
-            v-for="sm in socialMedia"
-            :key="sm.id"
+            v-for="socialMedia in socialMedias"
+            :key="socialMedia.id"
             class="border-b border-slate-800 last:border-b-0"
           >
             <td class="px-2 py-4 font-semibold text-white">
-              {{ sm.name }}
+              {{ socialMedia.name }}
             </td>
 
             <td class="px-2 py-4">
               <img
-                :src="sm.logo"
-                :alt="`Logo de ${sm.name}`"
+                :src="socialMedia.logo"
+                :alt="`Logo de ${socialMedia.name}`"
                 class="h-8 w-8 object-contain"
               />
             </td>
@@ -62,7 +62,7 @@ const emit = defineEmits<{
             <td class="px-2 py-4">
               <div
                 class="h-6 w-6 rounded"
-                :style="{ backgroundColor: sm.color }"
+                :style="{ backgroundColor: socialMedia.color }"
               ></div>
             </td>
 
@@ -71,7 +71,7 @@ const emit = defineEmits<{
                 <button
                   type="button"
                   class="text-slate-300 transition hover:text-teal-400"
-                  @click="emit('edit', sm)"
+                  @click="emit('edit', socialMedia)"
                 >
                   Editar
                 </button>
@@ -79,7 +79,7 @@ const emit = defineEmits<{
                 <button
                   type="button"
                   class="text-red-500 transition hover:text-red-400"
-                  @click="emit('delete', sm)"
+                  @click="emit('delete', socialMedia)"
                 >
                   Eliminar
                 </button>

@@ -12,7 +12,7 @@ import { SocialMediaService } from '@/services/SocialMediaService';
 
 const isFormOpen = ref(false);
 
-const socialMediaList = SocialMediaService.getSocialMedia();
+const socialMedias = SocialMediaService.getSocialMedia();
 
 const selectedSocialMedia = ref<SocialMediaInterface | null>(null);
 
@@ -79,7 +79,7 @@ const handleCancel = () => {
       </div>
 
       <SocialMediaTable
-        :socialMedia="socialMediaList"
+        :socialMedias="socialMedias"
         @edit="handleEdit"
         @delete="handleDelete"
       />

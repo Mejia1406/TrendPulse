@@ -23,10 +23,7 @@ import {
 
 import { TrendService } from '@/services/TrendService';
 
-import {
-  formatNumber,
-  formatNumberWithSeparators,
-} from '@/utils/formatters/formatNumber';
+import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 ChartJS.register(
   BarElement,
@@ -163,7 +160,7 @@ const chartOptions: ChartOptions<'bar'> = {
           const value =
             Number(context.raw);
 
-          return `${context.dataset.label}: ${formatNumberWithSeparators(
+          return `${context.dataset.label}: ${FormatNumber.formatWithSeparators(
             value,
           )}`;
         },
@@ -189,7 +186,7 @@ const chartOptions: ChartOptions<'bar'> = {
         color: '#7dd3fc',
 
         callback: (value) => {
-          return formatNumber(
+          return FormatNumber.formatWithSeparators(
             Number(value),
           );
         },
@@ -354,7 +351,7 @@ const chartOptions: ChartOptions<'bar'> = {
                   class="px-2 py-4 text-right"
                 >
                   {{
-                    formatNumberWithSeparators(
+                    FormatNumber.formatWithSeparators(
                       socialMedia.likesCount,
                     )
                   }}
@@ -364,7 +361,7 @@ const chartOptions: ChartOptions<'bar'> = {
                   class="px-2 py-4 text-right"
                 >
                   {{
-                    formatNumberWithSeparators(
+                    FormatNumber.formatWithSeparators(
                       socialMedia.commentsCount,
                     )
                   }}
@@ -374,7 +371,7 @@ const chartOptions: ChartOptions<'bar'> = {
                   class="px-2 py-4 text-right"
                 >
                   {{
-                    formatNumberWithSeparators(
+                    FormatNumber.formatWithSeparators(
                       socialMedia.sharesCount,
                     )
                   }}
@@ -384,7 +381,7 @@ const chartOptions: ChartOptions<'bar'> = {
                   class="px-2 py-4 text-right font-bold text-slate-300"
                 >
                   {{
-                    formatNumberWithSeparators(
+                    FormatNumber.formatWithSeparators(
                       socialMedia.totalInteractions,
                     )
                   }}

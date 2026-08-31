@@ -21,7 +21,7 @@ import { TrendService } from '@/services/TrendService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 
-import { formatNumber } from '@/utils/formatters/formatNumber';
+import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 ChartJS.register(
   CategoryScale,
@@ -156,7 +156,7 @@ const chartOptions: ChartOptions<'line'> = {
     tooltip: {
       callbacks: {
         label: (context) => {
-          return `${selectedStatsLabel.value}: ${formatNumber(
+          return `${selectedStatsLabel.value}: ${FormatNumber.format(
             Number(context.raw),
           )}`;
         },
@@ -182,7 +182,7 @@ const chartOptions: ChartOptions<'line'> = {
         color: '#94a3b8',
 
         callback: (value) => {
-          return formatNumber(
+          return FormatNumber.formatWithSeparators(
             Number(value),
           );
         },
@@ -303,7 +303,7 @@ const chartOptions: ChartOptions<'line'> = {
               class="mt-3 text-3xl font-bold"
             >
               {{
-                formatNumber(
+                FormatNumber.formatWithSeparators(
                   latestStats?.likesCount ??
                     0,
                 )
@@ -324,7 +324,7 @@ const chartOptions: ChartOptions<'line'> = {
               class="mt-3 text-3xl font-bold"
             >
               {{
-                formatNumber(
+                FormatNumber.formatWithSeparators(
                   latestStats?.commentsCount ??
                     0,
                 )
@@ -345,7 +345,7 @@ const chartOptions: ChartOptions<'line'> = {
               class="mt-3 text-3xl font-bold"
             >
               {{
-                formatNumber(
+                FormatNumber.formatWithSeparators(
                   latestStats?.sharesCount ??
                     0,
                 )
@@ -366,7 +366,7 @@ const chartOptions: ChartOptions<'line'> = {
               class="mt-3 text-3xl font-bold"
             >
               {{
-                formatNumber(
+                FormatNumber.formatWithSeparators(
                   latestStats?.viewsCount ??
                     0,
                 )

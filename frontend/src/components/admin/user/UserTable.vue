@@ -3,7 +3,7 @@
 import type { UserInterface } from '@/interfaces/UserInterface';
 
 defineProps<{
-  user: UserInterface[];
+  users: UserInterface[];
 }>();
 
 const emit = defineEmits<{
@@ -16,7 +16,7 @@ const emit = defineEmits<{
 <template>
 	<div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
 	<p class="mb-6 font-semibold text-white">
-    {{ user.length }} usuarios registrados
+    {{ users.length }} usuarios registrados
   </p>
 
 	<div class="overflow-x-auto">
@@ -43,20 +43,20 @@ const emit = defineEmits<{
 
         <tbody>
           <tr
-            v-for="us in user"
-            :key="us.id"
+            v-for="user in users"
+            :key="user.id"
             class="border-b border-slate-800 last:border-b-0"
           >
             <td class="px-2 py-4 font-semibold text-white">
-              {{ us.name }}
+              {{ user.name }}
             </td>
 
             <td class="px-2 py-4">
-              {{ us.email }}
+              {{ user.email }}
             </td>
 
             <td class="px-2 py-4">
-              {{ us.role }}
+              {{ user.role }}
             </td>
 
             <td class="px-2 py-4">
@@ -64,7 +64,7 @@ const emit = defineEmits<{
                 <button
                   type="button"
                   class="text-slate-300 transition hover:text-teal-400"
-                  @click="emit('edit', us)"
+                  @click="emit('edit', user)"
                 >
                   Editar
                 </button>
@@ -72,7 +72,7 @@ const emit = defineEmits<{
                 <button
                   type="button"
                   class="text-red-500 transition hover:text-red-400"
-                  @click="emit('delete', us)"
+                  @click="emit('delete', user)"
                 >
                   Eliminar
                 </button>
