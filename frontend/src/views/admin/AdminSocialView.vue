@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 
+import BaseButton from '@/components/common/BaseButton.vue';
 import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';
 import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
 
@@ -69,13 +70,9 @@ const handleCancel = () => {
           </h1>
         </div>
 
-        <button
-          type="button"
-          class="rounded-xl bg-teal-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-teal-300"
-          @click="handleCreate"
-        >
+        <BaseButton type="button" @click="handleCreate">
           + Crear nueva red
-        </button>
+        </BaseButton>
       </div>
 
       <SocialMediaTable

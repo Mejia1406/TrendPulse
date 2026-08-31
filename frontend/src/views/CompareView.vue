@@ -1,12 +1,7 @@
 <!-- Samuel Moncada -->
 
 <script setup lang="ts">
-import {
-  computed,
-  onActivated,
-  onMounted,
-  ref,
-} from 'vue';
+import { computed, onActivated, onMounted, ref } from 'vue';
 
 import { Bar } from 'vue-chartjs';
 
@@ -25,13 +20,9 @@ import { TrendService } from '@/services/TrendService';
 
 import { FormatNumber } from '@/utils/formatters/formatNumber';
 
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  Legend,
-  LinearScale,
-  Tooltip,
-);
+import BaseCard from '@/components/common/BaseCard.vue';
+
+ChartJS.register(BarElement, CategoryScale, Legend, LinearScale, Tooltip);
 
 const trends = TrendService.getTrends();
 
@@ -46,9 +37,7 @@ onActivated(() => {
 });
 
 const socialMediaStats = computed(() => {
-  return TrendService.getTrendStatsBySocialMedia(
-    trends,
-  );
+  return TrendService.getTrendStatsBySocialMedia(trends);
 });
 
 const selectorSocialMedias = computed(() => {
@@ -57,53 +46,35 @@ const selectorSocialMedias = computed(() => {
 
 const selectedSocialMediaId = ref('all');
 
-const selectedSocialMediaStats = computed(
-  () => {
-    if (
-      selectedSocialMediaId.value === 'all'
-    ) {
-      return socialMediaStats.value;
-    }
+const selectedSocialMediaStats = computed(() => {
+  if (selectedSocialMediaId.value === 'all') {
+    return socialMediaStats.value;
+  }
 
-    return socialMediaStats.value.filter(
-      (socialMedia) =>
-        socialMedia.id ===
-        selectedSocialMediaId.value,
-    );
-  },
-);
-
-const comparisonRows = computed(() => {
-  return selectedSocialMediaStats.value.map(
-    (socialMedia) => {
-      return {
-        ...socialMedia,
-
-        totalInteractions:
-          socialMedia.likesCount +
-          socialMedia.commentsCount +
-          socialMedia.sharesCount,
-      };
-    },
+  return socialMediaStats.value.filter(
+    (socialMedia) => socialMedia.id === selectedSocialMediaId.value,
   );
 });
 
-const chartData = computed<
-  ChartData<'bar'>
->(() => ({
-  labels: comparisonRows.value.map(
-    (socialMedia) =>
-      socialMedia.name,
-  ),
+const comparisonRows = computed(() => {
+  return selectedSocialMediaStats.value.map((socialMedia) => {
+    return {
+      ...socialMedia,
+
+      totalInteractions:
+        socialMedia.likesCount + socialMedia.commentsCount + socialMedia.sharesCount,
+    };
+  });
+});
+
+const chartData = computed<ChartData<'bar'>>(() => ({
+  labels: comparisonRows.value.map((socialMedia) => socialMedia.name),
 
   datasets: [
     {
       label: 'Likes',
 
-      data: comparisonRows.value.map(
-        (socialMedia) =>
-          socialMedia.likesCount,
-      ),
+      data: comparisonRows.value.map((socialMedia) => socialMedia.likesCount),
 
       backgroundColor: '#14b8a6',
       borderRadius: 5,
@@ -112,10 +83,7 @@ const chartData = computed<
     {
       label: 'Comentarios',
 
-      data: comparisonRows.value.map(
-        (socialMedia) =>
-          socialMedia.commentsCount,
-      ),
+      data: comparisonRows.value.map((socialMedia) => socialMedia.commentsCount),
 
       backgroundColor: '#f97316',
       borderRadius: 5,
@@ -124,10 +92,7 @@ const chartData = computed<
     {
       label: 'Compartidos',
 
-      data: comparisonRows.value.map(
-        (socialMedia) =>
-          socialMedia.sharesCount,
-      ),
+      data: comparisonRows.value.map((socialMedia) => socialMedia.sharesCount),
 
       backgroundColor: '#c84fd2',
       borderRadius: 5,
@@ -157,12 +122,9 @@ const chartOptions: ChartOptions<'bar'> = {
     tooltip: {
       callbacks: {
         label: (context) => {
-          const value =
-            Number(context.raw);
+          const value = Number(context.raw);
 
-          return `${context.dataset.label}: ${FormatNumber.formatWithSeparators(
-            value,
-          )}`;
+          return `${context.dataset.label}: ${FormatNumber.formatWithSeparators(value)}`;
         },
       },
     },
@@ -186,9 +148,7 @@ const chartOptions: ChartOptions<'bar'> = {
         color: '#7dd3fc',
 
         callback: (value) => {
-          return FormatNumber.formatWithSeparators(
-            Number(value),
-          );
+          return FormatNumber.formatWithSeparators(Number(value));
         },
       },
 
@@ -201,208 +161,110 @@ const chartOptions: ChartOptions<'bar'> = {
 </script>
 
 <template>
-  <main
-    class="min-h-screen bg-slate-950 text-white"
-  >
-    <div
-      class="mx-auto max-w-7xl px-6 py-10"
-    >
+  <main class="min-h-screen bg-slate-950 text-white">
+    <div class="mx-auto max-w-7xl px-6 py-10">
       <section>
-        <h1
-          class="text-4xl font-bold"
-        >
-          Comparativa entre redes
-        </h1>
+        <h1 class="text-4xl font-bold">Comparativa entre redes</h1>
 
-        <p
-          class="mt-2 text-sky-300"
-        >
-          Selecciona las redes que quieres
-          comparar.
-        </p>
+        <p class="mt-2 text-sky-300">Selecciona las redes que quieres comparar.</p>
       </section>
 
-      <section
-        class="mt-8 rounded-2xl border border-slate-800 bg-slate-900/70 p-5"
-      >
-        <label
-          for="social-media-filter"
-          class="mb-2 block text-sm font-semibold text-slate-300"
-        >
-          Redes sociales
-        </label>
+      <section class="mt-8">
+        <BaseCard>
+          <label for="social-media-filter" class="mb-2 block text-sm font-semibold text-slate-300">
+            Redes sociales
+          </label>
 
-        <select
-          id="social-media-filter"
-          v-model="selectedSocialMediaId"
-          class="w-full max-w-md rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-teal-400"
-        >
-          <option value="all">
-            Todas las redes
-          </option>
-
-          <option
-            v-for="socialMedia in selectorSocialMedias"
-            :key="socialMedia.id"
-            :value="socialMedia.id"
+          <select
+            id="social-media-filter"
+            v-model="selectedSocialMediaId"
+            class="w-full max-w-md rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-teal-400"
           >
-            {{ socialMedia.name }}
-          </option>
-        </select>
-      </section>
+            <option value="all">Todas las redes</option>
 
-      <section
-        class="mt-6 rounded-2xl border border-slate-800 bg-slate-900/70 p-6"
-      >
-        <h2
-          class="mb-6 text-lg font-semibold"
-        >
-          Likes vs. comentarios vs.
-          compartidos
-        </h2>
-
-        <div
-          v-if="comparisonRows.length > 0"
-          class="h-97.5"
-        >
-          <Bar
-            :key="chartKey"
-            :data="chartData"
-            :options="chartOptions"
-          />
-        </div>
-
-        <div
-          v-else
-          class="grid h-97.5 place-items-center text-slate-400"
-        >
-          Selecciona al menos una red social.
-        </div>
-      </section>
-
-      <section
-        class="mt-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/70"
-      >
-        <div class="px-6 pt-6">
-          <h2
-            class="text-lg font-semibold"
-          >
-            Tabla comparativa
-          </h2>
-        </div>
-
-        <div
-          class="overflow-x-auto p-6"
-        >
-          <table
-            class="min-w-full text-left"
-          >
-            <thead
-              class="text-slate-300"
+            <option
+              v-for="socialMedia in selectorSocialMedias"
+              :key="socialMedia.id"
+              :value="socialMedia.id"
             >
-              <tr
-                class="border-b border-slate-800"
-              >
-                <th class="px-2 py-4">
-                  Red
-                </th>
+              {{ socialMedia.name }}
+            </option>
+          </select>
+        </BaseCard>
+      </section>
 
-                <th
-                  class="px-2 py-4 text-right"
+      <section class="mt-6">
+        <BaseCard>
+          <h2 class="mb-6 text-lg font-semibold">Likes vs. comentarios vs. compartidos</h2>
+
+          <div v-if="comparisonRows.length > 0" class="h-97.5">
+            <Bar :key="chartKey" :data="chartData" :options="chartOptions" />
+          </div>
+
+          <div v-else class="grid h-97.5 place-items-center text-slate-400">
+            Selecciona al menos una red social.
+          </div>
+        </BaseCard>
+      </section>
+
+      <section class="mt-6">
+        <BaseCard>
+          <h2 class="text-lg font-semibold">Tabla comparativa</h2>
+
+          <div class="overflow-x-auto p-6">
+            <table class="min-w-full text-left">
+              <thead class="text-slate-300">
+                <tr class="border-b border-slate-800">
+                  <th class="px-2 py-4">Red</th>
+
+                  <th class="px-2 py-4 text-right">Likes</th>
+
+                  <th class="px-2 py-4 text-right">Comentarios</th>
+
+                  <th class="px-2 py-4 text-right">Compartidos</th>
+
+                  <th class="px-2 py-4 text-right">Total</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  v-for="socialMedia in comparisonRows"
+                  :key="socialMedia.id"
+                  class="border-b border-slate-800 last:border-b-0"
                 >
-                  Likes
-                </th>
+                  <td class="px-2 py-4">
+                    <span class="rounded-full bg-slate-800 px-3 py-1 text-sm font-semibold">
+                      {{ socialMedia.name }}
+                    </span>
+                  </td>
 
-                <th
-                  class="px-2 py-4 text-right"
-                >
-                  Comentarios
-                </th>
+                  <td class="px-2 py-4 text-right">
+                    {{ FormatNumber.formatWithSeparators(socialMedia.likesCount) }}
+                  </td>
 
-                <th
-                  class="px-2 py-4 text-right"
-                >
-                  Compartidos
-                </th>
+                  <td class="px-2 py-4 text-right">
+                    {{ FormatNumber.formatWithSeparators(socialMedia.commentsCount) }}
+                  </td>
 
-                <th
-                  class="px-2 py-4 text-right"
-                >
-                  Total
-                </th>
-              </tr>
-            </thead>
+                  <td class="px-2 py-4 text-right">
+                    {{ FormatNumber.formatWithSeparators(socialMedia.sharesCount) }}
+                  </td>
 
-            <tbody>
-              <tr
-                v-for="socialMedia in comparisonRows"
-                :key="socialMedia.id"
-                class="border-b border-slate-800 last:border-b-0"
-              >
-                <td class="px-2 py-4">
-                  <span
-                    class="rounded-full bg-slate-800 px-3 py-1 text-sm font-semibold"
-                  >
-                    {{ socialMedia.name }}
-                  </span>
-                </td>
+                  <td class="px-2 py-4 text-right font-bold text-slate-300">
+                    {{ FormatNumber.formatWithSeparators(socialMedia.totalInteractions) }}
+                  </td>
+                </tr>
 
-                <td
-                  class="px-2 py-4 text-right"
-                >
-                  {{
-                    FormatNumber.formatWithSeparators(
-                      socialMedia.likesCount,
-                    )
-                  }}
-                </td>
-
-                <td
-                  class="px-2 py-4 text-right"
-                >
-                  {{
-                    FormatNumber.formatWithSeparators(
-                      socialMedia.commentsCount,
-                    )
-                  }}
-                </td>
-
-                <td
-                  class="px-2 py-4 text-right"
-                >
-                  {{
-                    FormatNumber.formatWithSeparators(
-                      socialMedia.sharesCount,
-                    )
-                  }}
-                </td>
-
-                <td
-                  class="px-2 py-4 text-right font-bold text-slate-300"
-                >
-                  {{
-                    FormatNumber.formatWithSeparators(
-                      socialMedia.totalInteractions,
-                    )
-                  }}
-                </td>
-              </tr>
-
-              <tr
-                v-if="
-                  comparisonRows.length === 0
-                "
-              >
-                <td
-                  colspan="5"
-                  class="px-4 py-10 text-center text-slate-400"
-                >
-                  No hay redes seleccionadas.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                <tr v-if="comparisonRows.length === 0">
+                  <td colspan="5" class="px-4 py-10 text-center text-slate-400">
+                    No hay redes seleccionadas.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </BaseCard>
       </section>
     </div>
   </main>

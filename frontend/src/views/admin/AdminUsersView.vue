@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 
+import BaseButton from '@/components/common/BaseButton.vue';
 import UserTable from '@/components/admin/user/UserTable.vue';
 import UserForm from '@/components/admin/user/UserForm.vue';
 
@@ -64,13 +65,9 @@ const handleCancel = () => {
           </h1>
         </div>
 
-        <button
-          type="button"
-          class="rounded-xl bg-teal-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-teal-300"
-          @click="handleCreate"
-        >
+        <BaseButton type="button" @click="handleCreate">
           + Crear usuario
-        </button>
+        </BaseButton>
       </div>
 
       <UserTable

@@ -92,12 +92,9 @@ const handleSubmit = () => {
             {{ errorMessage }}
           </div>
 
-          <button
-            type="submit"
-            class="w-full rounded-xl bg-teal-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-teal-300"
-          >
+          <BaseButton type="submit" class="w-full">
             Ingresar
-          </button>
+          </BaseButton>
         </form>
 
         <div

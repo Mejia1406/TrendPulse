@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
+import BaseButton from '@/components/common/BaseButton.vue';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 
@@ -171,20 +172,13 @@ const handleSubmit = () => {
       </div>
 
       <div class="flex justify-end gap-4 pt-2">
-        <button
-          type="button"
-          class="rounded-xl px-4 py-3 font-semibold text-slate-200 transition hover:bg-slate-800"
-          @click="emit('cancel')"
-        >
+        <BaseButton variant="secondary" type="button" @click="emit('cancel')">
           Cancelar
-        </button>
+        </BaseButton>
 
-        <button
-          type="submit"
-          class="rounded-xl bg-teal-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-teal-300"
-        >
+        <BaseButton type="submit">
           Guardar
-        </button>
+        </BaseButton>
       </div>
     </form>
   </div>

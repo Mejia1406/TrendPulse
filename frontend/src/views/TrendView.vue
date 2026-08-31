@@ -3,6 +3,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import BaseCard from '@/components/common/BaseCard.vue';
 import { TrendService } from '@/services/TrendService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 
@@ -226,9 +227,7 @@ const getSocialMediaName = (
     <div
       class="mx-auto max-w-7xl px-4 py-8"
     >
-      <div
-        class="mt-2 rounded-2xl border border-slate-800 bg-slate-900/90 p-6"
-      >
+      <BaseCard class="mt-2">
         <h1 class="text-4xl font-bold">
           Tendencias
         </h1>
@@ -262,11 +261,9 @@ const getSocialMediaName = (
             </select>
           </label>
         </div>
-      </div>
+      </BaseCard>
 
-      <div
-        class="mt-8 rounded-2xl border border-slate-800 bg-slate-900/90 p-6"
-      >
+      <BaseCard class="mt-8">
         <h2
           class="mb-4 text-2xl font-bold"
         >
@@ -279,11 +276,9 @@ const getSocialMediaName = (
           :options="chartOptions"
           :series="chartSeries"
         />
-      </div>
+      </BaseCard>
 
-      <div
-        class="mt-8 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90"
-      >
+      <BaseCard class="mt-8 overflow-hidden">
         <div
           class="border-b border-slate-800 px-5 py-4"
         >
@@ -383,7 +378,7 @@ const getSocialMediaName = (
             </tbody>
           </table>
         </div>
-      </div>
+      </BaseCard>
     </div>
   </main>
 </template>

@@ -5,6 +5,9 @@ import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { Line } from 'vue-chartjs';
 
+import BaseButton from '@/components/common/BaseButton.vue';
+import BaseCard from '@/components/common/BaseCard.vue';
+
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -22,6 +25,7 @@ import { SocialMediaService } from '@/services/SocialMediaService';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 
 import { FormatNumber } from '@/utils/formatters/formatNumber';
+
 
 ChartJS.register(
   CategoryScale,
@@ -280,9 +284,10 @@ const chartOptions: ChartOptions<'line'> = {
               :href="latestStats.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex w-fit items-center justify-center rounded-xl bg-teal-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-teal-400"
             >
-              Ver publicación original
+              <BaseButton class="w-fit">
+                Ver publicación original
+              </BaseButton>
             </a>
           </div>
         </section>
@@ -290,9 +295,7 @@ const chartOptions: ChartOptions<'line'> = {
         <section
           class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
-          <div
-            class="rounded-2xl border border-slate-800 bg-slate-900/90 p-6"
-          >
+          <BaseCard>
             <p
               class="text-sm text-slate-400"
             >
@@ -309,11 +312,9 @@ const chartOptions: ChartOptions<'line'> = {
                 )
               }}
             </p>
-          </div>
+          </BaseCard>
 
-          <div
-            class="rounded-2xl border border-slate-800 bg-slate-900/90 p-6"
-          >
+          <BaseCard>
             <p
               class="text-sm text-slate-400"
             >
@@ -330,11 +331,9 @@ const chartOptions: ChartOptions<'line'> = {
                 )
               }}
             </p>
-          </div>
+          </BaseCard>
 
-          <div
-            class="rounded-2xl border border-slate-800 bg-slate-900/90 p-6"
-          >
+          <BaseCard>
             <p
               class="text-sm text-slate-400"
             >
@@ -351,11 +350,9 @@ const chartOptions: ChartOptions<'line'> = {
                 )
               }}
             </p>
-          </div>
+          </BaseCard>
 
-          <div
-            class="rounded-2xl border border-slate-800 bg-slate-900/90 p-6"
-          >
+          <BaseCard>
             <p
               class="text-sm text-slate-400"
             >
@@ -372,12 +369,10 @@ const chartOptions: ChartOptions<'line'> = {
                 )
               }}
             </p>
-          </div>
+          </BaseCard>
         </section>
 
-        <section
-          class="mt-8 rounded-2xl border border-slate-800 bg-slate-900/90 p-6"
-        >
+        <BaseCard class="mt-8">
           <div
             class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
           >
@@ -439,7 +434,7 @@ const chartOptions: ChartOptions<'line'> = {
             No existen datos históricos para
             esta tendencia.
           </div>
-        </section>
+        </BaseCard>
       </template>
     </div>
   </main>
