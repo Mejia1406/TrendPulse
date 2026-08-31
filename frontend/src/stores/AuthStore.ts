@@ -1,6 +1,9 @@
 // Athina Cappelletti
+// external imports
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+
+// internal imports
 import type { UserInterface } from '@/interfaces/UserInterface';
 
 export const useAuthStore = defineStore('auth', () => {
