@@ -1,3 +1,4 @@
+// Sara Hurtado
 import { useTrendStore } from '@/stores/TrendStore';
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
@@ -7,6 +8,10 @@ export class TrendService {
   static getTrends(): TrendInterface[] {
     return useTrendStore().trends;
   }
+
+  static getTrendById(id: string,): TrendInterface | undefined {
+  return useTrendStore().trends.find((trend) => trend.id === id, );
+}
 
   static filterTrends(filters: { socialMedia?: string }): TrendInterface[] {
     const store = useTrendStore();

@@ -268,7 +268,12 @@ const getLatestViews = (trendId: string) => {
                 class="border-t border-slate-800 text-slate-200"
               >
                 <td class="px-5 py-4">
-                  {{ trend.name }}
+                  <RouterLink
+                  :to="`/tendencias/${trend.id}`"
+                  class="font-semibold text-white transition hover:text-teal-400"
+                  >
+                    {{ trend.name }}
+                  </RouterLink>
                 </td>
 
                 <td class="px-5 py-4">

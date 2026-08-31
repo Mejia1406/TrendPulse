@@ -2,13 +2,14 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { configureRouterGuards } from './guards';
+import { configureRouterGuards } from './accessControl.ts';
 import { adminRoutes } from './admin/adminRoutes';
 
 import HomeView from '../views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import TrendView from '@/views/TrendView.vue';
 import CompareView from '@/views/CompareView.vue';
+import TrendsDetailView from '@/views/TrendsDetailView.vue';
 
 
 const router = createRouter({
@@ -33,9 +34,9 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      path: '/tendencias/:id',
+      name: 'tendencia',
+      component: TrendsDetailView,
       meta: { requiresAuth: true },
     },
     {

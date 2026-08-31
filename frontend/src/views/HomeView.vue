@@ -185,7 +185,12 @@ const chartOptions: ChartOptions<'bar'> = {
             >
               <div>
                 <p class="font-semibold">
-                  {{ trend.name }}
+                  <RouterLink
+                    :to="`/tendencias/${trend.id}`"
+                    class="font-semibold text-white transition hover:text-teal-400"
+                  >
+                    {{ trend.name }}
+                  </RouterLink>
                 </p>
                 <p class="mt-1 text-sm text-slate-400">
                   {{ trend.socialMedia.name }}
