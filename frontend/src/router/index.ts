@@ -1,14 +1,15 @@
 // Athina Cappelleti, Samuel Moncada, Sara Hurtado
-
+// external imports
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { configureRouterGuards } from './accessControl.ts';
+// internal imports
 import { adminRoutes } from './admin/adminRoutes';
+import { configureRouterGuards } from './accessControl.ts';
 
+import CompareView from '@/views/CompareView.vue';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import TrendView from '@/views/TrendView.vue';
-import CompareView from '@/views/CompareView.vue';
 import TrendsDetailView from '@/views/TrendsDetailView.vue';
 
 
@@ -61,5 +62,4 @@ const router = createRouter({
 });
 
 configureRouterGuards(router);
-
 export default router;
