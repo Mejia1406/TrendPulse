@@ -206,7 +206,7 @@ const getLatestViews = (
   }
 
   return PublicationStatsService.getLatestViews(
-    trend,
+    trend.id,
   );
 };
 

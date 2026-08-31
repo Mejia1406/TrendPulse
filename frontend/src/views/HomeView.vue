@@ -30,7 +30,7 @@ const topTrendsByViews = computed(() => {
     return {
       ...trend,
 
-      latestViews: PublicationStatsService.getLatestViews(trend),
+      latestViews: PublicationStatsService.getLatestViews(trend.id),
 
       socialMediaName: TrendService.getSocialMedia(trend)?.name ?? 'Sin red social',
     };

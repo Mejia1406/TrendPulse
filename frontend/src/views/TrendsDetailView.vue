@@ -101,7 +101,7 @@ const latestStats = computed(() => {
   }
 
   return PublicationStatsService.getLatest(
-    trend.value,
+    trend.value.id,
   );
 });
 

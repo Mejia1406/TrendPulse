@@ -45,7 +45,7 @@ export class TrendService {
     return [...trends]
       .sort(
         (firstTrend, secondTrend) =>
-          PublicationStatsService.getLatestViews(secondTrend) - PublicationStatsService.getLatestViews(firstTrend),
+          PublicationStatsService.getLatestViews(secondTrend.id) - PublicationStatsService.getLatestViews(firstTrend.id),
       )
       .slice(0, limit);
   }
@@ -60,7 +60,7 @@ export class TrendService {
         return;
       }
 
-      const latestStats = PublicationStatsService.getLatest(trend);
+      const latestStats = PublicationStatsService.getLatest(trend.id);
 
       const viewsCount = latestStats?.viewsCount ?? 0;
 
