@@ -1,4 +1,5 @@
 // Samuel Moncada Mejía
+//main interface
 export interface UserInterface {
     id: string,
     name: string, 
