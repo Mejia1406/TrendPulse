@@ -2,7 +2,7 @@
 <script setup lang="ts">
 // external imports
 import { Bar } from 'vue-chartjs';
-import { computed, onActivated, onMounted, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import {
   BarElement,
   CategoryScale,
@@ -34,14 +34,16 @@ const props = defineProps<{
 // reactive variables
 const chartKey = ref(0);
 
-// lifecycle hooks
-onMounted(() => {
-  chartKey.value++;
-});
-
-onActivated(() => {
-  chartKey.value++;
-});
+// watchers
+watch(
+  () => props.comparisonRows,
+  () => {
+    chartKey.value++;
+  },
+  {
+    deep: true,
+  },
+);
 
 // chart data configuration
 const chartData = computed<ChartData<'bar'>>(() => ({

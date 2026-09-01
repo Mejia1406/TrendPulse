@@ -16,40 +16,24 @@ const props = defineProps<{
 
 // chart series configuration
 const chartSeries = computed(() => {
-  const socialMedias = [
-    ...new Map(
-      props.trends
-        .map((trend) => TrendService.getSocialMedia(trend))
-        .filter((socialMedia) => socialMedia !== undefined)
-        .map((socialMedia) => [socialMedia.id, socialMedia]),
-    ).values(),
-  ];
-
-  return socialMedias.map((socialMedia) => ({
-    name: socialMedia.name,
-    data: props.trends
-      .filter((trend) => trend.socialMediaId === socialMedia.id)
-      .flatMap((trend) =>
-        TrendService.getPublicationStats(trend).map((publicationStats) => ({
-          x: publicationStats.captureAt,
-          y: publicationStats.viewsCount,
-        })),
-      ),
+  return props.trends.map((trend) => ({
+    name: trend.name,
+    data: TrendService.getPublicationStats(trend).map(
+      (publicationStats) => ({
+        x: publicationStats.captureAt,
+        y: publicationStats.viewsCount,
+      }),
+    ),
   }));
 });
 
 // chart colors configuration
 const chartColors = computed(() => {
-  const socialMedias = [
-    ...new Map(
-      props.trends
-        .map((trend) => TrendService.getSocialMedia(trend))
-        .filter((socialMedia) => socialMedia !== undefined)
-        .map((socialMedia) => [socialMedia.id, socialMedia]),
-    ).values(),
-  ];
-
-  return socialMedias.map((socialMedia) => socialMedia.color);
+  return props.trends.map(
+    (trend) =>
+      TrendService.getSocialMedia(trend)?.color ??
+      '#14b8a6',
+  );
 });
 
 // chart options configuration
