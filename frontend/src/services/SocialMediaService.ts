@@ -1,10 +1,11 @@
 // Samuel Moncada Mejía
+// internal imports
+import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import { useSocialMediaStore } from '@/stores/SocialMediaStore';
-import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 
 export class SocialMediaService {
-  static getSocialMedia(): SocialMediaInterface[] {
+  static getAll(): SocialMediaInterface[] {
     return useSocialMediaStore().socialMedia;
   }
 
@@ -12,7 +13,7 @@ export class SocialMediaService {
     return useSocialMediaStore().socialMedia.find((socialMedia) => socialMedia.id === id);
   }
 
-  static createSocialMedia(SocialMedia: CreateSocialMediaDTO): void {
+  static create(SocialMedia: CreateSocialMediaDTO): void {
     const store = useSocialMediaStore();
     const nextId =
       store.socialMedia.length > 0
@@ -31,7 +32,7 @@ export class SocialMediaService {
     });
   }
 
-  static updateSocialMedia(id: string, updatedSocialMedia: CreateSocialMediaDTO): void {
+  static update(id: string, updatedSocialMedia: CreateSocialMediaDTO): void {
     const store = useSocialMediaStore();
     const index = store.socialMedia.findIndex((sm) => sm.id === id);
     if (index === -1) {
@@ -49,7 +50,7 @@ export class SocialMediaService {
     };
   }
 
-  static deleteSocialMedia(id: string): void {
+  static delete(id: string): void {
     const store = useSocialMediaStore();
     const index = store.socialMedia.findIndex((sm) => sm.id === id);
     if (index === -1) {

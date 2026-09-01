@@ -1,15 +1,19 @@
 <!-- Athina Cappelleti -->
-
 <script setup lang="ts">
+// external imports
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+// internal imports
+import { AuthService } from '@/services/AuthService';
 import type { LoginDTO } from '@/dtos/LoginDTO';
 
-import { AuthService } from '@/services/AuthService';
+import BaseButton from '@/components/common/BaseButton.vue';
 
+// variables
 const router = useRouter();
 
+// reactive variables
 const form = ref<LoginDTO>({
   email: '',
   password: '',
@@ -17,6 +21,7 @@ const form = ref<LoginDTO>({
 
 const errorMessage = ref('');
 
+// handlers
 const handleSubmit = () => {
   errorMessage.value = '';
 
@@ -26,10 +31,8 @@ const handleSubmit = () => {
 
   if (!user) {
     errorMessage.value = 'Email o contraseña incorrectos';
-
     return;
   }
-
   router.push({
     name: 'home',
   });

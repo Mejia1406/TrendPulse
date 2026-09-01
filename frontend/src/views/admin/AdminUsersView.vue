@@ -1,20 +1,27 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
+// external imports
 import { ref } from 'vue';
 
-import type { UserInterface } from '@/interfaces/UserInterface';
+// internal imports
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
-
-import BaseButton from '@/components/common/BaseButton.vue';
-import UserTable from '@/components/admin/user/UserTable.vue';
-import UserForm from '@/components/admin/user/UserForm.vue';
-
+import type { UserInterface } from '@/interfaces/UserInterface';
 import { UserService } from '@/services/UserService';
 
+import BaseButton from '@/components/common/BaseButton.vue';
+import UserForm from '@/components/admin/user/UserForm.vue';
+import UserTable from '@/components/admin/user/UserTable.vue';
+
+// variables
+const users = UserService.getAll();
+
+// reactive variables
 const isFormOpen = ref(false);
-const users = UserService.getUsers();
+
+// selectors
 const selectedUser = ref<UserInterface | null>(null);
 
+// handlers
 const handleCreate = () => {
   selectedUser.value = null;
   isFormOpen.value = true;
@@ -26,7 +33,7 @@ const handleEdit = (user: UserInterface) => {
 };
 
 const handleDelete = (user: UserInterface) => {
-  UserService.deleteUser(user.id);
+  UserService.delete(user.id);
 
   if (selectedUser.value?.id === user.id) {
     selectedUser.value = null;
@@ -36,9 +43,9 @@ const handleDelete = (user: UserInterface) => {
 
 const handleSubmit = (userData: CreateUserDTO) => {
   if (selectedUser.value) {
-    UserService.updateUser(selectedUser.value.id, userData);
+    UserService.update(selectedUser.value.id, userData);
   } else {
-    UserService.createUser(userData);
+    UserService.create(userData);
   }
 
   selectedUser.value = null;

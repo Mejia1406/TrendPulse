@@ -1,6 +1,8 @@
 // Athina Cappelleti
-
+// external imports
 import type { Router } from 'vue-router';
+
+// internal imports 
 import { useAuthStore } from '@/stores/AuthStore';
 
 export const configureRouterGuards = (router: Router) => {

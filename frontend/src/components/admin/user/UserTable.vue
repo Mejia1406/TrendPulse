@@ -1,16 +1,18 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
+// internal imports
 import type { UserInterface } from '@/interfaces/UserInterface';
 
+// props
 defineProps<{
   users: UserInterface[];
 }>();
 
+// emits
 const emit = defineEmits<{
 	(e: 'edit', user: UserInterface): void;
 	(e: 'delete', user: UserInterface): void;
 }>();
-
 </script>
 
 <template>

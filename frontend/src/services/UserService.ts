@@ -1,16 +1,16 @@
 // Samuel Moncada Mejía
+// internal imports
+import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import { useUserStore } from '@/stores/UserStore';
-import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 
 export class UserService {
 
-    static getUsers(): UserInterface[] {
-
+    static getAll(): UserInterface[] {
         return useUserStore().users;
     }
 
-    static createUser(user: CreateUserDTO): void {
+    static create(user: CreateUserDTO): void {
         const store = useUserStore();
         const nextId = store.users.length > 0 ? (Math.max(...store.users.map((existingUser) => parseInt(existingUser.id)), 0) + 1).toString() : '1';
         store.users.push({
@@ -21,17 +21,15 @@ export class UserService {
         });
     }
 
-    static updateUser(id: string, updateUser: CreateUserDTO): void {
+    static update(id: string, updateUser: CreateUserDTO): void {
         const store = useUserStore();
         const index = store.users.findIndex(user => user.id === id)
         if (index === -1) {
-
             return;
         }
 
         const existingUser = store.users[index];
         if (!existingUser) {
-
             return;
         }
 
@@ -42,14 +40,12 @@ export class UserService {
         }
     }
 
-    static deleteUser(id: string): void {
+    static delete(id: string): void {
         const store = useUserStore();
         const index = store.users.findIndex(user => user.id === id)
         if (index === -1) {
-
             return;
         }
-
         store.users.splice(index, 1);
     }
 }

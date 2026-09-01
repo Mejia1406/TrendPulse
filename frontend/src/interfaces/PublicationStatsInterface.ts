@@ -1,7 +1,5 @@
 // Samuel Moncada Mejía
-
-import type { TrendInterface } from '@/interfaces/TrendInterface';
-
+// main interface
 export interface PublicationStatsInterface {
   id: string;
   trendId: string;

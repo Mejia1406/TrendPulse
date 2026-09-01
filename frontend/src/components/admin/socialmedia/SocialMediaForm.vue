@@ -1,28 +1,43 @@
 <!-- Samuel Moncada Mejía -->
-
 <script setup lang="ts">
+//external imports
 import { computed, ref, watch } from 'vue';
 
+//internal imports
 import BaseButton from '@/components/common/BaseButton.vue';
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 
+// props
 const props = defineProps<{
   socialMedia: SocialMediaInterface | null;
 }>();
 
+// emits
+const emit = defineEmits<{
+  (
+    e: 'submit',
+    socialMedia: CreateSocialMediaDTO,
+  ): void;
+
+  (e: 'cancel'): void;
+}>();
+
+// reactive variables
 const form = ref<CreateSocialMediaDTO>({
   name: '',
   logo: '',
   color: '#000000',
 });
 
+// computed variables
 const title = computed(() =>
   props.socialMedia
     ? 'Editar red'
     : 'Nueva red',
 );
 
+// functions
 const resetForm = () => {
   form.value = {
     name: '',
@@ -31,6 +46,7 @@ const resetForm = () => {
   };
 };
 
+// watchers
 watch(
   () => props.socialMedia,
   (newSocialMedia) => {
@@ -51,15 +67,7 @@ watch(
   },
 );
 
-const emit = defineEmits<{
-  (
-    e: 'submit',
-    socialMedia: CreateSocialMediaDTO,
-  ): void;
-
-  (e: 'cancel'): void;
-}>();
-
+// handlers
 const handleSubmit = () => {
   emit('submit', {
     ...form.value,

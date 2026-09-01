@@ -1,16 +1,18 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
+// internal imports
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 
+// props
 defineProps<{
   socialMedias: SocialMediaInterface[];
 }>();
 
+// emits
 const emit = defineEmits<{
   (e: 'edit', socialMedia: SocialMediaInterface): void;
   (e: 'delete', socialMedia: SocialMediaInterface): void;
 }>();
-
 </script>
 
 <template>

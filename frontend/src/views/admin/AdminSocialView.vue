@@ -1,22 +1,30 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
+
+// external imports
 import { ref } from 'vue';
 
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+// internal imports
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
-
-import BaseButton from '@/components/common/BaseButton.vue';
-import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';
-import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
-
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import { SocialMediaService } from '@/services/SocialMediaService';
 
+import BaseButton from '@/components/common/BaseButton.vue';
+import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
+import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';
+
+
+
+//variables
+const socialMedias = SocialMediaService.getAll();
+
+// reactive variables
 const isFormOpen = ref(false);
 
-const socialMedias = SocialMediaService.getSocialMedia();
-
+// selectors
 const selectedSocialMedia = ref<SocialMediaInterface | null>(null);
 
+// handlers
 const handleCreate = () => {
   selectedSocialMedia.value = null;
   isFormOpen.value = true;
@@ -28,7 +36,7 @@ const handleEdit = (socialMedia: SocialMediaInterface) => {
 };
 
 const handleDelete = (socialMedia: SocialMediaInterface) => {
-  SocialMediaService.deleteSocialMedia(socialMedia.id);
+  SocialMediaService.delete(socialMedia.id);
 
   if (selectedSocialMedia.value?.id === socialMedia.id) {
     selectedSocialMedia.value = null;
@@ -38,12 +46,12 @@ const handleDelete = (socialMedia: SocialMediaInterface) => {
 
 const handleSubmit = (socialMediaData: CreateSocialMediaDTO) => {
   if (selectedSocialMedia.value) {
-    SocialMediaService.updateSocialMedia(
+    SocialMediaService.update(
       selectedSocialMedia.value.id,
       socialMediaData,
     );
   } else {
-    SocialMediaService.createSocialMedia(socialMediaData);
+    SocialMediaService.create(socialMediaData);
   }
 
   selectedSocialMedia.value = null;
