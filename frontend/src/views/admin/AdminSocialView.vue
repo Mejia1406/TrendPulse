@@ -1,22 +1,30 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
+
+// external imports
 import { ref } from 'vue';
 
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+// internal imports
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
-
-import BaseButton from '@/components/common/BaseButton.vue';
-import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';
-import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
-
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import { SocialMediaService } from '@/services/SocialMediaService';
 
-const isFormOpen = ref(false);
+import BaseButton from '@/components/common/BaseButton.vue';
+import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
+import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';
 
+
+
+//variables
 const socialMedias = SocialMediaService.getAll();
 
+// reactive variables
+const isFormOpen = ref(false);
+
+// selectors
 const selectedSocialMedia = ref<SocialMediaInterface | null>(null);
 
+// handlers
 const handleCreate = () => {
   selectedSocialMedia.value = null;
   isFormOpen.value = true;
