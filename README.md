@@ -113,7 +113,14 @@ frontend/
 - Node.js `^22.18.0 || >=24.12.0` (see `engines` in package.json)
 - npm (bundled with Node)
 
-### 1. Install dependencies
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Mejia1406/TrendPulse
+cd TrendPulse
+```
+
+### 2. Install dependencies
 
 Navigate to the `frontend` directory and install packages:
 
@@ -122,7 +129,7 @@ cd frontend
 npm install
 ```
 
-### 2. Run the dev server
+### 3. Run the dev server
 
 ```bash
 npm run dev
@@ -130,18 +137,17 @@ npm run dev
 
 The app will be served at the URL printed by Vite (typically `http://localhost:5173`).
 
-### 3. Build for production
+### 4. Build for production
 
 ```bash
 npm run build
 ```
 
-### 4. Preview the production build locally
+### 5. Preview the production build locally
 
 ```bash
 npm run preview
 ```
-
 ---
 
 ## Demo Accounts
