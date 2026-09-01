@@ -1,4 +1,4 @@
-# TrendPulse
+﻿# TrendPulse
 
 Social media trend analytics platform built with Vue 3, TypeScript, and Pinia. Track, analyze, and compare trending topics across major social networks from a unified dashboard.
 
