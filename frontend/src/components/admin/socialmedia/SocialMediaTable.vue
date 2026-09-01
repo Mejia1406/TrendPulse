@@ -17,29 +17,19 @@ const emit = defineEmits<{
 
 <template>
   <div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
-    <p class="mb-6 font-semibold text-white">
-      {{ socialMedias.length }} redes registradas
-    </p>
+    <p class="mb-6 font-semibold text-white">{{ socialMedias.length }} redes registradas</p>
 
     <div class="overflow-x-auto">
       <table class="w-full border-collapse">
         <thead>
           <tr class="border-b border-slate-800 text-left text-sm text-sky-300">
-            <th class="px-2 py-4 font-medium">
-              Nombre
-            </th>
+            <th class="px-2 py-4 font-medium">Nombre</th>
 
-            <th class="px-2 py-4 font-medium">
-              Logo
-            </th>
+            <th class="px-2 py-4 font-medium">Logo</th>
 
-            <th class="px-2 py-4 font-medium">
-              Color
-            </th>
+            <th class="px-2 py-4 font-medium">Color</th>
 
-            <th class="px-2 py-4 text-right font-medium">
-              Acciones
-            </th>
+            <th class="px-2 py-4 text-right font-medium">Acciones</th>
           </tr>
         </thead>
 
@@ -62,10 +52,7 @@ const emit = defineEmits<{
             </td>
 
             <td class="px-2 py-4">
-              <div
-                class="h-6 w-6 rounded"
-                :style="{ backgroundColor: socialMedia.color }"
-              ></div>
+              <div class="h-6 w-6 rounded" :style="{ backgroundColor: socialMedia.color }"></div>
             </td>
 
             <td class="px-2 py-4">

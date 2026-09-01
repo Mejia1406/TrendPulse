@@ -11,8 +11,7 @@ export class AuthService {
 
     const user = userStore.users.find(
       (existingUser) =>
-        existingUser.email === credentials.email &&
-        existingUser.password === credentials.password,
+        existingUser.email === credentials.email && existingUser.password === credentials.password,
     );
 
     if (!user) {

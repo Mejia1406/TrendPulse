@@ -15,10 +15,7 @@ const props = defineProps<{
 
 // emits
 const emit = defineEmits<{
-  (
-    e: 'submit',
-    socialMedia: CreateSocialMediaDTO,
-  ): void;
+  (e: 'submit', socialMedia: CreateSocialMediaDTO): void;
 
   (e: 'cancel'): void;
 }>();
@@ -31,11 +28,7 @@ const form = ref<CreateSocialMediaDTO>({
 });
 
 // computed variables
-const title = computed(() =>
-  props.socialMedia
-    ? 'Editar red'
-    : 'Nueva red',
-);
+const title = computed(() => (props.socialMedia ? 'Editar red' : 'Nueva red'));
 
 // functions
 const resetForm = () => {
@@ -78,9 +71,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <div
-    class="w-full max-w-lg rounded-2xl border border-slate-700 bg-slate-950 p-6 shadow-2xl"
-  >
+  <div class="w-full max-w-lg rounded-2xl border border-slate-700 bg-slate-950 p-6 shadow-2xl">
     <div class="mb-6 flex items-center justify-between">
       <h2 class="text-xl font-semibold text-white">
         {{ title }}
@@ -93,17 +84,9 @@ const handleSubmit = () => {
       ></button>
     </div>
 
-    <form
-      class="space-y-5"
-      @submit.prevent="handleSubmit"
-    >
+    <form class="space-y-5" @submit.prevent="handleSubmit">
       <div>
-        <label
-          for="name"
-          class="mb-2 block text-sm font-semibold text-slate-200"
-        >
-          Nombre
-        </label>
+        <label for="name" class="mb-2 block text-sm font-semibold text-slate-200"> Nombre </label>
 
         <input
           id="name"
@@ -116,10 +99,7 @@ const handleSubmit = () => {
       </div>
 
       <div>
-        <label
-          for="logo"
-          class="mb-2 block text-sm font-semibold text-slate-200"
-        >
+        <label for="logo" class="mb-2 block text-sm font-semibold text-slate-200">
           Logo (emoji o texto)
         </label>
 
@@ -134,16 +114,9 @@ const handleSubmit = () => {
       </div>
 
       <div>
-        <label
-          for="color"
-          class="mb-2 block text-sm font-semibold text-slate-200"
-        >
-          Color
-        </label>
+        <label for="color" class="mb-2 block text-sm font-semibold text-slate-200"> Color </label>
 
-        <div
-          class="rounded-xl border border-slate-700 bg-slate-950 p-3"
-        >
+        <div class="rounded-xl border border-slate-700 bg-slate-950 p-3">
           <input
             id="color"
             v-model="form.color"
@@ -158,9 +131,7 @@ const handleSubmit = () => {
           Cancelar
         </BaseButton>
 
-        <BaseButton type="submit">
-          Guardar
-        </BaseButton>
+        <BaseButton type="submit"> Guardar </BaseButton>
       </div>
     </form>
   </div>

@@ -1,14 +1,16 @@
 <!-- Sara Hurtado -->
 <script setup lang="ts">
-
 // internal imports
 import BaseButton from '@/components/common/BaseButton.vue';
+import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { TrendInterface } from '@/interfaces/TrendInterface';
 
 // props
 const props = defineProps<{
-  trend: any;
-  socialMedia: any;
-  latestStats: any;
+  trend: TrendInterface;
+  socialMedia?: SocialMediaInterface;
+  latestStats?: PublicationStatsInterface;
 }>();
 </script>
 
@@ -26,24 +28,13 @@ const props = defineProps<{
           </span>
 
           <span class="text-slate-400">
-            {{
-              props.socialMedia?.name ??
-              'Sin red social'
-            }}
+            {{ props.socialMedia?.name ?? 'Sin red social' }}
           </span>
 
-          <span class="text-slate-600">
-            •
-          </span>
+          <span class="text-slate-600"> • </span>
 
           <span class="text-slate-400">
-            {{
-              new Date(
-                props.trend.createdAt,
-              ).toLocaleDateString(
-                'es-CO',
-              )
-            }}
+            {{ new Date(props.trend.createdAt).toLocaleDateString('es-CO') }}
           </span>
         </div>
       </div>
@@ -53,9 +44,7 @@ const props = defineProps<{
         target="_blank"
         rel="noopener noreferrer"
       >
-        <BaseButton class="w-fit">
-          Ver publicación original
-        </BaseButton>
+        <BaseButton class="w-fit"> Ver publicación original </BaseButton>
       </a>
     </div>
   </section>

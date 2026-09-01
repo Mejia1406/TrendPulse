@@ -19,43 +19,32 @@ import BaseCard from '@/components/common/BaseCard.vue';
 import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 // register chart components
-ChartJS.register(
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-);
+ChartJS.register(Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 // props
 const props = defineProps<{
-  stats: any[];
+  stats: {
+    name: string;
+    likesCount: number;
+    viewsCount: number;
+  }[];
 }>();
 
 // chart data configuration
 const chartData = computed<ChartData<'bar'>>(() => ({
-  labels: props.stats.map(
-    (trendSocialMediaStats) =>
-      trendSocialMediaStats.name,
-  ),
+  labels: props.stats.map((trendSocialMediaStats) => trendSocialMediaStats.name),
 
   datasets: [
     {
       label: 'Likes',
-      data: props.stats.map(
-        (trendSocialMediaStats) =>
-          trendSocialMediaStats.likesCount,
-      ),
+      data: props.stats.map((trendSocialMediaStats) => trendSocialMediaStats.likesCount),
       backgroundColor: '#14b8a6',
       borderRadius: 5,
     },
 
     {
       label: 'Vistas',
-      data: props.stats.map(
-        (trendSocialMediaStats) =>
-          trendSocialMediaStats.viewsCount,
-      ),
+      data: props.stats.map((trendSocialMediaStats) => trendSocialMediaStats.viewsCount),
       backgroundColor: '#f97316',
       borderRadius: 5,
     },
@@ -79,11 +68,7 @@ const chartOptions: ChartOptions<'bar'> = {
     tooltip: {
       callbacks: {
         label: (context) => {
-          return `${context.dataset.label}: ${
-            FormatNumber.format(
-              Number(context.raw),
-            )
-          }`;
+          return `${context.dataset.label}: ${FormatNumber.format(Number(context.raw))}`;
         },
       },
     },
@@ -105,9 +90,7 @@ const chartOptions: ChartOptions<'bar'> = {
       ticks: {
         color: '#94a3b8',
         callback: (value) => {
-          return FormatNumber.format(
-            Number(value),
-          );
+          return FormatNumber.format(Number(value));
         },
       },
 
@@ -121,15 +104,10 @@ const chartOptions: ChartOptions<'bar'> = {
 
 <template>
   <BaseCard class="lg:col-span-2">
-    <h2 class="mb-6 text-xl font-semibold">
-      Tendencias por red social
-    </h2>
+    <h2 class="mb-6 text-xl font-semibold">Tendencias por red social</h2>
 
     <div class="h-87.5">
-      <Bar
-        :data="chartData"
-        :options="chartOptions"
-      />
+      <Bar :data="chartData" :options="chartOptions" />
     </div>
   </BaseCard>
 </template>

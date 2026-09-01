@@ -1,6 +1,5 @@
 <!-- Athina Cappelleti -->
 <script setup lang="ts">
-
 // external imports
 import { computed, ref } from 'vue';
 
@@ -25,41 +24,22 @@ const trends = computed(() => {
 
 const selectorSocialMedias = computed(() => [
   'Todas',
-  ...SocialMediaService
-    .getAll()
-    .map(
-      (socialMedia) =>
-        socialMedia.name,
-    ),
+  ...SocialMediaService.getAll().map((socialMedia) => socialMedia.name),
 ]);
 
-
 // functions
-const getLatestViews = (
-  trendId: string,
-) => {
-  const trend = trends.value.find(
-    (currentTrend) =>
-      currentTrend.id === trendId,
-  );
+const getLatestViews = (trendId: string) => {
+  const trend = trends.value.find((currentTrend) => currentTrend.id === trendId);
 
   if (!trend) {
     return 0;
   }
 
-  return PublicationStatsService.getLatestViews(
-    trend.id,
-  );
+  return PublicationStatsService.getLatestViews(trend.id);
 };
 
-const getSocialMediaName = (
-  socialMediaId: string,
-) => {
-  return (
-    SocialMediaService.getById(
-      socialMediaId,
-    )?.name ?? 'Sin red social'
-  );
+const getSocialMediaName = (socialMediaId: string) => {
+  return SocialMediaService.getById(socialMediaId)?.name ?? 'Sin red social';
 };
 </script>
 
@@ -67,19 +47,13 @@ const getSocialMediaName = (
   <main class="min-h-screen bg-slate-950 text-white">
     <div class="mx-auto max-w-7xl px-4 py-8">
       <BaseCard class="mt-2">
-        <h1 class="text-4xl font-bold">
-          Tendencias
-        </h1>
+        <h1 class="text-4xl font-bold">Tendencias</h1>
 
-        <p class="mt-1 text-sm text-slate-400">
-          Filtra y analiza la evolución de tendencias.
-        </p>
+        <p class="mt-1 text-sm text-slate-400">Filtra y analiza la evolución de tendencias.</p>
 
         <div class="mt-6 max-w-md">
           <label class="block">
-            <span class="mb-2 block text-sm text-slate-300">
-              Red social
-            </span>
+            <span class="mb-2 block text-sm text-slate-300"> Red social </span>
 
             <select
               v-model="selectedSocialMedia"
@@ -97,9 +71,7 @@ const getSocialMediaName = (
         </div>
       </BaseCard>
 
-      <TrendEvolutionChart
-        :trends="trends"
-      />
+      <TrendEvolutionChart :trends="trends" />
       <TrendTable
         :trends="trends"
         :get-latest-views="getLatestViews"

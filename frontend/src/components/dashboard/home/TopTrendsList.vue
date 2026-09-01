@@ -1,6 +1,5 @@
 <!-- Sara Hurtado -->
 <script setup lang="ts">
-
 // external imports
 import { RouterLink } from 'vue-router';
 
@@ -10,24 +9,23 @@ import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 // props
 const props = defineProps<{
-  trends: any[];
+  trends: {
+    id: string;
+    name: string;
+    socialMediaName: string;
+    latestViews: number;
+  }[];
 }>();
 </script>
 
 <template>
   <BaseCard>
-    <h2 class="mb-6 text-xl font-semibold">
-      Top 5 tendencias
-    </h2>
+    <h2 class="mb-6 text-xl font-semibold">Top 5 tendencias</h2>
 
     <div class="flex justify-between border-b border-slate-800 pb-3">
-      <span class="text-sm text-slate-400">
-        Nombre
-      </span>
+      <span class="text-sm text-slate-400"> Nombre </span>
 
-      <span class="text-sm text-slate-400">
-        Vistas
-      </span>
+      <span class="text-sm text-slate-400"> Vistas </span>
     </div>
 
     <div>
@@ -42,7 +40,6 @@ const props = defineProps<{
             class="font-semibold text-white transition hover:text-teal-400"
           >
             {{ trend.name }}
-
           </RouterLink>
           <p class="mt-1 text-sm text-slate-400">
             {{ trend.socialMediaName }}
@@ -50,11 +47,7 @@ const props = defineProps<{
         </div>
 
         <p class="font-medium text-teal-400">
-          {{
-            FormatNumber.format(
-              trend.latestViews,
-            )
-          }}
+          {{ FormatNumber.format(trend.latestViews) }}
         </p>
       </div>
     </div>

@@ -43,7 +43,6 @@ const selectRole = (value: string) => {
   isRoleOpen.value = false;
 };
 
-
 // functions
 const resetForm = () => {
   form.value = {
@@ -187,9 +186,7 @@ const handleSubmit = () => {
           Cancelar
         </BaseButton>
 
-        <BaseButton type="submit">
-          Guardar
-        </BaseButton>
+        <BaseButton type="submit"> Guardar </BaseButton>
       </div>
     </form>
   </div>

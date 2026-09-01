@@ -10,36 +10,26 @@ defineProps<{
 
 // emits
 const emit = defineEmits<{
-	(e: 'edit', user: UserInterface): void;
-	(e: 'delete', user: UserInterface): void;
+  (e: 'edit', user: UserInterface): void;
+  (e: 'delete', user: UserInterface): void;
 }>();
 </script>
 
 <template>
-	<div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
-	<p class="mb-6 font-semibold text-white">
-    {{ users.length }} usuarios registrados
-  </p>
+  <div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+    <p class="mb-6 font-semibold text-white">{{ users.length }} usuarios registrados</p>
 
-	<div class="overflow-x-auto">
+    <div class="overflow-x-auto">
       <table class="w-full border-collapse">
         <thead>
           <tr class="border-b border-slate-800 text-left text-user text-sky-300">
-            <th class="px-2 py-4 font-medium">
-              Nombre
-            </th>
+            <th class="px-2 py-4 font-medium">Nombre</th>
 
-            <th class="px-2 py-4 font-medium">
-              Email
-            </th>
+            <th class="px-2 py-4 font-medium">Email</th>
 
-            <th class="px-2 py-4 font-medium">
-              Rol
-            </th>
+            <th class="px-2 py-4 font-medium">Rol</th>
 
-            <th class="px-2 py-4 text-right font-medium">
-              Acciones
-            </th>
+            <th class="px-2 py-4 text-right font-medium">Acciones</th>
           </tr>
         </thead>
 
@@ -84,5 +74,5 @@ const emit = defineEmits<{
         </tbody>
       </table>
     </div>
-	</div>
+  </div>
 </template>

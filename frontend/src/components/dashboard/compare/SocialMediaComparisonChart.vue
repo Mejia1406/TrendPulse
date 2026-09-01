@@ -1,7 +1,6 @@
 <!-- Samuel Moncada, Sara Hurtado -->
 
 <script setup lang="ts">
-
 // external imports
 import { Bar } from 'vue-chartjs';
 import { computed, onActivated, onMounted, ref } from 'vue';
@@ -21,17 +20,16 @@ import BaseCard from '@/components/common/BaseCard.vue';
 import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 // register chart components
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  Legend,
-  LinearScale,
-  Tooltip,
-);
+ChartJS.register(BarElement, CategoryScale, Legend, LinearScale, Tooltip);
 
 // props
 const props = defineProps<{
-  comparisonRows: any[];
+  comparisonRows: {
+    name: string;
+    likesCount: number;
+    commentsCount: number;
+    sharesCount: number;
+  }[];
 }>();
 
 // reactive variables
@@ -48,33 +46,25 @@ onActivated(() => {
 
 // chart data configuration
 const chartData = computed<ChartData<'bar'>>(() => ({
-  labels: props.comparisonRows.map(
-    (socialMedia) => socialMedia.name,
-  ),
+  labels: props.comparisonRows.map((socialMedia) => socialMedia.name),
   datasets: [
     {
       label: 'Likes',
-      data: props.comparisonRows.map(
-        (socialMedia) => socialMedia.likesCount,
-      ),
+      data: props.comparisonRows.map((socialMedia) => socialMedia.likesCount),
       backgroundColor: '#14b8a6',
       borderRadius: 5,
     },
 
     {
       label: 'Comentarios',
-      data: props.comparisonRows.map(
-        (socialMedia) => socialMedia.commentsCount,
-      ),
+      data: props.comparisonRows.map((socialMedia) => socialMedia.commentsCount),
       backgroundColor: '#f97316',
       borderRadius: 5,
     },
 
     {
       label: 'Compartidos',
-      data: props.comparisonRows.map(
-        (socialMedia) => socialMedia.sharesCount,
-      ),
+      data: props.comparisonRows.map((socialMedia) => socialMedia.sharesCount),
       backgroundColor: '#c84fd2',
       borderRadius: 5,
     },
@@ -122,9 +112,7 @@ const chartOptions: ChartOptions<'bar'> = {
       ticks: {
         color: '#7dd3fc',
         callback: (value) => {
-          return FormatNumber.format(
-            Number(value),
-          );
+          return FormatNumber.format(Number(value));
         },
       },
       grid: {
@@ -137,24 +125,12 @@ const chartOptions: ChartOptions<'bar'> = {
 
 <template>
   <BaseCard>
-    <h2 class="mb-6 text-lg font-semibold">
-      Likes vs. comentarios vs. compartidos
-    </h2>
-    <div
-    v-if="comparisonRows.length > 0"
-    class="h-97.5"
-    >
-      <Bar
-        :key="chartKey"
-        :data="chartData"
-        :options="chartOptions"
-      />
+    <h2 class="mb-6 text-lg font-semibold">Likes vs. comentarios vs. compartidos</h2>
+    <div v-if="comparisonRows.length > 0" class="h-97.5">
+      <Bar :key="chartKey" :data="chartData" :options="chartOptions" />
     </div>
 
-    <div
-      v-else
-      class="grid h-97.5 place-items-center text-slate-400"
-    >
+    <div v-else class="grid h-97.5 place-items-center text-slate-400">
       Selecciona al menos una red social.
     </div>
   </BaseCard>

@@ -7,8 +7,7 @@ import { ref } from 'vue';
 import type { UserInterface } from '@/interfaces/UserInterface';
 
 export const useUserStore = defineStore('user', () => {
-    const users = ref<UserInterface[]>([]);
+  const users = ref<UserInterface[]>([]);
 
-    return { users };
-
+  return { users };
 });

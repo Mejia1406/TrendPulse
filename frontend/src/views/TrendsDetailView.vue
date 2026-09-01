@@ -1,6 +1,5 @@
 <!-- Sara Hurtado -->
 <script setup lang="ts">
-
 // external imports
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -15,11 +14,7 @@ import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';
 
 // types
-type Stats =
-  | 'viewsCount'
-  | 'likesCount'
-  | 'commentsCount'
-  | 'sharesCount';
+type Stats = 'viewsCount' | 'likesCount' | 'commentsCount' | 'sharesCount';
 
 // variables
 const route = useRoute();
@@ -52,39 +47,30 @@ const selectorStats: {
 
 // computed variables
 const trend = computed(() => {
-  return TrendService.getById(
-    String(route.params.id),
-  );
+  return TrendService.getById(String(route.params.id));
 });
 
 const socialMedia = computed(() => {
   if (!trend.value) {
     return undefined;
   }
-  return SocialMediaService.getById(
-    trend.value.socialMediaId,
-  );
+  return SocialMediaService.getById(trend.value.socialMediaId);
 });
 
 const publicationStats = computed(() => {
   if (!trend.value) {
     return [];
   }
-  return PublicationStatsService.getByTrendId(
-    trend.value.id,
-  );
+  return PublicationStatsService.getByTrendId(trend.value.id);
 });
 
 const latestStats = computed(() => {
   if (!trend.value) {
     return undefined;
   }
-  return PublicationStatsService.getLatest(
-    trend.value.id,
-  );
+  return PublicationStatsService.getLatest(trend.value.id);
 });
 </script>
-
 
 <template>
   <main class="min-h-screen bg-slate-950 text-white">
@@ -100,24 +86,14 @@ const latestStats = computed(() => {
         v-if="!trend"
         class="mt-8 rounded-2xl border border-slate-800 bg-slate-900/90 p-8 text-center"
       >
-        <h1 class="text-2xl font-bold">
-          Tendencia no encontrada
-        </h1>
+        <h1 class="text-2xl font-bold">Tendencia no encontrada</h1>
 
-        <p class="mt-2 text-slate-400">
-          La tendencia solicitada no existe.
-        </p>
+        <p class="mt-2 text-slate-400">La tendencia solicitada no existe.</p>
       </div>
 
       <template v-else>
-        <TrendHeader
-          :trend="trend"
-          :social-media="socialMedia"
-          :latest-stats="latestStats"
-        />
-        <TrendStatsCards
-          :latest-stats="latestStats"
-        />
+        <TrendHeader :trend="trend" :social-media="socialMedia" :latest-stats="latestStats" />
+        <TrendStatsCards :latest-stats="latestStats" />
         <TrendHistoryChart
           :publication-stats="publicationStats"
           :selected-stats="selectedStats"

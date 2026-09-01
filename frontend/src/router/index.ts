@@ -12,7 +12,6 @@ import LoginView from '@/views/LoginView.vue';
 import TrendView from '@/views/TrendView.vue';
 import TrendsDetailView from '@/views/TrendsDetailView.vue';
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

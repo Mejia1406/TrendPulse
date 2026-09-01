@@ -37,13 +37,13 @@ export class TrendService {
       return socialMedia?.name === filters.socialMedia;
     });
   }
-  
 
   static getTopTrendsByViews(trends: TrendInterface[], limit = 5): TrendInterface[] {
     return [...trends]
       .sort(
         (firstTrend, secondTrend) =>
-          PublicationStatsService.getLatestViews(secondTrend.id) - PublicationStatsService.getLatestViews(firstTrend.id),
+          PublicationStatsService.getLatestViews(secondTrend.id) -
+          PublicationStatsService.getLatestViews(firstTrend.id),
       )
       .slice(0, limit);
   }

@@ -2,7 +2,7 @@
 // external imports
 import type { Router } from 'vue-router';
 
-// internal imports 
+// internal imports
 import { useAuthStore } from '@/stores/AuthStore';
 
 export const configureRouterGuards = (router: Router) => {
@@ -21,10 +21,7 @@ export const configureRouterGuards = (router: Router) => {
       return { name: 'login' };
     }
 
-    if (
-      to.meta.requiresAdmin &&
-      authStore.currentUser?.role !== 'admin'
-    ) {
+    if (to.meta.requiresAdmin && authStore.currentUser?.role !== 'admin') {
       return { name: 'home' };
     }
 

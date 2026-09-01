@@ -59,40 +59,26 @@ const handleCancel = () => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-slate-950 p-8 text-white">
+  <div class="min-h-screen bg-slate-950 p-8 text-white">
     <div class="mx-auto max-w-7xl">
       <div class="mb-8 flex items-center justify-between">
         <div>
-          <p class="mb-1 text-sm font-semibold text-orange-500">
-            Administración
-          </p>
+          <p class="mb-1 text-sm font-semibold text-orange-500">Administración</p>
 
-          <h1 class="text-3xl font-bold">
-            Usuarios
-          </h1>
+          <h1 class="text-3xl font-bold">Usuarios</h1>
         </div>
 
-        <BaseButton type="button" @click="handleCreate">
-          + Crear usuario
-        </BaseButton>
+        <BaseButton type="button" @click="handleCreate"> + Crear usuario </BaseButton>
       </div>
 
-      <UserTable
-        :users="users"
-        @edit="handleEdit"  
-        @delete="handleDelete"
-      />
+      <UserTable :users="users" @edit="handleEdit" @delete="handleDelete" />
     </div>
 
     <div
       v-if="isFormOpen"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
     >
-      <UserForm
-        :user="selectedUser"
-        @submit="handleSubmit"
-        @cancel="handleCancel"
-      />
+      <UserForm :user="selectedUser" @submit="handleSubmit" @cancel="handleCancel" />
     </div>
   </div>
 </template>

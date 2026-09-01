@@ -15,7 +15,6 @@ export default class PiniaConfig {
     if (savedState) {
       pinia.state.value = JSON.parse(savedState);
     } else {
-
       pinia.state.value = {
         socialMedia: {
           socialMedia: socialMediaSeeder,

@@ -1,4 +1,4 @@
-//Sara Hurtado 
+//Sara Hurtado
 // internal imports
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 

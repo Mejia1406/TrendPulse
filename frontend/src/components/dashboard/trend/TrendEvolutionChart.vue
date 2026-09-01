@@ -1,6 +1,5 @@
 <!-- Athina Cappelleti -->
 <script setup lang="ts">
-
 // external imports
 import { computed } from 'vue';
 
@@ -12,7 +11,7 @@ import { TrendService } from '@/services/TrendService';
 
 // props
 const props = defineProps<{
-  trends: any[];
+  trends: TrendInterface[];
 }>();
 
 // chart series configuration
@@ -20,41 +19,23 @@ const chartSeries = computed(() => {
   const socialMedias = [
     ...new Map(
       props.trends
-        .map((trend) =>
-          TrendService.getSocialMedia(trend),
-        )
-        .filter(
-          (socialMedia) =>
-            socialMedia !== undefined,
-        )
-        .map((socialMedia) => [
-          socialMedia.id,
-          socialMedia,
-        ]),
+        .map((trend) => TrendService.getSocialMedia(trend))
+        .filter((socialMedia) => socialMedia !== undefined)
+        .map((socialMedia) => [socialMedia.id, socialMedia]),
     ).values(),
   ];
 
-  return socialMedias.map(
-    (socialMedia) => ({
-      name: socialMedia.name,
-      data: props.trends
-        .filter(
-          (trend) =>
-            trend.socialMediaId ===
-            socialMedia.id,
-        )
-        .flatMap((trend) =>
-          TrendService
-            .getPublicationStats(trend)
-            .map(
-              (publicationStats) => ({
-                x: publicationStats.captureAt,
-                y: publicationStats.viewsCount,
-              }),
-            ),
-        ),
-    }),
-  );
+  return socialMedias.map((socialMedia) => ({
+    name: socialMedia.name,
+    data: props.trends
+      .filter((trend) => trend.socialMediaId === socialMedia.id)
+      .flatMap((trend) =>
+        TrendService.getPublicationStats(trend).map((publicationStats) => ({
+          x: publicationStats.captureAt,
+          y: publicationStats.viewsCount,
+        })),
+      ),
+  }));
 });
 
 // chart colors configuration
@@ -62,24 +43,13 @@ const chartColors = computed(() => {
   const socialMedias = [
     ...new Map(
       props.trends
-        .map((trend) =>
-          TrendService.getSocialMedia(trend),
-        )
-        .filter(
-          (socialMedia) =>
-            socialMedia !== undefined,
-        )
-        .map((socialMedia) => [
-          socialMedia.id,
-          socialMedia,
-        ]),
+        .map((trend) => TrendService.getSocialMedia(trend))
+        .filter((socialMedia) => socialMedia !== undefined)
+        .map((socialMedia) => [socialMedia.id, socialMedia]),
     ).values(),
   ];
 
-  return socialMedias.map(
-    (socialMedia) =>
-      socialMedia.color,
-  );
+  return socialMedias.map((socialMedia) => socialMedia.color);
 });
 
 // chart options configuration
@@ -153,8 +123,7 @@ const chartOptions = computed(() => ({
 
   yaxis: {
     labels: {
-      formatter: (value: number) =>
-      FormatNumber.format(value),
+      formatter: (value: number) => FormatNumber.format(value),
       style: {
         colors: '#94a3b8',
       },
@@ -167,26 +136,16 @@ const chartOptions = computed(() => ({
       format: 'dd MMM yyyy',
     },
     y: {
-      formatter: (value: number) =>
-        FormatNumber.format(value) + ' vistas',
+      formatter: (value: number) => FormatNumber.format(value) + ' vistas',
     },
   },
-
 }));
 </script>
 
 <template>
   <BaseCard class="mt-8">
-    <h2 class="mb-4 text-2xl font-bold">
-      Evolución de tendencias
-    </h2>
+    <h2 class="mb-4 text-2xl font-bold">Evolución de tendencias</h2>
 
-    <apexchart
-      type="area"
-      height="350"
-      :options="chartOptions"
-      :series="chartSeries"
-    />
-
+    <apexchart type="area" height="350" :options="chartOptions" :series="chartSeries" />
   </BaseCard>
 </template>

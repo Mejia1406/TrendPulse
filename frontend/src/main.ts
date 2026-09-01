@@ -4,7 +4,6 @@ import { createApp } from 'vue';
 import PiniaConfig from './PiniaConfig';
 import VueApexCharts from 'vue3-apexcharts';
 
-
 import App from './App.vue';
 import router from './router';
 

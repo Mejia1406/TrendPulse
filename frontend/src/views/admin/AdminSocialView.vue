@@ -1,6 +1,5 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
-
 // external imports
 import { ref } from 'vue';
 
@@ -12,8 +11,6 @@ import { SocialMediaService } from '@/services/SocialMediaService';
 import BaseButton from '@/components/common/BaseButton.vue';
 import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
 import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';
-
-
 
 //variables
 const socialMedias = SocialMediaService.getAll();
@@ -46,10 +43,7 @@ const handleDelete = (socialMedia: SocialMediaInterface) => {
 
 const handleSubmit = (socialMediaData: CreateSocialMediaDTO) => {
   if (selectedSocialMedia.value) {
-    SocialMediaService.update(
-      selectedSocialMedia.value.id,
-      socialMediaData,
-    );
+    SocialMediaService.update(selectedSocialMedia.value.id, socialMediaData);
   } else {
     SocialMediaService.create(socialMediaData);
   }
@@ -69,25 +63,15 @@ const handleCancel = () => {
     <div class="mx-auto max-w-7xl">
       <div class="mb-8 flex items-center justify-between">
         <div>
-          <p class="mb-1 text-sm font-semibold text-orange-500">
-            Administración
-          </p>
+          <p class="mb-1 text-sm font-semibold text-orange-500">Administración</p>
 
-          <h1 class="text-3xl font-bold">
-            Redes sociales
-          </h1>
+          <h1 class="text-3xl font-bold">Redes sociales</h1>
         </div>
 
-        <BaseButton type="button" @click="handleCreate">
-          + Crear nueva red
-        </BaseButton>
+        <BaseButton type="button" @click="handleCreate"> + Crear nueva red </BaseButton>
       </div>
 
-      <SocialMediaTable
-        :socialMedias="socialMedias"
-        @edit="handleEdit"
-        @delete="handleDelete"
-      />
+      <SocialMediaTable :socialMedias="socialMedias" @edit="handleEdit" @delete="handleDelete" />
     </div>
 
     <div

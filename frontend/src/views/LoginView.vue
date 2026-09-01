@@ -95,9 +95,7 @@ const handleSubmit = () => {
             {{ errorMessage }}
           </div>
 
-          <BaseButton type="submit" class="w-full">
-            Ingresar
-          </BaseButton>
+          <BaseButton type="submit" class="w-full"> Ingresar </BaseButton>
         </form>
 
         <div
