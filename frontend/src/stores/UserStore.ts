@@ -1,4 +1,5 @@
 // Samuel Moncada Mejía
+
 // external imports
 import { defineStore } from 'pinia';
 import { ref } from 'vue';

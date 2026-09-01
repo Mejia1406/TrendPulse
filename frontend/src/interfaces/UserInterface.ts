@@ -1,4 +1,5 @@
-// Samuel Moncada Mejía
+// Samuel Moncada
+
 //main interface
 export interface UserInterface {
   id: string;

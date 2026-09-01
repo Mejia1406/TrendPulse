@@ -1,4 +1,5 @@
 // Sara Hurtado
+
 // internal imports
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
@@ -34,6 +35,7 @@ export class TrendService {
       }
 
       const socialMedia = TrendService.getSocialMedia(trend);
+      
       return socialMedia?.name === filters.socialMedia;
     });
   }

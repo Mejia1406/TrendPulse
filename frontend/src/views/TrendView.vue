@@ -7,7 +7,6 @@ import { computed, ref } from 'vue';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';
-
 import BaseCard from '@/components/common/BaseCard.vue';
 import TrendEvolutionChart from '@/components/dashboard/trend/TrendEvolutionChart.vue';
 import TrendTable from '@/components/dashboard/trend/TrendTable.vue';

@@ -1,5 +1,4 @@
 <!-- Samuel Moncada -->
-
 <script setup lang="ts">
 // external imports
 import { computed, ref } from 'vue';

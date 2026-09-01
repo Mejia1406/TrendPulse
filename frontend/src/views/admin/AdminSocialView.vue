@@ -7,7 +7,6 @@ import { ref } from 'vue';
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import { SocialMediaService } from '@/services/SocialMediaService';
-
 import BaseButton from '@/components/common/BaseButton.vue';
 import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
 import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';

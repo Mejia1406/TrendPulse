@@ -1,5 +1,4 @@
 <!-- Samuel Moncada, Sara Hurtado -->
-
 <script setup lang="ts">
 // external imports
 import { Bar } from 'vue-chartjs';

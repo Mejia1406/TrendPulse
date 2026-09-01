@@ -1,4 +1,5 @@
 // Athina Cappelleti, Samuel Moncada, Sara Hurtado
+
 // external imports
 import { createRouter, createWebHistory } from 'vue-router';
 

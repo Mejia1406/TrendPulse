@@ -1,4 +1,4 @@
-<!-- Samuel Moncada Mejía -->
+<!-- Samuel Moncada -->
 <script setup lang="ts">
 // external imports
 import { computed, ref, watch } from 'vue';

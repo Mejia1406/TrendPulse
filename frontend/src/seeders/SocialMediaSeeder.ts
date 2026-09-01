@@ -1,4 +1,5 @@
 // Samuel Moncada Mejía
+
 // internal imports
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 
@@ -22,7 +23,7 @@ export const socialMediaSeeder: SocialMediaInterface[] = [
   {
     id: '3',
     name: 'TikTok',
-    logo: 'logo-tiktok',
+    logo: 'https://cdn.simpleicons.org/tiktok',
     color: '#00F2FE',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -30,7 +31,7 @@ export const socialMediaSeeder: SocialMediaInterface[] = [
   {
     id: '4',
     name: 'YouTube',
-    logo: 'logo-youtube',
+    logo: 'https://cdn.simpleicons.org/youtube',
     color: '#FF0000',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),

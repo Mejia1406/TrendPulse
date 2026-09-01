@@ -1,4 +1,5 @@
 // Sara Hurtado
+
 // internal imports
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 import { usePublicationStatsStore } from '@/stores/PublicationStatsStore';
@@ -9,6 +10,7 @@ export class PublicationStatsService {
       (publicationStats) => publicationStats.trendId === trendId,
     );
   }
+  
   static getLatest(trendId: string): PublicationStatsInterface | undefined {
     const publicationStats = PublicationStatsService.getByTrendId(trendId);
 

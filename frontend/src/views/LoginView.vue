@@ -7,7 +7,6 @@ import { useRouter } from 'vue-router';
 // internal imports
 import { AuthService } from '@/services/AuthService';
 import type { LoginDTO } from '@/dtos/LoginDTO';
-
 import BaseButton from '@/components/common/BaseButton.vue';
 
 // variables

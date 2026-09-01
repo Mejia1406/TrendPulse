@@ -1,4 +1,5 @@
 // Athina Cappelletti
+
 // internal imports
 import type { LoginDTO } from '@/dtos/LoginDTO';
 import { useAuthStore } from '@/stores/AuthStore';

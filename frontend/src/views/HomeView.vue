@@ -7,7 +7,6 @@ import { computed } from 'vue';
 import SocialMediaStatsCards from '@/components/dashboard/home/SocialMediaStatsCards.vue';
 import TrendsBySocialMediaChart from '@/components/dashboard/home/TrendsBySocialMediaChart.vue';
 import TopTrendsList from '@/components/dashboard/home/TopTrendsList.vue';
-
 import { TrendService } from '@/services/TrendService';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 

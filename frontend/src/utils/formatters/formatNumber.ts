@@ -11,6 +11,7 @@ export class FormatNumber {
     if (value >= 1_000) {
       return `${(value / 1_000).toFixed(1)}K`;
     }
+    
     return value.toString();
   }
 

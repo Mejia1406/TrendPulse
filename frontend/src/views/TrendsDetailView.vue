@@ -8,7 +8,6 @@ import { useRoute } from 'vue-router';
 import TrendHeader from '@/components/dashboard/trendsDetail/TrendHeader.vue';
 import TrendHistoryChart from '@/components/dashboard/trendsDetail/TrendHistoryChart.vue';
 import TrendStatsCards from '@/components/dashboard/trendsDetail/TrendStatsCards.vue';
-
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';

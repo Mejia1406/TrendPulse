@@ -16,7 +16,6 @@ const props = defineProps<{
 // emits
 const emit = defineEmits<{
   (e: 'submit', socialMedia: CreateSocialMediaDTO): void;
-
   (e: 'cancel'): void;
 }>();
 

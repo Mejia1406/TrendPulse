@@ -1,4 +1,5 @@
-// Samuel Moncada Mejía
+// Samuel Moncada 
+
 // internal imports
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';

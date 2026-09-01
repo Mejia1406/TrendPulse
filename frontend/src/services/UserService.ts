@@ -1,4 +1,5 @@
-// Samuel Moncada Mejía
+// Samuel Moncada
+
 // internal imports
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import type { UserInterface } from '@/interfaces/UserInterface';

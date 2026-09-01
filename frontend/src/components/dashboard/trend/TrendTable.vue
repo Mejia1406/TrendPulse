@@ -1,5 +1,4 @@
 <!-- Athina Cappelleti -->
-
 <script setup lang="ts">
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
