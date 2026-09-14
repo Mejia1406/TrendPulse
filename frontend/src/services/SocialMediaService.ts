@@ -3,6 +3,7 @@
 // internal imports
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { UpdateSocialMediaDTO } from '@/dtos/UpdateSocialMediaDTO';
 import { useSocialMediaStore } from '@/stores/SocialMediaStore';
 
 export class SocialMediaService {
@@ -33,7 +34,7 @@ export class SocialMediaService {
     });
   }
 
-  static update(id: string, updatedSocialMedia: CreateSocialMediaDTO): void {
+  static update(id: string, updatedSocialMedia: UpdateSocialMediaDTO): void {
     const store = useSocialMediaStore();
     const index = store.socialMedia.findIndex((sm) => sm.id === id);
     if (index === -1) {
