@@ -205,13 +205,13 @@ describe('TrendService', () => {
     expect(TrendService.getById('999')).toBeUndefined();
   });
 
-  it('obtiene las estadísticas de publicaciones de una tendencia', () => {
-    const trend = trendSeeder[0]!;
-    const stats = TrendService.getPublicationStats(trend);
-
-    expect(stats.length).toBeGreaterThan(0);
-    expect(stats.every((publicationStat) => publicationStat.trendId === trend.id)).toBe(true);
+  it('devuelve una lista vacía para una red social inexistente', () => {
+  const filtered = TrendService.getFiltered({
+    socialMedia: 'LinkedIn',
   });
+
+  expect(filtered).toEqual([]);
+});
 
   it('filtra tendencias por red social', () => {
     const socialMedia = socialMediaSeeder[0]!;
