@@ -9,6 +9,7 @@ import TrendsBySocialMediaChart from '@/components/dashboard/home/TrendsBySocial
 import TopTrendsList from '@/components/dashboard/home/TopTrendsList.vue';
 import { TrendService } from '@/services/TrendService';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
+import { SocialMediaService } from '@/services/SocialMediaService';
 
 // variables
 const trends = TrendService.getAll();
@@ -19,7 +20,8 @@ const topTrendsByViews = computed(() => {
     return {
       ...trend,
       latestViews: PublicationStatsService.getLatestViews(trend.id),
-      socialMediaName: TrendService.getSocialMedia(trend)?.name ?? 'Sin red social',
+      socialMediaName:
+        SocialMediaService.getById(trend.socialMediaId)?.name ?? 'Sin red social',
     };
   });
 });
@@ -37,12 +39,16 @@ const trendStatsBySocialMedia = computed(() => {
 
         <h1 class="text-4xl font-bold">Pulso de tendencias</h1>
 
-        <p class="mt-2 text-slate-400">Lo que está moviéndose ahora mismo en tus redes.</p>
+        <p class="mt-2 text-slate-400">
+          Lo que está moviéndose ahora mismo en tus redes.
+        </p>
       </div>
+
       <SocialMediaStatsCards :stats="trendStatsBySocialMedia" />
 
       <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <TrendsBySocialMediaChart :stats="trendStatsBySocialMedia" />
+
         <TopTrendsList :trends="topTrendsByViews" />
       </section>
     </div>

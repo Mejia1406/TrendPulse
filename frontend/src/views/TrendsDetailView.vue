@@ -63,11 +63,11 @@ const publicationStats = computed(() => {
   return PublicationStatsService.getByTrendId(trend.value.id);
 });
 
-const latestStats = computed(() => {
+const latestPublicationStats = computed(() => {
   if (!trend.value) {
     return undefined;
   }
-  return PublicationStatsService.getLatest(trend.value.id);
+  return PublicationStatsService.getLatestByTrendId(trend.value.id);
 });
 </script>
 
@@ -91,8 +91,8 @@ const latestStats = computed(() => {
       </div>
 
       <template v-else>
-        <TrendHeader :trend="trend" :social-media="socialMedia" :latest-stats="latestStats" />
-        <TrendStatsCards :latest-stats="latestStats" />
+        <TrendHeader :trend="trend" :social-media="socialMedia" :latest-stats="latestPublicationStats" />
+        <TrendStatsCards :latest-stats="latestPublicationStats" />
         <TrendHistoryChart
           :publication-stats="publicationStats"
           :selected-stats="selectedStats"

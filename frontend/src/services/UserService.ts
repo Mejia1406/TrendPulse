@@ -3,6 +3,7 @@
 // internal imports
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import type { UserInterface } from '@/interfaces/UserInterface';
+import type { UpdateUserDTO } from '@/dtos/UpdateUserDTO';
 import { useUserStore } from '@/stores/UserStore';
 
 export class UserService {
@@ -26,7 +27,7 @@ export class UserService {
     });
   }
 
-  static update(id: string, updateUser: CreateUserDTO): void {
+  static update(id: string, updateUser: UpdateUserDTO): void {
     const store = useUserStore();
     const index = store.users.findIndex((user) => user.id === id);
     if (index === -1) {

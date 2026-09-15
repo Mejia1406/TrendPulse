@@ -99,14 +99,14 @@ const handleSubmit = () => {
 
       <div>
         <label for="logo" class="mb-2 block text-sm font-semibold text-slate-200">
-          Logo (emoji o texto)
+          URL del logo
         </label>
 
         <input
           id="logo"
           v-model="form.logo"
-          type="text"
-          placeholder="Logo o emoji"
+          type="url"
+          placeholder="https://ejemplo.com/logo"
           required
           class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-teal-400"
         />

@@ -1,9 +1,7 @@
 // Sara Hurtado
 
 // internal imports
-import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
@@ -14,16 +12,8 @@ export class TrendService {
     return useTrendStore().trends;
   }
 
-  static getPublicationStats(trend: TrendInterface): PublicationStatsInterface[] {
-    return PublicationStatsService.getByTrendId(trend.id);
-  }
-
   static getById(id: string): TrendInterface | undefined {
     return useTrendStore().trends.find((trend) => trend.id === id);
-  }
-
-  static getSocialMedia(trend: TrendInterface): SocialMediaInterface | undefined {
-    return SocialMediaService.getById(trend.socialMediaId);
   }
 
   static getFiltered(filters: { socialMedia?: string }): TrendInterface[] {
@@ -34,7 +24,7 @@ export class TrendService {
         return true;
       }
 
-      const socialMedia = TrendService.getSocialMedia(trend);
+      const socialMedia = SocialMediaService.getById(trend.socialMediaId);
       
       return socialMedia?.name === filters.socialMedia;
     });
@@ -54,17 +44,17 @@ export class TrendService {
     const statsBySocialMedia = new Map<string, TrendStatsBySocialMediaDTO>();
 
     trends.forEach((trend) => {
-      const socialMedia = TrendService.getSocialMedia(trend);
+      const socialMedia = SocialMediaService.getById(trend.socialMediaId);
 
       if (!socialMedia) {
         return;
       }
 
-      const latestStats = PublicationStatsService.getLatest(trend.id);
-      const viewsCount = latestStats?.viewsCount ?? 0;
-      const likesCount = latestStats?.likesCount ?? 0;
-      const commentsCount = latestStats?.commentsCount ?? 0;
-      const sharesCount = latestStats?.sharesCount ?? 0;
+      const latestPublicationStats = PublicationStatsService.getLatestByTrendId(trend.id);
+      const viewsCount = latestPublicationStats?.viewsCount ?? 0;
+      const likesCount = latestPublicationStats?.likesCount ?? 0;
+      const commentsCount = latestPublicationStats?.commentsCount ?? 0;
+      const sharesCount = latestPublicationStats?.sharesCount ?? 0;
       const currentStats = statsBySocialMedia.get(socialMedia.id);
 
       if (currentStats) {

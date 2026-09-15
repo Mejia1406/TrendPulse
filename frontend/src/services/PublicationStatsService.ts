@@ -10,10 +10,8 @@ export class PublicationStatsService {
       (publicationStats) => publicationStats.trendId === trendId,
     );
   }
-
-  static getLatestByTrendId(
-    trendId: string,
-  ): PublicationStatsInterface | undefined {
+  
+  static getLatestByTrendId(trendId: string): PublicationStatsInterface | undefined {
     const publicationStats = PublicationStatsService.getByTrendId(trendId);
 
     if (publicationStats.length === 0) {
