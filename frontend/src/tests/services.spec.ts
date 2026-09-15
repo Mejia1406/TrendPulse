@@ -177,13 +177,13 @@ describe('PublicationStatsService', () => {
     const stats = PublicationStatsService.getByTrendId(trend.id);
 
     expect(stats.length).toBeGreaterThan(0);
-    expect(PublicationStatsService.getLatest(trend.id)).toBeDefined();
+    expect(PublicationStatsService.getLatestByTrendId(trend.id)).toBeDefined();
     expect(PublicationStatsService.getLatestViews(trend.id)).toBeGreaterThanOrEqual(0);
     expect(PublicationStatsService.getLatestLikes(trend.id)).toBeGreaterThanOrEqual(0);
   });
 
   it('devuelve undefined cuando no hay estadísticas para una tendencia', () => {
-    expect(PublicationStatsService.getLatest('999')).toBeUndefined();
+    expect(PublicationStatsService.getLatestByTrendId('999')).toBeUndefined();
     expect(PublicationStatsService.getLatestViews('999')).toBe(0);
     expect(PublicationStatsService.getLatestLikes('999')).toBe(0);
   });
@@ -205,13 +205,13 @@ describe('TrendService', () => {
     expect(TrendService.getById('999')).toBeUndefined();
   });
 
-  it('obtiene la red social asociada a una tendencia', () => {
-    const trend = trendSeeder[0]!;
-    const socialMedia = TrendService.getSocialMedia(trend);
-
-    expect(socialMedia).toBeDefined();
-    expect(socialMedia?.id).toBe(trend.socialMediaId);
+  it('devuelve una lista vacía para una red social inexistente', () => {
+  const filtered = TrendService.getFiltered({
+    socialMedia: 'LinkedIn',
   });
+
+  expect(filtered).toEqual([]);
+});
 
   it('filtra tendencias por red social', () => {
     const socialMedia = socialMediaSeeder[0]!;

@@ -20,8 +20,13 @@ export class PublicationStatsService {
 
     return [...publicationStats].sort(
       (firstStats, secondStats) =>
-        new Date(secondStats.captureAt).getTime() - new Date(firstStats.captureAt).getTime(),
+        new Date(secondStats.captureAt).getTime() -
+        new Date(firstStats.captureAt).getTime(),
     )[0];
+  }
+
+  static getLatest(trendId: string): PublicationStatsInterface | undefined {
+    return PublicationStatsService.getLatestByTrendId(trendId);
   }
 
   static getLatestViews(trendId: string): number {
