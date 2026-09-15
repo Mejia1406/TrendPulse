@@ -10,8 +10,10 @@ export class PublicationStatsService {
       (publicationStats) => publicationStats.trendId === trendId,
     );
   }
-  
-  static getLatest(trendId: string): PublicationStatsInterface | undefined {
+
+  static getLatestByTrendId(
+    trendId: string,
+  ): PublicationStatsInterface | undefined {
     const publicationStats = PublicationStatsService.getByTrendId(trendId);
 
     if (publicationStats.length === 0) {
@@ -20,15 +22,20 @@ export class PublicationStatsService {
 
     return [...publicationStats].sort(
       (firstStats, secondStats) =>
-        new Date(secondStats.captureAt).getTime() - new Date(firstStats.captureAt).getTime(),
+        new Date(secondStats.captureAt).getTime() -
+        new Date(firstStats.captureAt).getTime(),
     )[0];
   }
 
+  static getLatest(trendId: string): PublicationStatsInterface | undefined {
+    return PublicationStatsService.getLatestByTrendId(trendId);
+  }
+
   static getLatestViews(trendId: string): number {
-    return PublicationStatsService.getLatest(trendId)?.viewsCount ?? 0;
+    return PublicationStatsService.getLatestByTrendId(trendId)?.viewsCount ?? 0;
   }
 
   static getLatestLikes(trendId: string): number {
-    return PublicationStatsService.getLatest(trendId)?.likesCount ?? 0;
+    return PublicationStatsService.getLatestByTrendId(trendId)?.likesCount ?? 0;
   }
 }
