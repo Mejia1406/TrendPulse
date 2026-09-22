@@ -5,9 +5,9 @@ import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 // internal imports
-import TrendHeader from '@/components/dashboard/trendsDetail/TrendHeader.vue';
-import TrendHistoryChart from '@/components/dashboard/trendsDetail/TrendHistoryChart.vue';
-import TrendStatsCards from '@/components/dashboard/trendsDetail/TrendStatsCards.vue';
+import TrendHeader from '@/components/features/trendsDetail/TrendHeader.vue';
+import TrendHistoryChart from '@/components/charts/trendDetail/TrendHistoryChart.vue';
+import TrendStatsCards from '@/components/features/trendsDetail/TrendStatsCards.vue';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';

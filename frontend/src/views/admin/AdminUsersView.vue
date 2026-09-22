@@ -8,8 +8,8 @@ import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import { UserService } from '@/services/UserService';
 import BaseButton from '@/components/common/BaseButton.vue';
-import UserForm from '@/components/admin/user/UserForm.vue';
-import UserTable from '@/components/admin/user/UserTable.vue';
+import UserForm from '@/components/features/admin/user/UserForm.vue';
+import UserTable from '@/components/features/admin/user/UserTable.vue';
 
 // variables
 const users = UserService.getAll();

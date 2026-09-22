@@ -7,8 +7,8 @@ import { computed, ref } from 'vue';
 import { TrendService } from '@/services/TrendService';
 
 import BaseCard from '@/components/common/BaseCard.vue';
-import SocialMediaComparisonChart from '@/components/dashboard/compare/SocialMediaComparisonChart.vue';
-import SocialMediaComparisonTable from '@/components/dashboard/compare/SocialMediaComparisonTable.vue';
+import SocialMediaComparisonChart from '@/components/charts/compare/SocialMediaComparisonChart.vue';
+import SocialMediaComparisonTable from '@/components/features/compare/SocialMediaComparisonTable.vue';
 
 // variables
 const trends = TrendService.getAll();

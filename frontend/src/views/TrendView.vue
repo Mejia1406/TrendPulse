@@ -8,8 +8,8 @@ import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';
 import BaseCard from '@/components/common/BaseCard.vue';
-import TrendEvolutionChart from '@/components/dashboard/trend/TrendEvolutionChart.vue';
-import TrendTable from '@/components/dashboard/trend/TrendTable.vue';
+import TrendEvolutionChart from '@/components/charts/trends/TrendEvolutionChart.vue';
+import TrendTable from '@/components/features/trend/TrendTable.vue';
 
 // selectors
 const selectedSocialMedia = ref('Todas');
