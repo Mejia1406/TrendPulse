@@ -8,10 +8,16 @@ import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';
 import BaseCard from '@/components/common/BaseCard.vue';
-import TrendEvolutionChart from '@/components/dashboard/trend/TrendEvolutionChart.vue';
-import TrendTable from '@/components/dashboard/trend/TrendTable.vue';
+import TrendEvolutionChart from '@/components/charts/trend/TrendEvolutionChart.vue';
+import TrendTable from '@/components/features/trend/TrendTable.vue';
 
 // selectors
+const selectorSocialMedias = computed(() => [
+  'Todas',
+  ...SocialMediaService.getAll().map((socialMedia) => socialMedia.name),
+]);
+
+// reactive variables
 const selectedSocialMedia = ref('Todas');
 
 // computed variables
@@ -21,10 +27,7 @@ const trends = computed(() => {
   });
 });
 
-const selectorSocialMedias = computed(() => [
-  'Todas',
-  ...SocialMediaService.getAll().map((socialMedia) => socialMedia.name),
-]);
+
 
 // functions
 const getLatestViews = (trendId: string) => {

@@ -1,6 +1,10 @@
+// Athina Cappelletti
+
+// external imports
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 
+// internal imports
 import { AuthService } from '@/services/AuthService';
 import { UserService } from '@/services/UserService';
 import { SocialMediaService } from '@/services/SocialMediaService';

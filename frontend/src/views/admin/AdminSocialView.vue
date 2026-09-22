@@ -8,8 +8,8 @@ import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import BaseButton from '@/components/common/BaseButton.vue';
-import SocialMediaForm from '@/components/admin/socialmedia/SocialMediaForm.vue';
-import SocialMediaTable from '@/components/admin/socialmedia/SocialMediaTable.vue';
+import SocialMediaForm from '@/components/features/admin/socialmedia/SocialMediaForm.vue';
+import SocialMediaTable from '@/components/features/admin/socialmedia/SocialMediaTable.vue';
 
 //variables
 const socialMedias = SocialMediaService.getAll();

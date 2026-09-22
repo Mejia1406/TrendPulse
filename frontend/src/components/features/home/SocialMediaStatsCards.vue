@@ -2,7 +2,7 @@
 <script setup lang="ts">
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
+import { formatNumber } from '@/utils/formatters/formatNumber';
 
 // props
 const props = defineProps<{
@@ -22,7 +22,7 @@ const props = defineProps<{
       </p>
 
       <p class="mt-2 text-3xl font-bold">
-        {{ FormatNumber.format(trendSocialMediaStats.viewsCount) }}
+        {{ formatNumber.format(trendSocialMediaStats.viewsCount) }}
       </p>
 
       <p class="mt-1 text-sm text-slate-500">vistas totales</p>

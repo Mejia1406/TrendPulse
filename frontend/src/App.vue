@@ -1,10 +1,16 @@
 <!-- Athina Cappelletti -->
 <script setup lang="ts">
+// external imports
 import { computed } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
+
+// internal imports
 import AppHeader from '@/components/layout/AppHeader.vue';
 
+//variables
 const route = useRoute();
+
+// computed variables
 const showHeader = computed(() => route.name !== 'login');
 </script>
 

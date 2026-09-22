@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router';
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
+import { formatNumber } from '@/utils/formatters/formatNumber';
 
 // props
 const props = defineProps<{
@@ -47,7 +47,7 @@ const props = defineProps<{
         </div>
 
         <p class="font-medium text-teal-400">
-          {{ FormatNumber.format(trend.latestViews) }}
+          {{ formatNumber.format(trend.latestViews) }}
         </p>
       </div>
     </div>

@@ -10,8 +10,8 @@ import { configureRouterGuards } from './accessControl.ts';
 import CompareView from '@/views/CompareView.vue';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
-import TrendView from '@/views/TrendView.vue';
-import TrendsDetailView from '@/views/TrendsDetailView.vue';
+import TrendView from '@/views/TrendsView.vue';
+import TrendsDetailView from '@/views/TrendDetailView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
