@@ -13,11 +13,7 @@ import SocialMediaComparisonTable from '@/components/features/compare/SocialMedi
 // variables
 const trends = TrendService.getAll();
 
-// computed variables
-const socialMediaStats = computed(() => {
-  return TrendService.getTrendStatsBySocialMedia(trends);
-});
-
+// selectors
 const selectorSocialMedias = computed(() => {
   return socialMediaStats.value;
 });
@@ -32,6 +28,14 @@ const selectedSocialMediaStats = computed(() => {
   );
 });
 
+// reactive variables
+const selectedSocialMediaId = ref('all');
+
+// computed variables
+const socialMediaStats = computed(() => {
+  return TrendService.getTrendStatsBySocialMedia(trends);
+});
+
 const comparisonRows = computed(() => {
   return selectedSocialMediaStats.value.map((socialMedia) => {
     return {
@@ -43,8 +47,8 @@ const comparisonRows = computed(() => {
   });
 });
 
-// selectors
-const selectedSocialMediaId = ref('all');
+
+
 </script>
 
 <template>
