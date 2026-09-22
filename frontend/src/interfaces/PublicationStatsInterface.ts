@@ -3,7 +3,6 @@
 // main interface
 export interface PublicationStatsInterface {
   id: string;
-  trendId: string;
   likesCount: number;
   commentsCount: number;
   sharesCount: number;
@@ -11,4 +10,6 @@ export interface PublicationStatsInterface {
   url: string;
   createdAt: string;
   captureAt: string;
+  trendId: string;
+
 }
