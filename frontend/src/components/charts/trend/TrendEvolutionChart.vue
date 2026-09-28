@@ -5,7 +5,7 @@ import { computed } from 'vue';
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
+import { formatNumber } from '@/utils/formatters/formatNumber';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import type { TrendInterface } from '@/interfaces/TrendInterface';
@@ -108,7 +108,7 @@ const chartOptions = computed(() => ({
 
   yaxis: {
     labels: {
-      formatter: (value: number) => FormatNumber.format(value),
+      formatter: (value: number) => formatNumber.format(value),
       style: {
         colors: '#94a3b8',
       },
@@ -121,7 +121,7 @@ const chartOptions = computed(() => ({
       format: 'dd MMM yyyy',
     },
     y: {
-      formatter: (value: number) => FormatNumber.format(value) + ' vistas',
+      formatter: (value: number) => formatNumber.format(value) + ' vistas',
     },
   },
 }));

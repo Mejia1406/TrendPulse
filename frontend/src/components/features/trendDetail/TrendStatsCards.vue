@@ -2,7 +2,7 @@
 <script setup lang="ts">
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
+import { formatNumber } from '@/utils/formatters/formatNumber';
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
 // props
@@ -17,7 +17,7 @@ const props = defineProps<{
       <p class="text-sm text-slate-400">Likes</p>
 
       <p class="mt-3 text-3xl font-bold">
-        {{ FormatNumber.format(props.latestStats?.likesCount ?? 0) }}
+        {{ formatNumber.format(props.latestStats?.likesCount ?? 0) }}
       </p>
     </BaseCard>
 
@@ -25,7 +25,7 @@ const props = defineProps<{
       <p class="text-sm text-slate-400">Comentarios</p>
 
       <p class="mt-3 text-3xl font-bold">
-        {{ FormatNumber.format(props.latestStats?.commentsCount ?? 0) }}
+        {{ formatNumber.format(props.latestStats?.commentsCount ?? 0) }}
       </p>
     </BaseCard>
 
@@ -33,7 +33,7 @@ const props = defineProps<{
       <p class="text-sm text-slate-400">Compartidos</p>
 
       <p class="mt-3 text-3xl font-bold">
-        {{ FormatNumber.format(props.latestStats?.sharesCount ?? 0) }}
+        {{ formatNumber.format(props.latestStats?.sharesCount ?? 0) }}
       </p>
     </BaseCard>
 
@@ -41,7 +41,7 @@ const props = defineProps<{
       <p class="text-sm text-slate-400">Vistas</p>
 
       <p class="mt-3 text-3xl font-bold">
-        {{ FormatNumber.format(props.latestStats?.viewsCount ?? 0) }}
+        {{ formatNumber.format(props.latestStats?.viewsCount ?? 0) }}
       </p>
     </BaseCard>
   </section>

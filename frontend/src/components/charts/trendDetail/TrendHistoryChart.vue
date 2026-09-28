@@ -17,7 +17,7 @@ import {
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
+import { formatNumber } from '@/utils/formatters/formatNumber';
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
 // types
@@ -81,7 +81,7 @@ const chartOptions: ChartOptions<'line'> = {
     tooltip: {
       callbacks: {
         label: (context) => {
-          return `${selectedStatsLabel.value}: ${FormatNumber.format(Number(context.raw))}`;
+          return `${selectedStatsLabel.value}: ${formatNumber.format(Number(context.raw))}`;
         },
       },
     },
@@ -105,7 +105,7 @@ const chartOptions: ChartOptions<'line'> = {
         color: '#94a3b8',
 
         callback: (value) => {
-          return FormatNumber.format(Number(value));
+          return formatNumber.format(Number(value));
         },
       },
 

@@ -4,9 +4,9 @@
 import { computed } from 'vue';
 
 // internal imports
-import SocialMediaStatsCards from '@/components/dashboard/home/SocialMediaStatsCards.vue';
-import TrendsBySocialMediaChart from '@/components/dashboard/home/TrendsBySocialMediaChart.vue';
-import TopTrendsList from '@/components/dashboard/home/TopTrendsList.vue';
+import SocialMediaStatsCards from '@/components/features/home/SocialMediaStatsCards.vue';
+import TrendsBySocialMediaChart from '@/components/charts/home/TrendsBySocialMediaChart.vue';
+import TopTrendsList from '@/components/features/home/TopTrendsList.vue';
 import { TrendService } from '@/services/TrendService';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';

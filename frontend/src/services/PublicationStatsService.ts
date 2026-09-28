@@ -25,10 +25,6 @@ export class PublicationStatsService {
     )[0];
   }
 
-  static getLatest(trendId: string): PublicationStatsInterface | undefined {
-    return PublicationStatsService.getLatestByTrendId(trendId);
-  }
-
   static getLatestViews(trendId: string): number {
     return PublicationStatsService.getLatestByTrendId(trendId)?.viewsCount ?? 0;
   }
