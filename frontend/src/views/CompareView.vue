@@ -1,17 +1,47 @@
-<!-- Samuel Moncada -->
 <script setup lang="ts">
 // external imports
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 // internal imports
 import { TrendService } from '@/services/TrendService';
+import { SocialMediaService } from '@/services/SocialMediaService';
+import { PublicationStatsService } from '@/services/PublicationStatsService';
+
+import type { TrendInterface } from '@/interfaces/TrendInterface';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
 import BaseCard from '@/components/common/BaseCard.vue';
 import SocialMediaComparisonChart from '@/components/charts/compare/SocialMediaComparisonChart.vue';
 import SocialMediaComparisonTable from '@/components/features/compare/SocialMediaComparisonTable.vue';
 
-// variables
-const trends = TrendService.getAll();
+// reactive variables
+const trends = ref<TrendInterface[]>([]);
+const socialMedias = ref<SocialMediaInterface[]>([]);
+const publicationStats =
+  ref<PublicationStatsInterface[]>([]);
+
+const selectedSocialMediaId = ref('all');
+
+// methods
+const getCompareData = async () => {
+  trends.value = await TrendService.getAll();
+
+  socialMedias.value =
+    await SocialMediaService.getAll();
+
+  publicationStats.value =
+    await PublicationStatsService.getAll();
+};
+
+// computed variables
+const socialMediaStats = computed(() => {
+  return TrendService.getTrendStatsBySocialMedia(
+    trends.value,
+    socialMedias.value,
+    publicationStats.value,
+  );
+});
 
 // selectors
 const selectorSocialMedias = computed(() => {
@@ -24,31 +54,30 @@ const selectedSocialMediaStats = computed(() => {
   }
 
   return socialMediaStats.value.filter(
-    (socialMedia) => socialMedia.id === selectedSocialMediaId.value,
+    (socialMedia) =>
+      String(socialMedia.id) === selectedSocialMediaId.value,
   );
 });
 
-// reactive variables
-const selectedSocialMediaId = ref('all');
-
-// computed variables
-const socialMediaStats = computed(() => {
-  return TrendService.getTrendStatsBySocialMedia(trends);
-});
-
 const comparisonRows = computed(() => {
-  return selectedSocialMediaStats.value.map((socialMedia) => {
-    return {
-      ...socialMedia,
+  return selectedSocialMediaStats.value.map(
+    (socialMedia) => {
+      return {
+        ...socialMedia,
 
-      totalInteractions:
-        socialMedia.likesCount + socialMedia.commentsCount + socialMedia.sharesCount,
-    };
-  });
+        totalInteractions:
+          socialMedia.likesCount +
+          socialMedia.commentsCount +
+          socialMedia.sharesCount,
+      };
+    },
+  );
 });
 
-
-
+// lifecycle
+onMounted(() => {
+  getCompareData();
+});
 </script>
 
 <template>
@@ -75,7 +104,7 @@ const comparisonRows = computed(() => {
             <option
               v-for="socialMedia in selectorSocialMedias"
               :key="socialMedia.id"
-              :value="socialMedia.id"
+              :value="String(socialMedia.id)"
             >
               {{ socialMedia.name }}
             </option>

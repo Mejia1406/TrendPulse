@@ -1,35 +1,33 @@
 // Sara Hurtado
 
+// external imports
+import axios from 'axios';
+
 // internal imports
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
-import { usePublicationStatsStore } from '@/stores/PublicationStatsStore';
 
 export class PublicationStatsService {
-  static getByTrendId(trendId: string): PublicationStatsInterface[] {
-    return usePublicationStatsStore().publicationStats.filter(
-      (publicationStats) => publicationStats.trendId === trendId,
+  private static readonly API_URL = 'http://localhost:3000/api/publication-stats';
+
+  static async getAll(): Promise<PublicationStatsInterface[]> {
+    const { data } = await axios.get<PublicationStatsInterface[]>(this.API_URL);
+
+    return data;
+  }
+
+  static async getByTrendId(trendId: number): Promise<PublicationStatsInterface[]> {
+    const { data } = await axios.get<PublicationStatsInterface[]>(
+      `${this.API_URL}/trend/${trendId}`,
     );
-  }
-  
-  static getLatestByTrendId(trendId: string): PublicationStatsInterface | undefined {
-    const publicationStats = PublicationStatsService.getByTrendId(trendId);
 
-    if (publicationStats.length === 0) {
-      return undefined;
-    }
-
-    return [...publicationStats].sort(
-      (firstStats, secondStats) =>
-        new Date(secondStats.captureAt).getTime() -
-        new Date(firstStats.captureAt).getTime(),
-    )[0];
+    return data;
   }
 
-  static getLatestViews(trendId: string): number {
-    return PublicationStatsService.getLatestByTrendId(trendId)?.viewsCount ?? 0;
-  }
+  static async getLatestByTrendId(trendId: number): Promise<PublicationStatsInterface | null> {
+    const { data } = await axios.get<PublicationStatsInterface | null>(
+      `${this.API_URL}/trend/${trendId}/latest`,
+    );
 
-  static getLatestLikes(trendId: string): number {
-    return PublicationStatsService.getLatestByTrendId(trendId)?.likesCount ?? 0;
+    return data;
   }
 }
