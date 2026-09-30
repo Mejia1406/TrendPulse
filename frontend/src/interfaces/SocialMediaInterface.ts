@@ -2,7 +2,7 @@
 
 // main interface
 export interface SocialMediaInterface {
-  id: string;
+  id: number;
   name: string;
   logo: string;
   color: string;
