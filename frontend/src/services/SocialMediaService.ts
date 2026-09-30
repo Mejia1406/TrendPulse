@@ -1,64 +1,41 @@
-// Samuel Moncada 
+// Samuel Moncada
+
+// external imports
+import axios from 'axios';
 
 // internal imports
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import type { UpdateSocialMediaDTO } from '@/dtos/UpdateSocialMediaDTO';
-import { useSocialMediaStore } from '@/stores/SocialMediaStore';
 
 export class SocialMediaService {
-  static getAll(): SocialMediaInterface[] {
-    return useSocialMediaStore().socialMedia;
+  private static readonly API_URL = 'http://localhost:3000/api/social-media';
+
+  static async getAll(): Promise<SocialMediaInterface[]> {
+    const { data } = await axios.get<SocialMediaInterface[]>(this.API_URL);
+
+    return data;
   }
 
-  static getById(id: string): SocialMediaInterface | undefined {
-    return useSocialMediaStore().socialMedia.find((socialMedia) => socialMedia.id === id);
+  static async getById(id: number): Promise<SocialMediaInterface | null> {
+    const { data } = await axios.get<SocialMediaInterface | null>(`${this.API_URL}/${id}`);
+
+    return data;
   }
 
-  static create(SocialMedia: CreateSocialMediaDTO): void {
-    const store = useSocialMediaStore();
-    const nextId =
-      store.socialMedia.length > 0
-        ? (
-            Math.max(
-              ...store.socialMedia.map((existingSocialMedia) => parseInt(existingSocialMedia.id)),
-              0,
-            ) + 1
-          ).toString()
-        : '1';
-    store.socialMedia.push({
-      id: nextId,
-      ...SocialMedia,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
+  static async create(socialMedia: CreateSocialMediaDTO): Promise<SocialMediaInterface> {
+    const { data } = await axios.post<SocialMediaInterface>(this.API_URL, socialMedia);
+
+    return data;
   }
 
-  static update(id: string, updatedSocialMedia: UpdateSocialMediaDTO): void {
-    const store = useSocialMediaStore();
-    const index = store.socialMedia.findIndex((sm) => sm.id === id);
-    if (index === -1) {
-      return;
-    }
-    const existingSocialMedia = store.socialMedia[index];
-    if (!existingSocialMedia) {
-      return;
-    }
+  static async update(id: number, updatedSocialMedia: UpdateSocialMediaDTO,): Promise<SocialMediaInterface | null> {
+    const { data } = await axios.patch<SocialMediaInterface | null>(`${this.API_URL}/${id}`, updatedSocialMedia,);
 
-    store.socialMedia[index] = {
-      ...existingSocialMedia,
-      ...updatedSocialMedia,
-      updatedAt: new Date().toISOString(),
-    };
+    return data;
   }
 
-  static delete(id: string): void {
-    const store = useSocialMediaStore();
-    const index = store.socialMedia.findIndex((sm) => sm.id === id);
-    if (index === -1) {
-      return;
-    }
-
-    store.socialMedia.splice(index, 1);
+  static async delete(id: number): Promise<void> {
+    await axios.delete(`${this.API_URL}/${id}`);
   }
 }

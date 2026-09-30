@@ -1,7 +1,7 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
 // external imports
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 // internal imports
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
@@ -11,11 +11,19 @@ import BaseButton from '@/components/common/BaseButton.vue';
 import UserForm from '@/components/features/admin/user/UserForm.vue';
 import UserTable from '@/components/features/admin/user/UserTable.vue';
 
-// variables
-const users = UserService.getAll();
-
 // reactive variables
 const isFormOpen = ref(false);
+const users = ref<UserInterface[]>([]);
+
+// methods
+const getUsers = async () => {
+  users.value = await UserService.getAll();
+};
+
+// lifecycle hooks
+onMounted(() => {
+  getUsers();
+});
 
 // selectors
 const selectedUser = ref<UserInterface | null>(null);
@@ -31,8 +39,10 @@ const handleEdit = (user: UserInterface) => {
   isFormOpen.value = true;
 };
 
-const handleDelete = (user: UserInterface) => {
-  UserService.delete(user.id);
+const handleDelete = async (user: UserInterface) => {
+  await UserService.delete(user.id);
+
+  await getUsers();
 
   if (selectedUser.value?.id === user.id) {
     selectedUser.value = null;
@@ -40,12 +50,17 @@ const handleDelete = (user: UserInterface) => {
   }
 };
 
-const handleSubmit = (userData: CreateUserDTO) => {
+const handleSubmit = async (userData: CreateUserDTO) => {
   if (selectedUser.value) {
-    UserService.update(selectedUser.value.id, userData);
+    await UserService.update(
+      selectedUser.value.id,
+      userData,
+    );
   } else {
-    UserService.create(userData);
+    await UserService.create(userData);
   }
+
+  await getUsers();
 
   selectedUser.value = null;
   isFormOpen.value = false;

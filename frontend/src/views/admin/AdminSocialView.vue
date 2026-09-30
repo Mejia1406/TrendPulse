@@ -1,7 +1,7 @@
 <!-- Samuel Moncada Mejía -->
 <script setup lang="ts">
 // external imports
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 // internal imports
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
@@ -11,11 +11,19 @@ import BaseButton from '@/components/common/BaseButton.vue';
 import SocialMediaForm from '@/components/features/admin/socialmedia/SocialMediaForm.vue';
 import SocialMediaTable from '@/components/features/admin/socialmedia/SocialMediaTable.vue';
 
-//variables
-const socialMedias = SocialMediaService.getAll();
-
 // reactive variables
 const isFormOpen = ref(false);
+const socialMedias = ref<SocialMediaInterface[]>([]);
+
+// methods
+const getSocialMedias = async () => {
+  socialMedias.value = await SocialMediaService.getAll();
+};
+
+// lifecycle hooks
+onMounted(() => {
+  getSocialMedias();
+});
 
 // selectors
 const selectedSocialMedia = ref<SocialMediaInterface | null>(null);
@@ -31,8 +39,10 @@ const handleEdit = (socialMedia: SocialMediaInterface) => {
   isFormOpen.value = true;
 };
 
-const handleDelete = (socialMedia: SocialMediaInterface) => {
-  SocialMediaService.delete(socialMedia.id);
+const handleDelete = async (socialMedia: SocialMediaInterface) => {
+  await SocialMediaService.delete(socialMedia.id);
+
+  await getSocialMedias();
 
   if (selectedSocialMedia.value?.id === socialMedia.id) {
     selectedSocialMedia.value = null;
@@ -40,12 +50,14 @@ const handleDelete = (socialMedia: SocialMediaInterface) => {
   }
 };
 
-const handleSubmit = (socialMediaData: CreateSocialMediaDTO) => {
+const handleSubmit = async (socialMediaData: CreateSocialMediaDTO) => {
   if (selectedSocialMedia.value) {
-    SocialMediaService.update(selectedSocialMedia.value.id, socialMediaData);
+    await SocialMediaService.update(selectedSocialMedia.value.id, socialMediaData);
   } else {
-    SocialMediaService.create(socialMediaData);
+    await SocialMediaService.create(socialMediaData);
   }
+
+  await getSocialMedias();
 
   selectedSocialMedia.value = null;
   isFormOpen.value = false;

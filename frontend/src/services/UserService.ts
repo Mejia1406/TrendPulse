@@ -1,57 +1,35 @@
 // Samuel Moncada
 
+// external imports
+import axios from 'axios';
+
 // internal imports
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import type { UpdateUserDTO } from '@/dtos/UpdateUserDTO';
-import { useUserStore } from '@/stores/UserStore';
 
 export class UserService {
-  static getAll(): UserInterface[] {
-    return useUserStore().users;
+  private static readonly API_URL = 'http://localhost:3000/api/users';
+
+  static async getAll(): Promise<UserInterface[]> {
+    const { data } = await axios.get<UserInterface[]>(this.API_URL);
+
+    return data;
   }
 
-  static create(user: CreateUserDTO): void {
-    const store = useUserStore();
-    const nextId =
-      store.users.length > 0
-        ? (
-            Math.max(...store.users.map((existingUser) => parseInt(existingUser.id)), 0) + 1
-          ).toString()
-        : '1';
-    store.users.push({
-      id: nextId,
-      ...user,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
+  static async create(user: CreateUserDTO): Promise<UserInterface> {
+    const { data } = await axios.post<UserInterface>(this.API_URL, user);
+
+    return data;
   }
 
-  static update(id: string, updateUser: UpdateUserDTO): void {
-    const store = useUserStore();
-    const index = store.users.findIndex((user) => user.id === id);
-    if (index === -1) {
-      return;
-    }
+  static async update(id: number, updateUser: UpdateUserDTO): Promise<UserInterface | null> {
+    const { data } = await axios.patch<UserInterface | null>(`${this.API_URL}/${id}`, updateUser);
 
-    const existingUser = store.users[index];
-    if (!existingUser) {
-      return;
-    }
-
-    store.users[index] = {
-      ...existingUser,
-      ...updateUser,
-      updatedAt: new Date().toISOString(),
-    };
+    return data;
   }
 
-  static delete(id: string): void {
-    const store = useUserStore();
-    const index = store.users.findIndex((user) => user.id === id);
-    if (index === -1) {
-      return;
-    }
-    store.users.splice(index, 1);
+  static async delete(id: number): Promise<void> {
+    await axios.delete(`${this.API_URL}/${id}`);
   }
 }
