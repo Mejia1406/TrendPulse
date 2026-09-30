@@ -2,10 +2,10 @@
 
 // main interface
 export interface TrendInterface {
-  id: string;
+  id: number;
   category: string;
   name: string;
   createdAt: string;
   updatedAt: string;
-  socialMediaId: string;
+  socialMediaId: number;
 }

@@ -7,7 +7,7 @@ import { formatNumber } from '@/utils/formatters/formatNumber';
 // props
 const props = defineProps<{
   stats: {
-    id: string;
+    id: number;
     name: string;
     viewsCount: number;
   }[];

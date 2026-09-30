@@ -7,7 +7,7 @@ import { formatNumber } from '@/utils/formatters/formatNumber';
 // props
 const props = defineProps<{
   comparisonRows: {
-    id: string;
+    id: number;
     name: string;
     likesCount: number;
     commentsCount: number;

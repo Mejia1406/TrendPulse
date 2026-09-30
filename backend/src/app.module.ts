@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
 import { UsersModule } from './users/users.module.js';
 import { SocialMediaModule } from './social-media/social-media.module.js';
+import { TrendsModule } from './trends/trends.module.js';
+import { PublicationStatsModule } from './publication-stats/publication-stats.module.js';
 
 @Module({
   imports: [
@@ -16,8 +16,8 @@ import { SocialMediaModule } from './social-media/social-media.module.js';
     }),
     UsersModule,
     SocialMediaModule,
+    TrendsModule,
+    PublicationStatsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
