@@ -1,10 +1,8 @@
 // Samuel Moncada Mejía
 import { createPinia } from 'pinia';
 import { watch } from 'vue';
-import { socialMediaSeeder } from '@/seeders/SocialMediaSeeder.js';
 import { userSeeder } from '@/seeders/UserSeeder.js';
-import { trendSeeder } from '@/seeders/TrendSeeder.js';
-import { publicationStatsSeeder } from '@/seeders/PublicationStatsSeeder.js';
+
 
 export default class PiniaConfig {
   public static init() {
@@ -16,20 +14,11 @@ export default class PiniaConfig {
       pinia.state.value = JSON.parse(savedState);
     } else {
       pinia.state.value = {
-        socialMedia: {
-          socialMedia: socialMediaSeeder,
-        },
         user: {
           users: userSeeder,
         },
         auth: {
           currentUser: null,
-        },
-        trend: {
-          trends: trendSeeder,
-        },
-        publicationStats: {
-          publicationStats: publicationStatsSeeder,
         },
       };
 
