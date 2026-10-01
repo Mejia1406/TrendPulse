@@ -18,10 +18,8 @@ type Stats = 'viewsCount' | 'likesCount' | 'commentsCount' | 'sharesCount';
 // variables
 const route = useRoute();
 
-// reactive variables
+// selectors
 const selectedStats = ref<Stats>('viewsCount');
-
-// selector 
 const selectorStats: {
   value: Stats;
   label: string;

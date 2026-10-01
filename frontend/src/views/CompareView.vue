@@ -21,6 +21,22 @@ const socialMedias = ref<SocialMediaInterface[]>([]);
 const publicationStats =
   ref<PublicationStatsInterface[]>([]);
 
+//selectors
+const selectorSocialMedias = computed(() => {
+  return socialMediaStats.value;
+});
+
+const selectedSocialMediaStats = computed(() => {
+  if (selectedSocialMediaId.value === 'all') {
+    return socialMediaStats.value;
+  }
+
+  return socialMediaStats.value.filter(
+    (socialMedia) =>
+      String(socialMedia.id) === selectedSocialMediaId.value,
+  );
+});
+
 const selectedSocialMediaId = ref('all');
 
 // methods
@@ -40,22 +56,6 @@ const socialMediaStats = computed(() => {
     trends.value,
     socialMedias.value,
     publicationStats.value,
-  );
-});
-
-// selectors
-const selectorSocialMedias = computed(() => {
-  return socialMediaStats.value;
-});
-
-const selectedSocialMediaStats = computed(() => {
-  if (selectedSocialMediaId.value === 'all') {
-    return socialMediaStats.value;
-  }
-
-  return socialMediaStats.value.filter(
-    (socialMedia) =>
-      String(socialMedia.id) === selectedSocialMediaId.value,
   );
 });
 
