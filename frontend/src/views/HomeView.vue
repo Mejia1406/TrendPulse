@@ -1,33 +1,28 @@
-<!-- Sara Hurtado -->
 <script setup lang="ts">
 // external imports
-import { computed } from 'vue';
+import { onMounted, ref } from 'vue';
 
 // internal imports
 import SocialMediaStatsCards from '@/components/features/home/SocialMediaStatsCards.vue';
 import TrendsBySocialMediaChart from '@/components/charts/home/TrendsBySocialMediaChart.vue';
 import TopTrendsList from '@/components/features/home/TopTrendsList.vue';
 import { TrendService } from '@/services/TrendService';
-import { PublicationStatsService } from '@/services/PublicationStatsService';
-import { SocialMediaService } from '@/services/SocialMediaService';
+import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
+// reactive variables
+const topTrendsByViews = ref([]);
+const trendStatsBySocialMedia = ref<TrendStatsBySocialMediaDTO[]>([]);
 
-// variables
-const trends = TrendService.getAll();
+// methods
+const getHomeData = async () => {
+  topTrendsByViews.value = await TrendService.getTopByViews(5);
 
-// computed variables
-const topTrendsByViews = computed(() => {
-  return TrendService.getTopTrendsByViews(trends, 5).map((trend) => {
-    return {
-      ...trend,
-      latestViews: PublicationStatsService.getLatestViews(trend.id),
-      socialMediaName:
-        SocialMediaService.getById(trend.socialMediaId)?.name ?? 'Sin red social',
-    };
-  });
-});
+  trendStatsBySocialMedia.value =
+    await TrendService.getStatsBySocialMedia();
+};
 
-const trendStatsBySocialMedia = computed(() => {
-  return TrendService.getTrendStatsBySocialMedia(trends);
+// lifecycle
+onMounted(() => {
+  getHomeData();
 });
 </script>
 

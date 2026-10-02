@@ -17,7 +17,6 @@ const selectorSocialMedias = computed(() => [
   ...SocialMediaService.getAll().map((socialMedia) => socialMedia.name),
 ]);
 
-// reactive variables
 const selectedSocialMedia = ref('Todas');
 
 // computed variables
@@ -26,8 +25,6 @@ const trends = computed(() => {
     socialMedia: selectedSocialMedia.value,
   });
 });
-
-
 
 // functions
 const getLatestViews = (trendId: string) => {

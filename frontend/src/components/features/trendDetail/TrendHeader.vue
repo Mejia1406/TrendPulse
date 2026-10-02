@@ -9,8 +9,8 @@ import type { TrendInterface } from '@/interfaces/TrendInterface';
 // props
 const props = defineProps<{
   trend: TrendInterface;
-  socialMedia?: SocialMediaInterface;
-  latestStats?: PublicationStatsInterface;
+  socialMedia: SocialMediaInterface | null;
+  latestStats: PublicationStatsInterface | null;
 }>();
 </script>
 

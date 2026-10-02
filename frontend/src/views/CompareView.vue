@@ -4,44 +4,18 @@ import { computed, onMounted, ref } from 'vue';
 
 // internal imports
 import { TrendService } from '@/services/TrendService';
-import { SocialMediaService } from '@/services/SocialMediaService';
-import { PublicationStatsService } from '@/services/PublicationStatsService';
 
-import type { TrendInterface } from '@/interfaces/TrendInterface';
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
-import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
+import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
 
 import BaseCard from '@/components/common/BaseCard.vue';
 import SocialMediaComparisonChart from '@/components/charts/compare/SocialMediaComparisonChart.vue';
 import SocialMediaComparisonTable from '@/components/features/compare/SocialMediaComparisonTable.vue';
 
 // reactive variables
-const trends = ref<TrendInterface[]>([]);
-const socialMedias = ref<SocialMediaInterface[]>([]);
-const publicationStats =
-  ref<PublicationStatsInterface[]>([]);
+const socialMediaStats =
+  ref<TrendStatsBySocialMediaDTO[]>([]);
 
 const selectedSocialMediaId = ref('all');
-
-// methods
-const getCompareData = async () => {
-  trends.value = await TrendService.getAll();
-
-  socialMedias.value =
-    await SocialMediaService.getAll();
-
-  publicationStats.value =
-    await PublicationStatsService.getAll();
-};
-
-// computed variables
-const socialMediaStats = computed(() => {
-  return TrendService.getTrendStatsBySocialMedia(
-    trends.value,
-    socialMedias.value,
-    publicationStats.value,
-  );
-});
 
 // selectors
 const selectorSocialMedias = computed(() => {
@@ -59,6 +33,13 @@ const selectedSocialMediaStats = computed(() => {
   );
 });
 
+// methods
+const getCompareData = async () => {
+  socialMediaStats.value =
+    await TrendService.getStatsBySocialMedia();
+};
+
+// computed variables
 const comparisonRows = computed(() => {
   return selectedSocialMediaStats.value.map(
     (socialMedia) => {
@@ -85,12 +66,17 @@ onMounted(() => {
     <div class="mx-auto max-w-7xl px-6 py-10">
       <section>
         <h1 class="text-4xl font-bold">Comparativa entre redes</h1>
-        <p class="mt-2 text-sky-300">Selecciona las redes que quieres comparar.</p>
+        <p class="mt-2 text-sky-300">
+          Selecciona las redes que quieres comparar.
+        </p>
       </section>
 
       <section class="mt-8">
         <BaseCard>
-          <label for="social-media-filter" class="mb-2 block text-sm font-semibold text-slate-300">
+          <label
+            for="social-media-filter"
+            class="mb-2 block text-sm font-semibold text-slate-300"
+          >
             Redes sociales
           </label>
 
