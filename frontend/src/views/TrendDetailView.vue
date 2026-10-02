@@ -1,16 +1,21 @@
 <!-- Sara Hurtado -->
 <script setup lang="ts">
 // external imports
-import { computed, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 // internal imports
 import TrendHeader from '@/components/features/trendDetail/TrendHeader.vue';
 import TrendHistoryChart from '@/components/charts/trendDetail/TrendHistoryChart.vue';
 import TrendStatsCards from '@/components/features/trendDetail/TrendStatsCards.vue';
+
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';
+
+import type { TrendInterface } from '@/interfaces/TrendInterface';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
 // types
 type Stats = 'viewsCount' | 'likesCount' | 'commentsCount' | 'sharesCount';
@@ -20,6 +25,7 @@ const route = useRoute();
 
 // selectors
 const selectedStats = ref<Stats>('viewsCount');
+
 const selectorStats: {
   value: Stats;
   label: string;
@@ -42,30 +48,56 @@ const selectorStats: {
   },
 ];
 
-// computed variables
-const trend = computed(() => {
-  return TrendService.getById(String(route.params.id));
-});
+// reactive variables
+const trend = ref<TrendInterface | null>(null);
 
-const socialMedia = computed(() => {
-  if (!trend.value) {
-    return undefined;
-  }
-  return SocialMediaService.getById(trend.value.socialMediaId);
-});
+const socialMedia = ref<SocialMediaInterface | null>(null);
 
-const publicationStats = computed(() => {
-  if (!trend.value) {
-    return [];
-  }
-  return PublicationStatsService.getByTrendId(trend.value.id);
-});
+const publicationStats = ref<PublicationStatsInterface[]>([]);
 
-const latestPublicationStats = computed(() => {
+const latestPublicationStats =
+  ref<PublicationStatsInterface | null>(null);
+
+// methods
+const getTrendDetailData = async () => {
+  const trendId = Number(route.params.id);
+
+  trend.value = await TrendService.getById(trendId);
+
   if (!trend.value) {
-    return undefined;
+    return;
   }
-  return PublicationStatsService.getLatestByTrendId(trend.value.id);
+
+  const [
+    socialMediaData,
+    publicationStatsData,
+    latestPublicationStatsData,
+  ] = await Promise.all([
+    SocialMediaService.getById(
+      trend.value.socialMediaId,
+    ),
+
+    PublicationStatsService.getByTrendId(
+      trend.value.id,
+    ),
+
+    PublicationStatsService.getLatestByTrendId(
+      trend.value.id,
+    ),
+  ]);
+
+  socialMedia.value = socialMediaData;
+
+  publicationStats.value =
+    publicationStatsData;
+
+  latestPublicationStats.value =
+    latestPublicationStatsData;
+};
+
+// lifecycle
+onMounted(() => {
+  getTrendDetailData();
 });
 </script>
 
@@ -85,12 +117,22 @@ const latestPublicationStats = computed(() => {
       >
         <h1 class="text-2xl font-bold">Tendencia no encontrada</h1>
 
-        <p class="mt-2 text-slate-400">La tendencia solicitada no existe.</p>
+        <p class="mt-2 text-slate-400">
+          La tendencia solicitada no existe.
+        </p>
       </div>
 
       <template v-else>
-        <TrendHeader :trend="trend" :social-media="socialMedia" :latest-stats="latestPublicationStats" />
-        <TrendStatsCards :latest-stats="latestPublicationStats" />
+        <TrendHeader
+          :trend="trend"
+          :social-media="socialMedia"
+          :latest-stats="latestPublicationStats"
+        />
+
+        <TrendStatsCards
+          :latest-stats="latestPublicationStats"
+        />
+
         <TrendHistoryChart
           :publication-stats="publicationStats"
           :selected-stats="selectedStats"
