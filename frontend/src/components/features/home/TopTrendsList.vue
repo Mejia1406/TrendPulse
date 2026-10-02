@@ -10,7 +10,7 @@ import { formatNumber } from '@/utils/formatters/formatNumber';
 // props
 const props = defineProps<{
   trends: {
-    id: string;
+    id: number;
     name: string;
     socialMediaName: string;
     latestViews: number;
