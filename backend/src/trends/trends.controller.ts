@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
 import { Trend } from './entities/trend.entity.js';
 import { TrendsService } from './trends.service.js';
@@ -14,10 +14,23 @@ export class TrendsController {
     return this.trendsService.findAll();
   }
 
+  @Get('top-by-views')
+  findTopByViews(@Query('limit') limit?: string) {
+    return this.trendsService.findTopByViews(
+      limit ? Number(limit) : 5,
+    );
+  }
+
+  @Get('stats-by-social-media')
+  findStatsBySocialMedia() {
+    return this.trendsService.findStatsBySocialMedia();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Trend | null> {
     return this.trendsService.findOne(Number(id));
   }
+
 
   @Post()
   create(@Body() createTrendDto: CreateTrendDto): Promise<Trend> {
