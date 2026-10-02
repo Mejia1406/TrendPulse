@@ -7,7 +7,7 @@ import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInt
 
 // props
 const props = defineProps<{
-  latestStats?: PublicationStatsInterface;
+  latestStats: PublicationStatsInterface | null;
 }>();
 </script>
 
