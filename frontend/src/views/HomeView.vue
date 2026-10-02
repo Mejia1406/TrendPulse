@@ -11,6 +11,7 @@ import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaD
 // reactive variables
 const topTrendsByViews = ref([]);
 const trendStatsBySocialMedia = ref<TrendStatsBySocialMediaDTO[]>([]);
+
 // methods
 const getHomeData = async () => {
   topTrendsByViews.value = await TrendService.getTopByViews(5);
