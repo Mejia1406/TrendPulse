@@ -1,8 +1,7 @@
 // Samuel Moncada Mejía
+// external imports
 import { createPinia } from 'pinia';
 import { watch } from 'vue';
-import { userSeeder } from '@/seeders/UserSeeder.js';
-
 
 export default class PiniaConfig {
   public static init() {
@@ -15,9 +14,10 @@ export default class PiniaConfig {
     } else {
       pinia.state.value = {
         user: {
-          users: userSeeder,
+          users: [],
         },
         auth: {
+          token: null,
           currentUser: null,
         },
       };
@@ -27,11 +27,9 @@ export default class PiniaConfig {
 
     watch(
       pinia.state,
-
       (state) => {
         localStorage.setItem('piniaState', JSON.stringify(state));
       },
-
       { deep: true },
     );
     return pinia;

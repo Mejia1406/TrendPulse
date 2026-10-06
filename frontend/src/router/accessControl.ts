@@ -1,16 +1,15 @@
 // Athina Cappelleti
-
 // external imports
 import type { Router } from 'vue-router';
 
 // internal imports
 import { useAuthStore } from '@/stores/AuthStore';
 
-export const configureRouterGuards = (router: Router) => {
+export const configureRouterGuards = (router: Router): void => {
   router.beforeEach((to) => {
     const authStore = useAuthStore();
 
-    if (to.meta.guestOnly && authStore.isAuthenticated()) {
+    if (to.meta.guestOnly && authStore.isAuthenticated) {
       if (authStore.currentUser?.role === 'admin') {
         return { name: 'admin-usuarios' };
       }
@@ -18,7 +17,7 @@ export const configureRouterGuards = (router: Router) => {
       return { name: 'home' };
     }
 
-    if (to.meta.requiresAuth && !authStore.isAuthenticated()) {
+    if (to.meta.requiresAuth && !authStore.isAuthenticated) {
       return { name: 'login' };
     }
 

@@ -19,22 +19,35 @@ const form = ref<LoginDTO>({
 });
 
 const errorMessage = ref('');
+const isLoading = ref(false);
 
 // handlers
-const handleSubmit = () => {
+const handleSubmit = async (): Promise<void> => {
   errorMessage.value = '';
+  isLoading.value = true;
 
-  const user = AuthService.login({
-    ...form.value,
-  });
+  try {
+    const user = await AuthService.login({
+      ...form.value,
+    });
 
-  if (!user) {
-    errorMessage.value = 'Email o contraseña incorrectos';
-    return;
+    if (!user) {
+      errorMessage.value = 'Email o contraseña incorrectos';
+      return;
+    }
+
+    if (user.role === 'admin') {
+      await router.push({
+        name: 'admin-usuarios',
+      });
+    } else {
+      await router.push({
+        name: 'home',
+      });
+    }
+  } finally {
+    isLoading.value = false;
   }
-  router.push({
-    name: 'home',
-  });
 };
 </script>
 
@@ -68,7 +81,8 @@ const handleSubmit = () => {
               type="email"
               required
               placeholder="admin@trend.io"
-              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-teal-400"
+              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-teal-400 disabled:opacity-60"
+              :disabled="isLoading"
             />
           </div>
 
@@ -83,7 +97,8 @@ const handleSubmit = () => {
               type="password"
               required
               placeholder="********"
-              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-teal-400"
+              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-teal-400 disabled:opacity-60"
+              :disabled="isLoading"
             />
           </div>
 
@@ -94,7 +109,10 @@ const handleSubmit = () => {
             {{ errorMessage }}
           </div>
 
-          <BaseButton type="submit" class="w-full"> Ingresar </BaseButton>
+          <BaseButton type="submit" class="w-full" :disabled="isLoading">
+            <span v-if="isLoading">Ingresando...</span>
+            <span v-else>Ingresar</span>
+          </BaseButton>
         </form>
 
         <div

@@ -1,30 +1,41 @@
 // Athina Cappelletti
-
 // internal imports
+import api from '@/services/apiClient';
+
 import type { LoginDTO } from '@/dtos/LoginDTO';
-import { useAuthStore } from '@/stores/AuthStore';
 import type { UserInterface } from '@/interfaces/UserInterface';
-import { useUserStore } from '@/stores/UserStore';
+import { useAuthStore } from '@/stores/AuthStore';
+
+export interface LoginResponse {
+  access_token: string;
+  user: UserInterface;
+}
 
 export class AuthService {
-  static login(credentials: LoginDTO): UserInterface | null {
-    const userStore = useUserStore();
+  static async login(credentials: LoginDTO): Promise<UserInterface | null> {
+    try {
+      const { data } = await api.post<LoginResponse>('/auth/login', credentials);
+      const authStore = useAuthStore();
 
-    const user = userStore.users.find(
-      (existingUser) =>
-        existingUser.email === credentials.email && existingUser.password === credentials.password,
-    );
+      authStore.login(data.access_token, data.user);
 
-    if (!user) {
+      return data.user;
+    } catch {
       return null;
     }
-
-    useAuthStore().login(user);
-
-    return user;
   }
 
   static logout(): void {
-    useAuthStore().logout();
+    const authStore = useAuthStore();
+    authStore.logout();
+  }
+
+  static async getProfile(): Promise<UserInterface | null> {
+    try {
+      const { data } = await api.get<UserInterface>('/auth/profile');
+      return data;
+    } catch {
+      return null;
+    }
   }
 }
