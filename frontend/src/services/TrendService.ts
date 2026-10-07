@@ -1,42 +1,35 @@
 // Sara Hurtado
-
-// external imports
-import axios from 'axios';
-
 // internal imports
+import api from '@/services/apiClient';
+
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
 
 export class TrendService {
-  private static readonly API_URL = 'http://localhost:3000/api/trends';
-
   static async getAll(): Promise<TrendInterface[]> {
-    const { data } = await axios.get<TrendInterface[]>(this.API_URL);
+    const { data } = await api.get<TrendInterface[]>('/trends');
 
     return data;
   }
 
   static async getById(id: number): Promise<TrendInterface | null> {
-    const { data } = await axios.get<TrendInterface | null>(`${this.API_URL}/${id}`);
+    const { data } = await api.get<TrendInterface | null>(`/trends/${id}`);
 
     return data;
   }
 
   static async getTopByViews(limit = 5) {
-    const { data } = await axios.get(
-      `${this.API_URL}/top-by-views`,
-      {
-        params: { limit },
-      },
-    );
+    const { data } = await api.get('/trends/top-by-views', {
+      params: { limit },
+    });
 
     return data;
   }
 
   static async getStatsBySocialMedia(): Promise<TrendStatsBySocialMediaDTO[]> {
-    const { data } = await axios.get<TrendStatsBySocialMediaDTO[]>(
-      `${this.API_URL}/stats-by-social-media`,
+    const { data } = await api.get<TrendStatsBySocialMediaDTO[]>(
+      '/trends/stats-by-social-media',
     );
 
     return data;
