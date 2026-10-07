@@ -1,45 +1,76 @@
 <!-- Athina Cappelleti -->
 <script setup lang="ts">
 // external imports
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 // internal imports
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';
+
+import type { TrendInterface } from '@/interfaces/TrendInterface';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
+
 import BaseCard from '@/components/common/BaseCard.vue';
 import TrendEvolutionChart from '@/components/charts/trend/TrendEvolutionChart.vue';
 import TrendTable from '@/components/features/trend/TrendTable.vue';
 
-// selectors
-const selectorSocialMedias = computed(() => [
-  'Todas',
-  ...SocialMediaService.getAll().map((socialMedia) => socialMedia.name),
-]);
+// reactive variables
+const trends = ref<TrendInterface[]>([]);
+const socialMedias = ref<SocialMediaInterface[]>([]);
+const publicationStats = ref<PublicationStatsInterface[]>([]);
 
 const selectedSocialMedia = ref('Todas');
 
+// selectors
+const selectorSocialMedias = computed(() => [
+  'Todas',
+  ...socialMedias.value.map((socialMedia) => socialMedia.name),
+]);
+
 // computed variables
-const trends = computed(() => {
-  return TrendService.getFiltered({
-    socialMedia: selectedSocialMedia.value,
-  });
+const filteredTrends = computed(() => {
+  return TrendService.getFiltered(
+    trends.value,
+    socialMedias.value,
+    { socialMedia: selectedSocialMedia.value },
+  );
 });
 
-// functions
-const getLatestViews = (trendId: string) => {
-  const trend = trends.value.find((currentTrend) => currentTrend.id === trendId);
+// methods
+const getTrendsViewData = async () => {
+  const [
+    trendsData,
+    socialMediasData,
+    publicationStatsData,
+  ] = await Promise.all([
+    TrendService.getAll(),
+    SocialMediaService.getAll(),
+    PublicationStatsService.getAll(),
+  ]);
 
-  if (!trend) {
-    return 0;
-  }
-
-  return PublicationStatsService.getLatestViews(trend.id);
+  trends.value = trendsData;
+  socialMedias.value = socialMediasData;
+  publicationStats.value = publicationStatsData;
 };
 
-const getSocialMediaName = (socialMediaId: string) => {
-  return SocialMediaService.getById(socialMediaId)?.name ?? 'Sin red social';
+const getLatestViews = (trendId: number) => {
+  const trendStats = publicationStats.value
+    .filter((stat) => stat.trendId === trendId)
+    .sort((a, b) => new Date(b.captureAt).getTime() - new Date(a.captureAt).getTime());
+
+  return trendStats[0]?.viewsCount ?? 0;
 };
+
+const getSocialMediaName = (socialMediaId: number) => {
+  return socialMedias.value.find((socialMedia) => socialMedia.id === socialMediaId)?.name ?? 'Sin red social';
+};
+
+// lifecycle
+onMounted(() => {
+  getTrendsViewData();
+});
 </script>
 
 <template>
@@ -70,9 +101,13 @@ const getSocialMediaName = (socialMediaId: string) => {
         </div>
       </BaseCard>
 
-      <TrendEvolutionChart :trends="trends" />
+      <TrendEvolutionChart
+        :trends="filteredTrends"
+        :social-medias="socialMedias"
+        :publication-stats="publicationStats"
+      />
       <TrendTable
-        :trends="trends"
+        :trends="filteredTrends"
         :get-latest-views="getLatestViews"
         :get-social-media-name="getSocialMediaName"
       />
