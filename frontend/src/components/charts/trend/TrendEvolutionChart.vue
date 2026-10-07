@@ -6,25 +6,28 @@ import { computed } from 'vue';
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
 import { formatNumber } from '@/utils/formatters/formatNumber';
-import { PublicationStatsService } from '@/services/PublicationStatsService';
-import { SocialMediaService } from '@/services/SocialMediaService';
 import type { TrendInterface } from '@/interfaces/TrendInterface';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
 // props
 const props = defineProps<{
   trends: TrendInterface[];
+  socialMedias: SocialMediaInterface[];
+  publicationStats: PublicationStatsInterface[];
 }>();
 
 // chart series configuration
 const chartSeries = computed(() => {
   return props.trends.map((trend) => ({
     name: trend.name,
-    data: PublicationStatsService.getByTrendId(trend.id).map(
-      (publicationStats) => ({
-        x: publicationStats.captureAt,
-        y: publicationStats.viewsCount,
-      }),
-    ),
+    data: props.publicationStats
+      .filter((stat) => stat.trendId === trend.id)
+      .sort((a, b) => new Date(a.captureAt).getTime() - new Date(b.captureAt).getTime())
+      .map((publicationStat) => ({
+        x: publicationStat.captureAt,
+        y: publicationStat.viewsCount,
+      })),
   }));
 });
 
@@ -32,7 +35,7 @@ const chartSeries = computed(() => {
 const chartColors = computed(() => {
   return props.trends.map(
     (trend) =>
-      SocialMediaService.getById(trend.socialMediaId)?.color ??
+      props.socialMedias.find((socialMedia) => socialMedia.id === trend.socialMediaId)?.color ??
       '#14b8a6',
   );
 });

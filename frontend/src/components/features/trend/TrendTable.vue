@@ -7,8 +7,8 @@ import type { TrendInterface } from '@/interfaces/TrendInterface';
 // props
 const props = defineProps<{
   trends: TrendInterface[];
-  getLatestViews: (trendId: string) => number;
-  getSocialMediaName: (socialMediaId: string) => string;
+  getLatestViews: (trendId: number) => number;
+  getSocialMediaName: (socialMediaId: number) => string;
 }>();
 </script>
 
