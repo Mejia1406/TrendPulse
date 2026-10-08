@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Trend } from '../../trends/entities/trend.entity.js';
 
@@ -25,12 +25,13 @@ export class PublicationStats {
   @Column()
   trendId: number;
 
-  @ManyToOne(() => Trend)
-  trend: Trend;
-
   @CreateDateColumn()
   createdAt: Date;
 
   @Column()
   captureAt: Date;
+
+  @ManyToOne(() => Trend, (trend) => trend.publicationStats)
+  @JoinColumn({ name: 'trendId' })
+  trend: Trend;
 }
