@@ -7,6 +7,7 @@ import { computed, onMounted, ref } from 'vue';
 import { PublicationStatsService } from '@/services/PublicationStatsService';
 import { SocialMediaService } from '@/services/SocialMediaService';
 import { TrendService } from '@/services/TrendService';
+import { TrendUtil } from '@/utils/TrendUtil';
 
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
@@ -31,7 +32,7 @@ const selectorSocialMedias = computed(() => [
 
 // computed variables
 const filteredTrends = computed(() => {
-  return TrendService.getFiltered(
+  return TrendUtil.getFiltered(
     trends.value,
     socialMedias.value,
     { socialMedia: selectedSocialMedia.value },
