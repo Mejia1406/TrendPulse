@@ -15,7 +15,7 @@ import {
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { formatNumber } from '@/utils/formatters/formatNumber';
+import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 // register chart components
 ChartJS.register(
@@ -69,7 +69,7 @@ const chartOptions: ChartOptions<'bar'> = {
     tooltip: {
       callbacks: {
         label: (context) => {
-          return `${context.dataset.label}: ${formatNumber.format(
+          return `${context.dataset.label}: ${FormatNumber.format(
             Number(context.raw),
           )}`;
         },
@@ -95,7 +95,7 @@ const chartOptions: ChartOptions<'bar'> = {
         color: '#7dd3fc',
 
         callback: (value) => {
-          return formatNumber.format(Number(value));
+          return FormatNumber.format(Number(value));
         },
       },
 

@@ -2,7 +2,7 @@
 <script setup lang="ts">
 // internal imports
 import BaseTable from '@/components/common/BaseTable.vue';
-import { formatNumber } from '@/utils/formatters/formatNumber';
+import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 // props
 const props = defineProps<{
@@ -62,19 +62,19 @@ const props = defineProps<{
         </td>
 
         <td class="px-2 py-4 text-right">
-          {{ formatNumber.format(socialMedia.likesCount) }}
+          {{ FormatNumber.format(socialMedia.likesCount) }}
         </td>
 
         <td class="px-2 py-4 text-right">
-          {{ formatNumber.format(socialMedia.commentsCount) }}
+          {{ FormatNumber.format(socialMedia.commentsCount) }}
         </td>
 
         <td class="px-2 py-4 text-right">
-          {{ formatNumber.format(socialMedia.sharesCount) }}
+          {{ FormatNumber.format(socialMedia.sharesCount) }}
         </td>
 
         <td class="px-2 py-4 text-right font-bold text-slate-300">
-          {{ formatNumber.format(socialMedia.totalInteractions) }}
+          {{ FormatNumber.format(socialMedia.totalInteractions) }}
         </td>
       </tr>
     </template>

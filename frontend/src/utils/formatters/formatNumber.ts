@@ -1,8 +1,6 @@
 // Sara Hurtado y Samuel Moncada
 
-export class formatNumber {
-  static numberWithSeparatorsFormatter = new Intl.NumberFormat('es-CO');
-
+export class FormatNumber {
   static format(value: number): string {
     if (value >= 1_000_000) {
       return `${(value / 1_000_000).toFixed(1)}M`;
@@ -11,11 +9,13 @@ export class formatNumber {
     if (value >= 1_000) {
       return `${(value / 1_000).toFixed(1)}K`;
     }
-    
+
     return value.toString();
   }
 
   static formatWithSeparators(value: number): string {
-    return formatNumber.numberWithSeparatorsFormatter.format(value);
+    const numberWithSeparatorsFormatter = new Intl.NumberFormat('es-CO');
+
+    return numberWithSeparatorsFormatter.format(value);
   }
 }
