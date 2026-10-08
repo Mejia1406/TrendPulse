@@ -16,8 +16,10 @@ import { UsersModule } from '../users/users.module.js';
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET ?? 'trendpulse-secret-key-change-in-production',
-      signOptions: { expiresIn: '24h' },
+      secret: process.env.JWT_SECRET!,
+      signOptions: {
+        expiresIn: '24h',
+      },
     }),
   ],
   controllers: [AuthController],
