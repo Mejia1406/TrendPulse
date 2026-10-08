@@ -1,29 +1,22 @@
 // Sara Hurtado
+
 // internal imports
-import api from '@/services/apiClient';
+import { BaseService } from '@/services/BaseService';
 
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
-export class PublicationStatsService {
+export class PublicationStatsService extends BaseService {
   static async getAll(): Promise<PublicationStatsInterface[]> {
-    const { data } = await api.get<PublicationStatsInterface[]>('/publication-stats');
-
-    return data;
+    return await this.httpGet<PublicationStatsInterface[]>('/publication-stats');
   }
 
   static async getByTrendId(trendId: number): Promise<PublicationStatsInterface[]> {
-    const { data } = await api.get<PublicationStatsInterface[]>(
-      `/publication-stats/trend/${trendId}`,
-    );
-
-    return data;
+    return await this.httpGet<PublicationStatsInterface[]>(`/publication-stats/trend/${trendId}`);
   }
 
   static async getLatestByTrendId(trendId: number): Promise<PublicationStatsInterface | null> {
-    const { data } = await api.get<PublicationStatsInterface | null>(
+    return await this.httpGet<PublicationStatsInterface | null>(
       `/publication-stats/trend/${trendId}/latest`,
     );
-
-    return data;
   }
 }
