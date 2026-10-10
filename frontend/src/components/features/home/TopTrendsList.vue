@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router';
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
+import { FormatNumber } from '@/utils/formatters/FormatNumber';
 
 // props
 const props = defineProps<{
