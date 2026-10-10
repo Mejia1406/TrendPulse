@@ -5,6 +5,7 @@ import { BaseService } from '@/services/BaseService';
 
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
+import type { TopTrendsByViewsDTO } from '@/dtos/TopTrendsByViewsDTO';
 
 export class TrendService extends BaseService {
   static async getAll(): Promise<TrendInterface[]> {
@@ -15,8 +16,10 @@ export class TrendService extends BaseService {
     return await this.httpGet<TrendInterface | null>(`/trends/${id}`);
   }
 
-  static async getTopByViews(limit = 5) {
-    return await this.httpGet(`/trends/top-by-views?limit=${limit}`);
+  static async getTopByViews(limit = 5): Promise<TopTrendsByViewsDTO[]> {
+    return await this.httpGet<TopTrendsByViewsDTO[]>(
+      `/trends/top-by-views?limit=${limit}`,
+    );
   }
 
   static async getStatsBySocialMedia(): Promise<TrendStatsBySocialMediaDTO[]> {

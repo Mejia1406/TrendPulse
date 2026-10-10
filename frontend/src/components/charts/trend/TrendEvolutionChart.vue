@@ -5,7 +5,7 @@ import { computed } from 'vue';
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
+import { FormatNumber } from '@/utils/formatters/FormatNumber';
 import type { TrendInterface } from '@/interfaces/TrendInterface';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';

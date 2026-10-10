@@ -8,8 +8,10 @@ import TrendsBySocialMediaChart from '@/components/charts/home/TrendsBySocialMed
 import TopTrendsList from '@/components/features/home/TopTrendsList.vue';
 import { TrendService } from '@/services/TrendService';
 import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
+import type { TopTrendsByViewsDTO } from '@/dtos/TopTrendsByViewsDTO';
+
 // reactive variables
-const topTrendsByViews = ref([]);
+const topTrendsByViews = ref<TopTrendsByViewsDTO[]>([]);
 const trendStatsBySocialMedia = ref<TrendStatsBySocialMediaDTO[]>([]);
 
 // methods
