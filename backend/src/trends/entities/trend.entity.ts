@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import type { Relation } from 'typeorm';
 import { PublicationStats } from '../../publication-stats/entities/publication-stats.entity.js';
 import { SocialMedia } from '../../social-media/entities/social-media.entity.js';
 
@@ -34,11 +35,11 @@ export class Trend {
 
   @ManyToOne(() => SocialMedia, (socialMedia) => socialMedia.trends)
   @JoinColumn({ name: 'socialMediaId' })
-  socialMedia: SocialMedia;
+  socialMedia: Relation<SocialMedia>;
 
   @OneToMany(
     () => PublicationStats,
     (publicationStats) => publicationStats.trend,
   )
-  publicationStats: PublicationStats[];
+  publicationStats: Relation<PublicationStats>[];
 }

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-
+import type { Relation } from 'typeorm';
 import { Trend } from '../../trends/entities/trend.entity.js';
 
 @Entity('publication_stats')
@@ -33,5 +33,5 @@ export class PublicationStats {
 
   @ManyToOne(() => Trend, (trend) => trend.publicationStats)
   @JoinColumn({ name: 'trendId' })
-  trend: Trend;
+  trend: Relation<Trend>;
 }
