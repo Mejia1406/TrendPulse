@@ -5,12 +5,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 // internal imports
-import { Trend } from './entities/trend.entity.js';
 import { CreateTrendDto } from './dto/create-trend.dto.js';
-import { UpdateTrendDto } from './dto/update-trend.dto.js';
-
 import { PublicationStatsService } from '../publication-stats/publication-stats.service.js';
 import { SocialMediaService } from '../social-media/social-media.service.js';
+import { Trend } from './entities/trend.entity.js';
+import { UpdateTrendDto } from './dto/update-trend.dto.js';
 
 @Injectable()
 export class TrendsService {

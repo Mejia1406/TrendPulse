@@ -1,7 +1,7 @@
 // Athina Cappelletti, Samuel Moncada, Sara Hurtado
 // external imports
-import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {}

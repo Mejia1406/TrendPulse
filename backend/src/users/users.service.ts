@@ -6,9 +6,9 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 // internal imports
-import { User } from './entities/user.entity.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
+import { User } from './entities/user.entity.js';
 
 @Injectable()
 export class UsersService {

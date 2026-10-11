@@ -1,5 +1,8 @@
+// Samuel Moncada
+// external imports
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
+// internal imports
 import { Trend } from '../../trends/entities/trend.entity.js';
 
 @Entity('social_media')

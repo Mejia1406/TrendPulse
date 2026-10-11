@@ -1,4 +1,4 @@
-// Athina Cappelletti, Samuel Moncada, Sara Hurtado
+// Athina Cappelletti
 // external imports
 import * as bcrypt from 'bcrypt';
 

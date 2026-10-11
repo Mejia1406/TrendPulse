@@ -1,5 +1,4 @@
 // Samuel Moncada Mejía
-
 // main interface
 export interface SocialMediaInterface {
   id: number;

@@ -1,3 +1,5 @@
+// Sara Hurtado, Samuel Moncada
+// external imports
 import {
   Column,
   CreateDateColumn,
@@ -8,8 +10,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
 import type { Relation } from 'typeorm';
+
+// internal imports
 import { PublicationStats } from '../../publication-stats/entities/publication-stats.entity.js';
 import { SocialMedia } from '../../social-media/entities/social-media.entity.js';
 

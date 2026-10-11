@@ -4,23 +4,23 @@
 import { onMounted, ref } from 'vue';
 
 // internal imports
+import BaseButton from '@/components/common/BaseButton.vue';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import type { UserInterface } from '@/interfaces/UserInterface';
-import { UserService } from '@/services/UserService';
-import BaseButton from '@/components/common/BaseButton.vue';
 import UserForm from '@/components/features/admin/user/UserForm.vue';
+import { UserService } from '@/services/UserService';
 import UserTable from '@/components/features/admin/user/UserTable.vue';
 
 // reactive variables
 const isFormOpen = ref(false);
 const users = ref<UserInterface[]>([]);
 
-// methods
+// funtions
 const getUsers = async () => {
   users.value = await UserService.getAll();
 };
 
-// lifecycle hooks
+// lifecycle 
 onMounted(() => {
   getUsers();
 });

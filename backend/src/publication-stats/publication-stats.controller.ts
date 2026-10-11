@@ -1,3 +1,5 @@
+// Samuel Moncada
+// external imports
 import {
   Body,
   Controller,
@@ -7,12 +9,13 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { PublicationStatsService } from './publication-stats.service.js';
-import { PublicationStats } from './entities/publication-stats.entity.js';
+// internal imports
 import { CreatePublicationStatsDto } from './dto/create-publication-stats.dto.js';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
-import { RolesGuard } from '../auth/guards/roles.guard.js';
+import { PublicationStatsService } from './publication-stats.service.js';
+import { PublicationStats } from './entities/publication-stats.entity.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
+import { RolesGuard } from '../auth/guards/roles.guard.js';
 
 @Controller('publication-stats')
 @UseGuards(JwtAuthGuard, RolesGuard)

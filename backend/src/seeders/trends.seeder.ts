@@ -1,3 +1,5 @@
+// Samuel Moncada
+// internal imports
 import { TrendsService } from '../trends/trends.service.js';
 
 export async function seedTrends(

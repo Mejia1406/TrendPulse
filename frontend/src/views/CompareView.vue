@@ -3,19 +3,17 @@
 import { computed, onMounted, ref } from 'vue';
 
 // internal imports
-import { TrendService } from '@/services/TrendService';
-
-import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
-
 import BaseCard from '@/components/common/BaseCard.vue';
 import SocialMediaComparisonChart from '@/components/charts/compare/SocialMediaComparisonChart.vue';
 import SocialMediaComparisonTable from '@/components/features/compare/SocialMediaComparisonTable.vue';
+import { TrendService } from '@/services/TrendService';
+
+import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
 
 // reactive variables
 const socialMediaStats =
   ref<TrendStatsBySocialMediaDTO[]>([]);
 
-const selectedSocialMediaId = ref('all');
 
 // selectors
 const selectorSocialMedias = computed(() => {
@@ -33,7 +31,9 @@ const selectedSocialMediaStats = computed(() => {
   );
 });
 
-// methods
+const selectedSocialMediaId = ref('all');
+
+// functions
 const getCompareData = async () => {
   socialMediaStats.value =
     await TrendService.getStatsBySocialMedia();
@@ -55,7 +55,7 @@ const comparisonRows = computed(() => {
   );
 });
 
-// lifecycle
+// lifecycle 
 onMounted(() => {
   getCompareData();
 });

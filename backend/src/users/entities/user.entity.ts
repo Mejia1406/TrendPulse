@@ -1,3 +1,5 @@
+// Samuel Moncada, Athina Cappelletti
+// external imports
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('users')

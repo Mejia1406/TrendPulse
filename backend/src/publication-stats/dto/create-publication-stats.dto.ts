@@ -1,3 +1,4 @@
+// Samuel Moncada, Sara Hurtado
 export class CreatePublicationStatsDto {
   likesCount: number;
   commentsCount: number;

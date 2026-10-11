@@ -5,8 +5,9 @@ import { onMounted, ref } from 'vue';
 // internal imports
 import SocialMediaStatsCards from '@/components/features/home/SocialMediaStatsCards.vue';
 import TrendsBySocialMediaChart from '@/components/charts/home/TrendsBySocialMediaChart.vue';
-import TopTrendsList from '@/components/features/home/TopTrendsList.vue';
 import { TrendService } from '@/services/TrendService';
+import TopTrendsList from '@/components/features/home/TopTrendsList.vue';
+
 import type { TrendStatsBySocialMediaDTO } from '@/dtos/TrendStatsBySocialMediaDTO';
 import type { TopTrendsByViewsDTO } from '@/dtos/TopTrendsByViewsDTO';
 
@@ -14,7 +15,7 @@ import type { TopTrendsByViewsDTO } from '@/dtos/TopTrendsByViewsDTO';
 const topTrendsByViews = ref<TopTrendsByViewsDTO[]>([]);
 const trendStatsBySocialMedia = ref<TrendStatsBySocialMediaDTO[]>([]);
 
-// methods
+// functions
 const getHomeData = async () => {
   topTrendsByViews.value = await TrendService.getTopByViews(5);
 

@@ -1,6 +1,9 @@
+// Samuel Moncada
+// external imports
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 
+// internal imports
 import { AppModule } from './app.module.js';
 
 async function bootstrap() {

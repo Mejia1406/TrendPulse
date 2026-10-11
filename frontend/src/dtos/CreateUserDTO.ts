@@ -1,5 +1,4 @@
 // Samuel Moncada Mejía
-
 // internal imports
 import type { UserInterface } from '../interfaces/UserInterface';
 
