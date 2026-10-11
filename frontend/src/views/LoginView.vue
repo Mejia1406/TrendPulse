@@ -127,9 +127,7 @@ const handleSubmit = async (): Promise<void> => {
 
         <p class="mt-6 text-center text-sm text-slate-400">
           ¿No tienes cuenta?
-          <RouterLink to="/about" class="text-teal-400 hover:underline">
-            Contacta al administrador
-          </RouterLink>
+          <span class="text-teal-400"> Contacta al administrador </span>
         </p>
       </section>
     </div>
