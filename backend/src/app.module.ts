@@ -1,12 +1,15 @@
+// Athina Cappelletti, Samuel Moncada, Sara Hurtado
+// external imports
+import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
 
-import { UsersModule } from './users/users.module.js';
+// internal imports
+import { AuthModule } from './auth/auth.module.js';
+import { PublicationStatsModule } from './publication-stats/publication-stats.module.js';
 import { SocialMediaModule } from './social-media/social-media.module.js';
 import { TrendsModule } from './trends/trends.module.js';
-import { PublicationStatsModule } from './publication-stats/publication-stats.module.js';
-import { AuthModule } from './auth/auth.module.js';
+import { UsersModule } from './users/users.module.js';
 
 @Module({
   imports: [

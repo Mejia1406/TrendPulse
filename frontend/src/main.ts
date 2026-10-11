@@ -12,8 +12,6 @@ import router from './router';
 const app = createApp(App);
 const pinia = createPinia();
 
-// Pinia must be registered before the router so that stores are available
-// inside navigation guards (accessControl.ts) during the initial navigation.
 app.use(pinia);
 app.use(PiniaConfig.init());
 app.use(router);

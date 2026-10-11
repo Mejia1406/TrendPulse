@@ -14,21 +14,21 @@ import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
 import BaseCard from '@/components/common/BaseCard.vue';
-import TrendEvolutionChart from '@/components/charts/trend/TrendEvolutionChart.vue';
-import TrendTable from '@/components/features/trend/TrendTable.vue';
+import TrendEvolutionChart from '@/components/charts/trends/TrendEvolutionChart.vue';
+import TrendTable from '@/components/features/trends/TrendTable.vue';
 
 // reactive variables
 const trends = ref<TrendInterface[]>([]);
 const socialMedias = ref<SocialMediaInterface[]>([]);
 const publicationStats = ref<PublicationStatsInterface[]>([]);
 
-const selectedSocialMedia = ref('Todas');
-
 // selectors
 const selectorSocialMedias = computed(() => [
   'Todas',
   ...socialMedias.value.map((socialMedia) => socialMedia.name),
 ]);
+
+const selectedSocialMedia = ref('Todas');
 
 // computed variables
 const filteredTrends = computed(() => {
@@ -39,7 +39,7 @@ const filteredTrends = computed(() => {
   );
 });
 
-// methods
+// functions
 const getTrendsViewData = async () => {
   const [
     trendsData,

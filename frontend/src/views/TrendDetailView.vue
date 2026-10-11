@@ -58,7 +58,7 @@ const publicationStats = ref<PublicationStatsInterface[]>([]);
 const latestPublicationStats =
   ref<PublicationStatsInterface | null>(null);
 
-// methods
+// functions
 const getTrendDetailData = async () => {
   const trendId = Number(route.params.id);
 

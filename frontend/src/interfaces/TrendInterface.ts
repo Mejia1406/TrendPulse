@@ -1,5 +1,4 @@
 // Athina Cappelletti
-
 // main interface
 export interface TrendInterface {
   id: number;

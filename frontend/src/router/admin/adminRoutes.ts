@@ -1,5 +1,4 @@
 // Samuel Moncada Mejía
-
 // internal imports
 import AdminSocialView from '@/views/admin/AdminSocialMediaView.vue';
 import AdminUsersView from '@/views/admin/AdminUsersView.vue';

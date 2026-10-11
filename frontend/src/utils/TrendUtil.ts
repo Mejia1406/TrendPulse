@@ -1,5 +1,7 @@
-import type { TrendInterface } from '@/interfaces/TrendInterface';
+// Samuel Moncada
+// internal imports
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { TrendInterface } from '@/interfaces/TrendInterface';
 
 export class TrendUtil {
   static getFiltered(

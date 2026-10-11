@@ -4,23 +4,23 @@
 import { onMounted, ref } from 'vue';
 
 // internal imports
+import BaseButton from '@/components/common/BaseButton.vue';
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
-import { SocialMediaService } from '@/services/SocialMediaService';
-import BaseButton from '@/components/common/BaseButton.vue';
 import SocialMediaForm from '@/components/features/admin/socialmedia/SocialMediaForm.vue';
+import { SocialMediaService } from '@/services/SocialMediaService';
 import SocialMediaTable from '@/components/features/admin/socialmedia/SocialMediaTable.vue';
 
 // reactive variables
 const isFormOpen = ref(false);
 const socialMedias = ref<SocialMediaInterface[]>([]);
 
-// methods
+// funtions
 const getSocialMedias = async () => {
   socialMedias.value = await SocialMediaService.getAll();
 };
 
-// lifecycle hooks
+// lifecycle 
 onMounted(() => {
   getSocialMedias();
 });

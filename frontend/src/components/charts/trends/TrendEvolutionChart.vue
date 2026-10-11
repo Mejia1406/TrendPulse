@@ -5,10 +5,10 @@ import { computed } from 'vue';
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/formatNumber';
-import type { TrendInterface } from '@/interfaces/TrendInterface';
-import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import { FormatNumber } from '@/utils/formatters/FormatNumber';
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
+import type { SocialMediaInterface } from '@/interfaces/SocialMediaInterface';
+import type { TrendInterface } from '@/interfaces/TrendInterface';
 
 // props
 const props = defineProps<{

@@ -1,3 +1,5 @@
+// Samuel Moncada, Sara Hurtado
+// external imports
 import {
   Body,
   Controller,
@@ -10,13 +12,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { Trend } from './entities/trend.entity.js';
-import { TrendsService } from './trends.service.js';
+// internal imports
 import { CreateTrendDto } from './dto/create-trend.dto.js';
-import { UpdateTrendDto } from './dto/update-trend.dto.js';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from '../auth/guards/roles.guard.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
+import { Trend } from './entities/trend.entity.js';
+import { TrendsService } from './trends.service.js';
+import { UpdateTrendDto } from './dto/update-trend.dto.js';
 
 @Controller('trends')
 @UseGuards(JwtAuthGuard, RolesGuard)

@@ -1,5 +1,4 @@
 // Samuel Moncada
-
 // internal imports
 import type { CreateSocialMediaDTO } from '@/dtos/CreateSocialMediaDTO';
 

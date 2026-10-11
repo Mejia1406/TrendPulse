@@ -1,3 +1,4 @@
+// Samuel Moncada
 export class UpdateTrendDto {
   category?: string;
   name?: string;
