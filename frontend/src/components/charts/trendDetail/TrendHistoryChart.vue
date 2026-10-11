@@ -17,7 +17,7 @@ import {
 
 // internal imports
 import BaseCard from '@/components/common/BaseCard.vue';
-import { FormatNumber } from '@/utils/formatters/FormatNumber';
+import { FormatNumber } from '@/utils/formatters/formatNumber';
 import type { PublicationStatsInterface } from '@/interfaces/PublicationStatsInterface';
 
 // types

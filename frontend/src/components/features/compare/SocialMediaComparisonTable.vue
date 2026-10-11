@@ -2,7 +2,7 @@
 <script setup lang="ts">
 // internal imports
 import BaseTable from '@/components/common/BaseTable.vue';
-import { FormatNumber } from '@/utils/formatters/FormatNumber';
+import { FormatNumber } from '@/utils/formatters/formatNumber';
 
 // props
 const props = defineProps<{
