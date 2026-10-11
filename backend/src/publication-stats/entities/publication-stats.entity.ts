@@ -1,5 +1,9 @@
+// Samuel Moncada, Sara Hurtado
+// external imports
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import type { Relation } from 'typeorm';
+
+//internal imports
 import { Trend } from '../../trends/entities/trend.entity.js';
 
 @Entity('publication_stats')

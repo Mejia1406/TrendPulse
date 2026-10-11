@@ -1,3 +1,5 @@
+// Samuel Moncada
+// internal imports
 import { SocialMediaService } from '../social-media/social-media.service.js';
 
 export async function seedSocialMedia(

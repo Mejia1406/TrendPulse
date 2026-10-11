@@ -1,3 +1,4 @@
+// Samuel Moncada
 export class CreateSocialMediaDto {
   name: string;
   logo: string;

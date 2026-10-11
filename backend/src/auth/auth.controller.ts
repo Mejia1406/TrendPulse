@@ -10,8 +10,8 @@ import {
 
 // internal imports
 import { AuthService } from './auth.service.js';
-import { LocalAuthGuard } from './guards/local-auth.guard.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
+import { LocalAuthGuard } from './guards/local-auth.guard.js';
 
 @Controller('auth')
 export class AuthController {

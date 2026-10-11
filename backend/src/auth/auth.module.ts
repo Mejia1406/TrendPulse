@@ -1,14 +1,14 @@
 // Athina Cappelletti, Samuel Moncada, Sara Hurtado
 // external imports
-import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 
 // internal imports
-import { AuthService } from './auth.service.js';
 import { AuthController } from './auth.controller.js';
-import { LocalStrategy } from './strategies/local.strategy.js';
+import { AuthService } from './auth.service.js';
 import { JwtStrategy } from './strategies/jwt.strategy.js';
+import { LocalStrategy } from './strategies/local.strategy.js';
 import { UsersModule } from '../users/users.module.js';
 
 @Module({

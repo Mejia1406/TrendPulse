@@ -1,3 +1,5 @@
+// Samuel Moncada
+// external imports
 import {
   Body,
   Controller,
@@ -9,13 +11,15 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { SocialMediaService } from './social-media.service.js';
-import { SocialMedia } from './entities/social-media.entity.js';
+// internal imports
 import { CreateSocialMediaDto } from './dto/create-social-media.dto.js';
-import { UpdateSocialMediaDto } from './dto/update-social-media.dto.js';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
-import { RolesGuard } from '../auth/guards/roles.guard.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
+import { RolesGuard } from '../auth/guards/roles.guard.js';
+import { SocialMedia } from './entities/social-media.entity.js';
+import { SocialMediaService } from './social-media.service.js';
+import { UpdateSocialMediaDto } from './dto/update-social-media.dto.js';
+
 
 @Controller('social-media')
 @UseGuards(JwtAuthGuard, RolesGuard)

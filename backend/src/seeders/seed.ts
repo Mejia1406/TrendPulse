@@ -1,16 +1,18 @@
-import { NestFactory } from '@nestjs/core';
+// Samuel Moncada
+// external imports
 import { DataSource } from 'typeorm';
+import { NestFactory } from '@nestjs/core';
 
+// internal imports
 import { AppModule } from '../app.module.js';
-import { SocialMediaService } from '../social-media/social-media.service.js';
-import { TrendsService } from '../trends/trends.service.js';
 import { PublicationStatsService } from '../publication-stats/publication-stats.service.js';
-import { UsersService } from '../users/users.service.js';
-
+import { seedPublicationStats } from './publication-stats.seeder.js';
 import { seedSocialMedia } from './social-media.seeder.js';
 import { seedTrends } from './trends.seeder.js';
-import { seedPublicationStats } from './publication-stats.seeder.js';
 import { seedUsers } from './users.seeder.js';
+import { SocialMediaService } from '../social-media/social-media.service.js';
+import { TrendsService } from '../trends/trends.service.js';
+import { UsersService } from '../users/users.service.js';
 
 async function seed() {
   const app = await NestFactory.createApplicationContext(AppModule);

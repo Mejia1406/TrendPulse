@@ -1,6 +1,9 @@
+//Samuel Moncada
+// external imports
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+//external imports
 import { PublicationStats } from './entities/publication-stats.entity.js';
 import { PublicationStatsController } from './publication-stats.controller.js';
 import { PublicationStatsService } from './publication-stats.service.js';

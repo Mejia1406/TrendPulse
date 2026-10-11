@@ -1,9 +1,12 @@
+// Samuel Moncada
+// external imports
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { SocialMedia } from './entities/social-media.entity.js';
+// internal imports
 import { CreateSocialMediaDto } from './dto/create-social-media.dto.js';
+import { SocialMedia } from './entities/social-media.entity.js';
 import { UpdateSocialMediaDto } from './dto/update-social-media.dto.js';
 
 @Injectable()

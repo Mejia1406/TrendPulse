@@ -1,9 +1,12 @@
+//Samuel Moncada, Sara Hurtado
+// external imports
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { PublicationStats } from './entities/publication-stats.entity.js';
+//internal imports
 import { CreatePublicationStatsDto } from './dto/create-publication-stats.dto.js';
+import { PublicationStats } from './entities/publication-stats.entity.js';
 
 @Injectable()
 export class PublicationStatsService {
