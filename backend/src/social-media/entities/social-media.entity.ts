@@ -1,9 +1,10 @@
 // Samuel Moncada
 // external imports
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import type { Relation } from 'typeorm';
 
 // internal imports
-import { Trend } from '../../trends/entities/trend.entity.js';
+import type { Trend } from '../../trends/entities/trend.entity.js';
 
 @Entity('social_media')
 export class SocialMedia {
@@ -24,7 +25,6 @@ export class SocialMedia {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @OneToMany(() => Trend, (trend) => trend.socialMedia)
-  trends: Trend[];
+  @OneToMany('Trend', (trend: Trend) => trend.socialMedia)
+  trends: Relation<Trend>[];
 }

@@ -12,9 +12,8 @@ import {
 } from 'typeorm';
 import type { Relation } from 'typeorm';
 
-// internal imports
-import { PublicationStats } from '../../publication-stats/entities/publication-stats.entity.js';
-import { SocialMedia } from '../../social-media/entities/social-media.entity.js';
+import type { PublicationStats } from '../../publication-stats/entities/publication-stats.entity.js';
+import type { SocialMedia } from '../../social-media/entities/social-media.entity.js';
 
 @Entity('trends')
 export class Trend {
@@ -36,13 +35,12 @@ export class Trend {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => SocialMedia, (socialMedia) => socialMedia.trends)
+  @ManyToOne('SocialMedia', (socialMedia: SocialMedia) => socialMedia.trends)
   @JoinColumn({ name: 'socialMediaId' })
   socialMedia: Relation<SocialMedia>;
-
   @OneToMany(
-    () => PublicationStats,
-    (publicationStats) => publicationStats.trend,
+    'PublicationStats',
+    (publicationStats: PublicationStats) => publicationStats.trend,
   )
   publicationStats: Relation<PublicationStats>[];
 }

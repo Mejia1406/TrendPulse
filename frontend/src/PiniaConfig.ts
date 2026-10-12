@@ -1,5 +1,3 @@
-// Samuel Moncada Mejía
-// external imports
 import { createPinia } from 'pinia';
 
 export default class PiniaConfig {

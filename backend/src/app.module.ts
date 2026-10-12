@@ -3,6 +3,7 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { dataSourceOptions } from './database/data-source.js';
 
 // internal imports
 import { AuthModule } from './auth/auth.module.js';
@@ -17,10 +18,9 @@ import { UsersModule } from './users/users.module.js';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: 'better-sqlite3',
-      database: process.env.SQLITE_PATH ?? 'database.sqlite',
+      ...dataSourceOptions,
       autoLoadEntities: true,
-      synchronize: true,
+      migrationsRun: true,
     }),
     AuthModule,
     UsersModule,
