@@ -17,11 +17,19 @@
         </NuxtLink>
 
         <nav aria-label="Navegación principal">
-          <NuxtLink
-            to="/blog"
-            class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium text-white">
-            Blog
-          </NuxtLink>
+          <div class="flex items-center gap-4">
+            <NuxtLink
+              to="/blog"
+              class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium text-white">
+              Blog
+            </NuxtLink> 
+
+            <NuxtLink
+              to="/help"
+              class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium text-white">
+              Centro de ayuda
+            </NuxtLink>
+          </div>
         </nav>
       </div>
     </header>
