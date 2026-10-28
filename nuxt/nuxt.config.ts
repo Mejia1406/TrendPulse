@@ -17,6 +17,8 @@ export default defineNuxtConfig({
   routeRules: {
     "/blog": { prerender: true },
     "/blog/**": { prerender: true },
+    "/help": { ssr: false },
+    "/help/**": { ssr: false },
   },
 
   nitro: {
