@@ -1,5 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
-import { trends } from "./app/data/trends";
+import { articles } from "./app/data/articles";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
@@ -17,13 +17,15 @@ export default defineNuxtConfig({
   routeRules: {
     "/blog": { prerender: true },
     "/blog/**": { prerender: true },
+    "/trends": { ssr: true },
+    "/trends/**": { ssr: true },
     "/help": { ssr: false },
     "/help/**": { ssr: false },
   },
 
   nitro: {
     prerender: {
-      routes: trends.map((trend) => `/blog/${trend.id}`),
+      routes: articles.map((article) => `/blog/${article.id}`),
     },
   },
 });
