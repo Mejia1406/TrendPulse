@@ -25,6 +25,12 @@
             </NuxtLink> 
 
             <NuxtLink
+              to="/trends"
+              class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium text-white">
+              Tendencias
+            </NuxtLink>
+
+            <NuxtLink
               to="/help"
               class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium text-white">
               Centro de ayuda
