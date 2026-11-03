@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { trends } from "~/data/trends";
+import { articles } from "~/data/articles";
 </script>
 
 <template>
@@ -16,26 +16,26 @@ import { trends } from "~/data/trends";
 
     <section aria-label="Artículos del blog" class="space-y-4">
       <article
-        v-for="trend in trends"
-        :key="trend.id"
+        v-for="article in articles"
+        :key="article.id"
         class="rounded-xl border border-slate-800 bg-slate-900 p-6"
       >
         <h2 class="text-xl font-semibold">
           <NuxtLink
-            :to="`/blog/${trend.id}`"
+            :to="`/blog/${article.id}`"
             class="transition hover:text-teal-400"
           >
-            {{ trend.title }}
+            {{ article.title }}
           </NuxtLink>
         </h2>
 
         <p class="mt-2 text-sm leading-6 text-slate-400">
-          {{ trend.summary }}
+          {{ article.summary }}
         </p>
 
         <NuxtLink
-          :to="`/blog/${trend.id}`"
-          :aria-label="`Leer artículo: ${trend.title}`"
+          :to="`/blog/${article.id}`"
+          :aria-label="`Leer artículo: ${article.title}`"
           class="mt-4 inline-block text-sm font-medium text-teal-400 hover:text-teal-300"
         >
           Leer artículo →

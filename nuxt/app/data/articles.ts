@@ -1,11 +1,11 @@
-export type Trend = {
+export type Article = {
   id: string
   title: string
   summary: string
   content: string
 }
 
-export const trends: Trend[] = [
+export const articles: Article[] = [
   {
     id: '1',
     title: '¿Qué es una tendencia en redes sociales?',

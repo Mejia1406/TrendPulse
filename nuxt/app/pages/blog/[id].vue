@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { trends } from "~/data/trends";
+import { articles } from "~/data/articles";
 
 definePageMeta({
   validate(route) {
     const param = String(route.params.id);
 
-    return trends.some((trend) => trend.id === param);
+    return articles.some((article) => article.id === param);
   },
 });
 
 const route = useRoute();
 const id = computed(() => String(route.params.id));
-const trend = computed(() => trends.find((item) => item.id === id.value));
+const article = computed(() => articles.find((item) => item.id === id.value));
 </script>
 
 <template>
-  <div v-if="trend" class="mx-auto max-w-4xl px-6 py-8">
+  <div v-if="article" class="mx-auto max-w-4xl px-6 py-8">
     <NuxtLink
       to="/blog"
       class="text-sm font-medium text-teal-400 hover:text-teal-300"
@@ -29,17 +29,17 @@ const trend = computed(() => trends.find((item) => item.id === id.value));
       <p class="mb-3 text-sm font-semibold text-teal-400">TrendPulse Blog</p>
 
       <h1 class="text-3xl font-bold sm:text-4xl">
-        {{ trend.title }}
+        {{ article.title }}
       </h1>
 
       <p class="mt-4 text-slate-400">
-        {{ trend.summary }}
+        {{ article.summary }}
       </p>
 
       <div class="my-6 border-t border-slate-800"></div>
 
       <p class="leading-8 text-slate-300">
-        {{ trend.content }}
+        {{ article.content }}
       </p>
     </article>
   </div>
